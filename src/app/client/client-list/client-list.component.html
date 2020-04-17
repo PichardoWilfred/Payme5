@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="mr-auto ml-2">
+        <h1 class="font-weight-light pl-3 pt-3 ml-4">17
+            <span>
+                <mat-icon class="icon-display-2 ml-1">people_alt</mat-icon>
+            </span>
+        </h1>
+    </div>
+    <div class="ml-auto mr-4 pr-1 pt-3">
+        <mat-form-field>
+            <mat-label>Mostrar</mat-label>
+            <mat-select [(value)]="selected">
+                <mat-option value="all">Todos</mat-option>
+                <mat-option value="loan">Con préstamo</mat-option>
+                <mat-option value="no-loan">Sin Préstamo</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let client of clients$ | async">
+                <mat-icon matListIcon class="icon-display">account_circle</mat-icon>
+                <p matLine class="font-weight-bold"> {{client.nombre_completo}} </p>
+                <p matLine class="font-weight-thin">
+                    {{client.celular}}
+                </p>
+                <mat-divider></mat-divider>
+            </mat-list-item>
+        </mat-nav-list>
+    </div>
+
+</div>

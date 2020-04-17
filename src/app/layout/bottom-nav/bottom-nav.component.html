@@ -1,0 +1,11 @@
+<mat-toolbar class="bottom-nav fixed-bottom">
+    <div class="d-flex h-100 w-100">
+        <button *ngFor="let option of options" mat-button class="h-100 w-100" [routerLink]="option.path"
+            routerLinkActive="primary">
+            <mat-icon class="icon mr-1 gray" routerLinkActive="active">
+                {{option.icon}}
+            </mat-icon>
+            <span class="span gray" routerLinkActive="active">{{option.title}}</span>
+        </button>
+    </div>
+</mat-toolbar>

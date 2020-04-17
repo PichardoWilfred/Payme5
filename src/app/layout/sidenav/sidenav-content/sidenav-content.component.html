@@ -1,0 +1,12 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <mat-icon>euro</mat-icon>
+        <p class="font-weight-light mt-3 ml-2">Payme</p>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-nav-list>
+    <mat-list-item class="pb-3" *ngFor="let route of routes" (click)="navigateTo(route.path, route.name)">
+        <mat-icon color="accent">{{route.icon}}</mat-icon>
+        <a class="px-3 font-weight-light">{{route.name}}</a>
+    </mat-list-item>
+</mat-nav-list>
