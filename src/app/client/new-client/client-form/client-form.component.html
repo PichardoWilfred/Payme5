@@ -1,8 +1,7 @@
 <div class="container">
     <div class="row mb-5">
         <div class="col-12 p-4">
-            <form [formGroup]="clientForm" autocomplete="off">
-                <h2 class="font-weight-light pl-2 ml-1">Cliente</h2>
+            <form [formGroup]="clientForm" autocomplete="off" (ngSubmit)="submit()">
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Nombre completo</mat-label>
                     <input matInput formControlName="name">
@@ -36,15 +35,15 @@
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Estado Civil</mat-label>
                     <mat-select formControlName="civil_status">
-                        <mat-option value="married">Casado ó Casada</mat-option>
-                        <mat-option value="single">Soltero ó Soltera</mat-option>
+                        <mat-option value="Casado/a">Casado ó Casada</mat-option>
+                        <mat-option value="Soltero/a">Soltero ó Soltera</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Estado Laboral</mat-label>
                     <mat-select formControlName="work_status">
-                        <mat-option value="employed">Empleado</mat-option>
-                        <mat-option value="unemployed">Desempleado</mat-option>
+                        <mat-option value="Empleado">Empleado</mat-option>
+                        <mat-option value="Desempleado">Desempleado</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="col-12 col-md-6">
@@ -73,7 +72,7 @@
                 </mat-form-field>
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Parentesco</mat-label>
-                    <input matInput formControlName="relative_name">
+                    <input matInput formControlName="relative_bond">
                     <mat-icon matSuffix>favorite</mat-icon>
                 </mat-form-field>
 
@@ -95,6 +94,9 @@
                     <input matInput formControlName="guarantor_cellphone" type="number">
                     <mat-icon matSuffix>smartphone</mat-icon>
                 </mat-form-field>
+
+                <button type="submit" [disabled]="clientForm.invalid" mat-flat-button color="primary"
+                    class="col-12 col-md-6" (click)="submit()">Crear cliente</button>
             </form>
         </div>
     </div>

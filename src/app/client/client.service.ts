@@ -19,5 +19,8 @@ export class ClientService {
     return this.clientCollection.valueChanges();
   }
 
+  addClient(client: any){
+    this.clientCollection.add(client);
+  }
 
 }
