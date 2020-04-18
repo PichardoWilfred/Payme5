@@ -14,8 +14,8 @@ export class SidenavContentComponent implements OnInit {
   routes: Object[] = [
     { icon: "home", path: "/home/dashboard", name: "Inicio" },
     { icon: "work", path: "/loan/loan-list", name: "Préstamos" },
-    { icon: "account_circle", path: "/client/client-list", name: "Clientes" },
-    { icon: "payment", path: "/payment/payment-list", name: "Pagos" },
+    { icon: "people_alt", path: "/client/client-list", name: "Clientes" },
+    { icon: "local_atm", path: "/payment/payment-list", name: "Pagos" },
     { icon: "description", path: "/notes", name: "Notas" },
   ];
 

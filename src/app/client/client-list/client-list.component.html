@@ -17,19 +17,4 @@
         </mat-form-field>
     </div>
 </div>
-<div class="row">
-    <div class="col">
-        <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
-        <mat-nav-list>
-            <mat-list-item *ngFor="let client of clients$ | async">
-                <mat-icon matListIcon class="icon-display">account_circle</mat-icon>
-                <p matLine class="font-weight-bold"> {{client.nombre_completo}} </p>
-                <p matLine class="font-weight-thin">
-                    {{client.celular}}
-                </p>
-                <mat-divider></mat-divider>
-            </mat-list-item>
-        </mat-nav-list>
-    </div>
-
-</div>
+<list></list>

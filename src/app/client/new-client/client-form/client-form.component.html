@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-12 p-4">
+            <form [formGroup]="clientForm" autocomplete="off">
+                <h2 class="font-weight-light pl-2 ml-1">Cliente</h2>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Nombre completo</mat-label>
+                    <input matInput formControlName="name">
+                    <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Correo electrónico</mat-label>
+                    <input matInput formControlName="email">
+                    <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Cédula</mat-label>
+                    <input matInput formControlName="ssn">
+                    <mat-icon matSuffix>account_box</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Dirección</mat-label>
+                    <input matInput formControlName="address">
+                    <mat-icon matSuffix>home</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Celular</mat-label>
+                    <input matInput formControlName="cellphone" type="number">
+                    <mat-icon matSuffix>smartphone</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Teléfono</mat-label>
+                    <input matInput formControlName="phone" type="number">
+                    <mat-icon matSuffix>phone</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Estado Civil</mat-label>
+                    <mat-select formControlName="civil_status">
+                        <mat-option value="married">Casado ó Casada</mat-option>
+                        <mat-option value="single">Soltero ó Soltera</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Estado Laboral</mat-label>
+                    <mat-select formControlName="work_status">
+                        <mat-option value="employed">Empleado</mat-option>
+                        <mat-option value="unemployed">Desempleado</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Salario</mat-label>
+                    <input matInput formControlName="salary" type="number">
+                    <span matSuffix>.00</span>
+                </mat-form-field>
+
+                <mat-divider class="pb-3 "></mat-divider>
+                <h3 class="font-weight-light pl-2 ml-1">Pariente</h3>
+
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Nombre completo</mat-label>
+                    <input matInput formControlName="relative_name">
+                    <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Correo electrónico</mat-label>
+                    <input matInput formControlName="relative_email">
+                    <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Celular</mat-label>
+                    <input matInput formControlName="relative_cellphone" type="number">
+                    <mat-icon matSuffix>smartphone</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Parentesco</mat-label>
+                    <input matInput formControlName="relative_name">
+                    <mat-icon matSuffix>favorite</mat-icon>
+                </mat-form-field>
+
+                <mat-divider class="pb-3 "></mat-divider>
+                <h3 class="font-weight-light pl-2 ml-1">Garante</h3>
+
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Nombre completo</mat-label>
+                    <input matInput formControlName="guarantor_name">
+                    <mat-icon matSuffix>person</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Correo electrónico</mat-label>
+                    <input matInput formControlName="guarantor_email">
+                    <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Celular</mat-label>
+                    <input matInput formControlName="guarantor_cellphone" type="number">
+                    <mat-icon matSuffix>smartphone</mat-icon>
+                </mat-form-field>
+            </form>
+        </div>
+    </div>
+</div>

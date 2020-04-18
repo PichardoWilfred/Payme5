@@ -9,14 +9,15 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class ClientService {
-  
   constructor(private firestore: AngularFirestore) {
     this.clientCollection = firestore.collection("clients");
+
   }
   clientCollection: AngularFirestoreCollection;
-  client$: Observable<any[]>;
 
   getClients() {
     return this.clientCollection.valueChanges();
   }
+
+
 }

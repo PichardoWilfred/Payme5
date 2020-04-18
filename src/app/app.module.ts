@@ -1,14 +1,12 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-import { LayoutModule } from "./layout/layout.module";
+import { LayoutModule } from "./layout/layout.module"; //Layout
 
-//FirebaseModules
-import { environment } from "../environments/environment";
+import { environment } from "../environments/environment"; //FirebaseModules
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";

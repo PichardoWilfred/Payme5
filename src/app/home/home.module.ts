@@ -7,14 +7,10 @@ import { AboutComponent } from "./about/about.component";
 import { HomeLayoutComponent } from "./home-layout/home-layout.component";
 
 //Layout
-import { LayoutModule } from '../layout/layout.module';
+import { LayoutModule } from "../layout/layout.module";
 
 @NgModule({
   declarations: [DashboardComponent, AboutComponent, HomeLayoutComponent],
   imports: [CommonModule, HomeRoutingModule, LayoutModule],
 })
-export class HomeModule {
-  constructor() {
-    console.log("Home Module Cargado");
-  }
-}
+export class HomeModule {}

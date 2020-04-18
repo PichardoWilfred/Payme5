@@ -2,7 +2,7 @@
     <div class="mr-auto ml-2">
         <h1 class="font-weight-light pl-3 pt-3 ml-4">17
             <span>
-                <mat-icon class="icon-display-2 ml-1">work_outline</mat-icon>
+                <mat-icon class="icon-display-2 ml-1">work</mat-icon>
             </span>
         </h1>
     </div>
@@ -12,19 +12,20 @@
             <mat-select [(value)]="selected">
                 <mat-option value="all">Todos</mat-option>
                 <mat-option value="active">Activos</mat-option>
-                <mat-option value="non_active">Inactivos</mat-option>
+                <mat-option value="00">Inactivos</mat-option>
             </mat-select>
         </mat-form-field>
     </div>
 </div>
 <div class="row">
     <div class="col">
+        <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
         <mat-nav-list>
-            <mat-list-item *ngFor="let loan of loans">
-                <mat-icon matListIcon class="icon-display">work</mat-icon>
-                <p matLine class="font-weight-bold"> {{loan.nombre_completo}} </p>
+            <mat-list-item *ngFor="let loan of loan$ | async">
+                <mat-icon matListIcon class="icon-display">work_outline</mat-icon>
+                <p matLine class="font-weight-bold"> {{loan.nombre_cliente}} </p>
                 <p matLine class="font-weight-thin">
-                    {{loan.date}}
+                    {{loan.fecha_creacion}}
                 </p>
                 <mat-divider></mat-divider>
             </mat-list-item>
