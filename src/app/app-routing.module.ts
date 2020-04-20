@@ -25,6 +25,10 @@ const AppRoutes: Routes = [
     loadChildren: () =>
       import("./client/clients.module").then((m) => m.ClientModule),
   },
+  {
+    path: "auth",
+    loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
+  },
 ];
 
 @NgModule({

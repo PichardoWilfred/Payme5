@@ -7,7 +7,7 @@
                     <input matInput formControlName="name">
                     <mat-icon matSuffix>person</mat-icon>
                 </mat-form-field>
-                <mat-form-field class="col-12 col-md-6">
+                <!-- <mat-form-field class="col-12 col-md-6">
                     <mat-label>Correo electrónico</mat-label>
                     <input matInput formControlName="email">
                     <mat-icon matSuffix>email</mat-icon>
@@ -53,7 +53,7 @@
                 </mat-form-field>
 
                 <mat-divider class="pb-3 "></mat-divider>
-                <h3 class="font-weight-light pl-2 ml-1">Pariente</h3>
+                <h3 class="font-weight-light pl-2 ml-1" (click)="print()">Pariente</h3>
 
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Nombre completo</mat-label>
@@ -93,10 +93,11 @@
                     <mat-label>Celular</mat-label>
                     <input matInput formControlName="guarantor_cellphone" type="number">
                     <mat-icon matSuffix>smartphone</mat-icon>
-                </mat-form-field>
-
+                </mat-form-field> -->
                 <button type="submit" [disabled]="clientForm.invalid" mat-flat-button color="primary"
-                    class="col-12 col-md-6" (click)="submit()">Crear cliente</button>
+                    class="col-12 col-md-12" (click)="submit()">
+                    <ng-content></ng-content>
+                </button>
             </form>
         </div>
     </div>

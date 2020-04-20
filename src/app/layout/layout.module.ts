@@ -15,6 +15,7 @@ import { BottomNavComponent } from "./bottom-nav/bottom-nav.component";
 import { MatSelectModule } from "@angular/material/select";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatInputModule } from "@angular/material/input";
+import { MatTooltipModule } from "@angular/material/tooltip";
 @NgModule({
   declarations: [
     SidenavComponent,
@@ -34,6 +35,7 @@ import { MatInputModule } from "@angular/material/input";
     RouterModule,
     MatProgressSpinnerModule,
     MatInputModule,
+    MatTooltipModule,
   ],
   exports: [
     SidenavComponent,
@@ -47,6 +49,7 @@ import { MatInputModule } from "@angular/material/input";
     BottomNavComponent,
     MatProgressSpinnerModule,
     MatInputModule,
+    MatTooltipModule,
   ],
 })
 export class LayoutModule {}

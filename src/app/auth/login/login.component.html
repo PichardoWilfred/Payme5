@@ -1,1 +1,31 @@
-<p>login works!</p>
+<div class="container h-100">
+    <div class="row mt-5 pt-5 align-items-center justify-content-center">
+        <div class="col-12 col-md-12 align-items-center text-center">
+            <p class="font-weight-light display-4 mb-0 pb-1">Payme</p>
+            <p class="font-weight-light">Administración de préstamos</p>
+        </div>
+        <div class="col-12 col-md-12 ">
+            <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="login()">
+                <mat-form-field class="col-12 col-md-12">
+                    <mat-label>Correo electrónico</mat-label>
+                    <input matInput formControlName="username">
+                    <mat-icon matSuffix>email</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-12">
+                    <mat-label>Contraseña</mat-label>
+                    <input formControlName="password" matInput [type]="hidepassword ? 'password' : 'text'">
+                    <button mat-icon-button matSuffix (click)="hidepassword = !hidepassword"
+                        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidepassword">
+                        <mat-icon>{{hidepassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <p (click)="goRegister()" class="font-weight-light text-center registerLink">¿No tiene una cuenta?
+                    <b>Crear una cuenta</b>
+                </p>
+                <button type="submit" [disabled]="loginForm.invalid" mat-flat-button color="primary"
+                    class="col-12 col-md-12" (click)="login()"> Iniciar sesión
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

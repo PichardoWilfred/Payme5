@@ -7,6 +7,6 @@ import { Component } from "@angular/core";
 })
 export class AppComponent {
   title = "Payme";
-  logged: Boolean = true;
+  logged: Boolean = false;
 
 }

@@ -8,10 +8,12 @@ import { ClientService } from "../../client.service";
 })
 export class ListComponent implements OnInit {
   constructor(private clients: ClientService) {}
-  client$: Observable<any[]>;
+  client$: Observable<Object[]>;
   showSpinner: Boolean = true;
   ngOnInit() {
     this.client$ = this.clients.getClients();
-    this.client$.subscribe(() => (this.showSpinner = false));
+    this.client$.subscribe((data) => {
+      this.showSpinner = false;
+    });
   }
 }
