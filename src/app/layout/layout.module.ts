@@ -16,6 +16,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatInputModule } from "@angular/material/input";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 @NgModule({
   declarations: [
     SidenavComponent,
@@ -36,6 +37,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatProgressSpinnerModule,
     MatInputModule,
     MatTooltipModule,
+    MatSnackBarModule,
   ],
   exports: [
     SidenavComponent,
@@ -50,6 +52,7 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatProgressSpinnerModule,
     MatInputModule,
     MatTooltipModule,
+    MatSnackBarModule,
   ],
 })
 export class LayoutModule {}

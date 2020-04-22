@@ -1,26 +1,25 @@
 <div class="container">
     <div class="row">
-        <div class="col-12 col-md-12 pt-3">
-            <div class="m-1 p-1">
-                <h3 class="font-weight-light text-center">Complete con sus credenciales</h3>
+        <div class="col-12 col-md-12 pt-4 mt-2">
+            <div class="p-1 pb-4">
+                <h3 class="font-weight-light text-center">Completar con sus credenciales</h3>
             </div>
             <form [formGroup]="registerForm" autocomplete="off" (ngSubmit)="register()">
-
-                <mat-form-field class="col-12 col-md-6">
+                <!-- <mat-form-field class="col-12 col-md-6">
                     <mat-label>Nombre completo</mat-label>
                     <input matInput formControlName="name">
                     <mat-icon matSuffix>person</mat-icon>
-                </mat-form-field>
+                </mat-form-field> -->
                 <mat-form-field class="col-12 col-md-12">
                     <mat-label>Correo electrónico</mat-label>
                     <input matInput formControlName="email">
                     <mat-icon matSuffix>email</mat-icon>
                 </mat-form-field>
-                <mat-form-field class="col-12 col-md-6">
+                <!-- <mat-form-field class="col-12 col-md-6">
                     <mat-label>Nombre de usuario</mat-label>
                     <input matInput formControlName="username">
                     <mat-icon matSuffix>account_circle</mat-icon>
-                </mat-form-field>
+                </mat-form-field> -->
                 <mat-form-field class="col-12 col-md-12">
                     <mat-label>Contraseña</mat-label>
                     <input matInput [type]="hidepassword ? 'password' : 'text'" formControlName="password">
@@ -29,7 +28,7 @@
                         <mat-icon>{{hidepassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field>
-                <mat-form-field class="col-12 col-md-6">
+                <!-- <mat-form-field class="col-12 col-md-6">
                     <mat-label>Celular</mat-label>
                     <input matInput type="number" formControlName="cellphone">
                     <mat-icon matSuffix>smartphone</mat-icon>
@@ -38,12 +37,12 @@
                     <mat-label>Teléfono</mat-label>
                     <input matInput type="number" formControlName="phone">
                     <mat-icon matSuffix>phone</mat-icon>
-                </mat-form-field>
+                </mat-form-field> -->
                 <p (click)="goLogin()" class="font-weight-light text-center loginLink">¿Ya tiene una cuenta?
                     <b>Iniciar sesión</b>
                 </p>
                 <button type="submit" [disabled]="registerForm.invalid" mat-flat-button color="primary"
-                    class="col-12 col-md-12" (click)="register()"> Crear cuenta
+                    class="col-12 col-md-12"> Crear cuenta
                 </button>
             </form>
         </div>

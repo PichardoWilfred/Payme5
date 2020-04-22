@@ -1,13 +1,18 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { AuthService } from "../auth.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private auth: AuthService
+  ) {}
   hidepassword = true;
   ngOnInit() {}
   loginForm: FormGroup = this.fb.group({
@@ -22,5 +27,8 @@ export class LoginComponent implements OnInit {
   });
   goRegister() {
     this.router.navigate(["/auth/register"]);
+  }
+  login() {
+    this.auth.login(this.loginForm.value);
   }
 }
