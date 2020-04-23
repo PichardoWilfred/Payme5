@@ -11,6 +11,8 @@ import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 
+import { AuthGuardGuard } from "./auth/auth-guard.guard";
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -22,7 +24,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
     AngularFireAuthModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [AuthGuardGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

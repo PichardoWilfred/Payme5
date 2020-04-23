@@ -12,6 +12,7 @@ import { ListComponent } from "./client-list/list/list.component";
 import { ClientFormComponent } from "./client-layout/client-form/client-form.component";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"; //Forms
+import { AuthGuardGuard } from "../auth/auth-guard.guard";
 
 @NgModule({
   declarations: [
@@ -29,5 +30,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"; //Forms
     FormsModule,
     ReactiveFormsModule,
   ],
+  entryComponents: [ClientListComponent],
 })
 export class ClientModule {}

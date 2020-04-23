@@ -1,10 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/auth";
-import { User } from "firebase";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AuthHandlerService } from "./auth-layout/err-handler/auth-handler.service";
 import { SnackbarService } from "../layout/snackbar.service";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -17,11 +18,18 @@ export class AuthService {
     private err: AuthHandlerService,
     private snack: SnackbarService
   ) {
-    this.auth.authState.subscribe((user) => {
-      this.user = user ? user : null;
-    });
+    this.user$ = auth.authState.pipe(
+      map((user) => {
+        if (user) {
+          return true;
+        }
+        return false;
+      })
+    );
+
   }
-  user: User;
+  user$: Observable<boolean>;
+
   async register(user: any) {
     try {
       let res = await this.auth.createUserWithEmailAndPassword(
@@ -30,7 +38,6 @@ export class AuthService {
       );
       this.snack.bar("Usuario registrado", "CERRAR");
       this.router.navigate(["auth/login"]);
-      user["user_id"] = res.user.uid;
       this.db.collection("users").doc(res.user.uid).set(user);
     } catch (err) {
       this.err.registerHandler(err);
@@ -39,10 +46,8 @@ export class AuthService {
 
   async login(user: any) {
     try {
-      let res = await this.auth.signInWithEmailAndPassword(
-        user.email,
-        user.password
-      );
+      await this.auth.signInWithEmailAndPassword(user.email, user.password);
+      this.router.navigate(["client/client-list"]);
     } catch (err) {
       this.err.loginHandler(err);
     }

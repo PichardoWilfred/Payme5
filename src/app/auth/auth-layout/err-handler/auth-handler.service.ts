@@ -13,6 +13,15 @@ export class AuthHandlerService {
         this.snack.bar("Correo o contraseña incorrectos/as", "OK");
         break;
       }
+      case "auth/user-not-found": {
+        this.snack.bar("Usuario no encontrado", "OK");
+        break;
+      }
+      case "auth/wrong-password": {
+        this.snack.bar("Contraseña incorrecta", "OK");
+        break;
+      }
+
       default: {
         console.log("❗❗Copiar:\n", err);
         break;

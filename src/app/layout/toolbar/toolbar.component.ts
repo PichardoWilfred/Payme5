@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
-
+import { AuthService } from "../../auth/auth.service";
 @Component({
   selector: "app-toolbar",
   templateUrl: "./toolbar.component.html",
@@ -11,7 +11,10 @@ export class ToolbarComponent implements OnInit {
   toggleSideBar(toggle: boolean) {
     this.toggleEvent.emit(toggle);
   }
-  constructor() {}
+  constructor(private auth: AuthService) {}
 
+  logout(){
+    this.auth.logout();
+  }
   ngOnInit() {}
 }

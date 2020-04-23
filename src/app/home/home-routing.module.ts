@@ -5,6 +5,8 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { AboutComponent } from "./about/about.component";
 import { HomeLayoutComponent } from './home-layout/home-layout.component';
 
+import { AuthGuardGuard } from "../auth/auth-guard.guard"; //guard
+
 const homeRoutes: Routes = [
   {
     path: "",
@@ -13,6 +15,8 @@ const homeRoutes: Routes = [
       { path: "dashboard", component: DashboardComponent },
       { path: "about", component: AboutComponent },
     ],
+    canActivate: [AuthGuardGuard],
+
   },
 ];
 

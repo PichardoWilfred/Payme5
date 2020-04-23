@@ -17,28 +17,29 @@ export class RegisterComponent implements OnInit {
   ) {}
   ngOnInit() {}
   registerForm: FormGroup = this.fb.group({
-    // name: [
-    //   "",
-    //   [Validators.required, Validators.minLength(12), Validators.maxLength(70)],
-    // ],
+    name: [
+      "",
+      [Validators.required, Validators.minLength(12), Validators.maxLength(70)],
+    ],
     email: ["", [Validators.required, Validators.email]],
-    // username: [
-    //   "",
-    //   [Validators.required, Validators.minLength(5), Validators.maxLength(70)],
-    // ],
+    username: [
+      "",
+      [Validators.required, Validators.minLength(5), Validators.maxLength(70)],
+    ],
     password: [
       "",
       [Validators.required, Validators.minLength(6), Validators.maxLength(30)],
     ],
-    // cellphone: [null, [Validators.required, Validators.minLength(10)]],
-    // phone: [null, [Validators.minLength(10)]],
+    cellphone: [null, [Validators.required, Validators.minLength(10)]],
+    phone: [null, [Validators.minLength(10)]],
   });
 
   goLogin() {
     this.router.navigate(["/auth/login"]);
   }
 
-  register() {
-    this.auth.register(this.registerForm.value);
+  async register() {
+    await this.auth.register(this.registerForm.value);
+    
   }
 }

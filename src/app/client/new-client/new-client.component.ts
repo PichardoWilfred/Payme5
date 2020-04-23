@@ -1,13 +1,19 @@
 import { Component, OnInit } from "@angular/core";
 import { ClientService } from "../client.service";
 import { Router } from "@angular/router";
+import { AuthService } from "../../auth/auth.service";
+
 @Component({
   selector: "app-new-client",
   templateUrl: "./new-client.component.html",
   styleUrls: ["./new-client.component.scss"],
 })
 export class NewClientComponent implements OnInit {
-  constructor(private db: ClientService, private route: Router) {}
+  constructor(
+    private db: ClientService,
+    private route: Router,
+    private auth: AuthService
+  ) {}
   ngOnInit() {}
   Default: Object = {
     email: "",
@@ -29,7 +35,7 @@ export class NewClientComponent implements OnInit {
   };
 
   newClient(clientData: Object) {
-    clientData["user_id"] = " ";
+    clientData["uid"] = this.auth.uid;
     clientData["active_loan"] = false;
     this.db.addClient(clientData);
     this.route.navigate(["client/client-list"]);

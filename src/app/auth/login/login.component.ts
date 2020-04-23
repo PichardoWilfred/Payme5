@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   hidepassword = true;
   ngOnInit() {}
   loginForm: FormGroup = this.fb.group({
-    username: [
+    email: [
       "",
       [Validators.required, Validators.minLength(5), Validators.maxLength(70)],
     ],
@@ -26,9 +26,9 @@ export class LoginComponent implements OnInit {
     ],
   });
   goRegister() {
-    this.router.navigate(["/auth/register"]);
+    this.router.navigate(["auth/register"]);
   }
-  login() {
-    this.auth.login(this.loginForm.value);
+  async login() {
+   await this.auth.login(this.loginForm.value);
   }
 }
