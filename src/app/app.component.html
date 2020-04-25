@@ -1,20 +1,5 @@
-<app-sidenav *ngIf="user ">
-    <router-outlet></router-outlet>
+<app-sidenav *ngIf="user">
+    <router-outlet *ngIf="user"></router-outlet>
 </app-sidenav>
 
-<div>
-    <router-outlet *ngIf="!user"></router-outlet>
-</div>
-
-<!-- 
-<div *ngIf="show; else notShow">
-    <p>
-      Show this only if "show" is true
-    </p>
-  </div>
-  
-  <ng-template #notShow>
-    <p>
-      Show this only if "show" is not true
-    </p>
-  </ng-template> -->
+<router-outlet *ngIf="!user"></router-outlet>

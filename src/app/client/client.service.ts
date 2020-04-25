@@ -1,25 +1,19 @@
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { AuthService } from "../auth/auth.service";
 import { BehaviorSubject } from "rxjs";
 import { SnackbarService } from "../layout/snackbar.service";
-import { AngularFireAuth } from "@angular/fire/auth";
 @Injectable({
   providedIn: "root",
 })
 export class ClientService {
   constructor(
     private firestore: AngularFirestore,
-    private auth: AngularFireAuth,
     private snack: SnackbarService
   ) {}
-  uid: string;
   //Get all UserClients
-  getClients() {
+  getClients(uid: string) {
     return this.firestore
-      .collection("clients", (ref) =>
-        ref.where("uid", "==", "2zPWEEQ9kZQtva3aI9TwY7ZAy1p1")
-      )
+      .collection("clients", (ref) => ref.where("uid", "==", uid))
       .valueChanges({ idField: "client_id" });
   }
 

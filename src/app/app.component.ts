@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AuthService } from "./auth/auth.service";
 import { Observable } from "rxjs";
@@ -8,11 +8,13 @@ import { Observable } from "rxjs";
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
 })
-export class AppComponent {
-  constructor(private authS: AuthService, private auth: AngularFireAuth) {
-    // this.user = this.authS.user$;
-    // this.user.subscribe(console.log);
+export class AppComponent implements OnInit {
+  constructor(private authS: AuthService, private auth: AngularFireAuth) {}
+  ngOnInit() {
+    this.auth.authState.subscribe((user) => {
+      this.user = user;
+    });
   }
   title = "Payme";
-  user: any = true;
+  user: any;
 }

@@ -4,8 +4,8 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AuthHandlerService } from "./auth-layout/err-handler/auth-handler.service";
 import { SnackbarService } from "../layout/snackbar.service";
-import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { Observable, BehaviorSubject, of } from "rxjs";
+import { switchMap, map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -17,27 +17,17 @@ export class AuthService {
     private db: AngularFirestore,
     private err: AuthHandlerService,
     private snack: SnackbarService
-  ) {
-    this.user$ = auth.authState.pipe(
-      map((user) => {
-        if (user) {
-          return true;
-        }
-        return false;
-      })
-    );
-
-  }
-  user$: Observable<boolean>;
-
+  ) {}
+  // uid: string;
+  user$: Observable<boolean>; //for guard
   async register(user: any) {
     try {
       let res = await this.auth.createUserWithEmailAndPassword(
         user.email,
         user.password
       );
-      this.snack.bar("Usuario registrado", "CERRAR");
-      this.router.navigate(["auth/login"]);
+      this.snack.bar("Usuario registrado", "OK");
+      this.router.navigate(["client/client-list"]);
       this.db.collection("users").doc(res.user.uid).set(user);
     } catch (err) {
       this.err.registerHandler(err);

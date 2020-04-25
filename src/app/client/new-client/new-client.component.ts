@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ClientService } from "../client.service";
 import { Router } from "@angular/router";
 import { AuthService } from "../../auth/auth.service";
+import { AngularFireAuth } from "@angular/fire/auth";
 
 @Component({
   selector: "app-new-client",
@@ -12,9 +13,16 @@ export class NewClientComponent implements OnInit {
   constructor(
     private db: ClientService,
     private route: Router,
-    private auth: AuthService
+    private fireAuth: AngularFireAuth
   ) {}
-  ngOnInit() {}
+  ngOnInit() {
+    this.fireAuth.authState.subscribe((user) => {
+      if (user) {
+        this.uid = user.uid;
+      }
+    });
+  }
+  uid: any;
   Default: Object = {
     email: "",
     name: "",
@@ -35,7 +43,7 @@ export class NewClientComponent implements OnInit {
   };
 
   newClient(clientData: Object) {
-    clientData["uid"] = this.auth.uid;
+    clientData["uid"] = this.uid;
     clientData["active_loan"] = false;
     this.db.addClient(clientData);
     this.route.navigate(["client/client-list"]);

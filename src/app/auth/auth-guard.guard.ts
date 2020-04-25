@@ -10,13 +10,14 @@ import { Observable } from "rxjs";
 import { AuthService } from "../auth/auth.service";
 import { SnackbarService } from "../layout/snackbar.service";
 import { map } from "rxjs/operators";
+import { AngularFireAuth } from "@angular/fire/auth";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthGuardGuard implements CanActivate {
   constructor(
-    private auth: AuthService,
+    private auth: AngularFireAuth,
     private route: Router,
     private snack: SnackbarService
   ) {}
@@ -28,7 +29,7 @@ export class AuthGuardGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.auth.user$.pipe(
+    return this.auth.authState.pipe(
       map((user) => {
         if (!user) {
           this.snack.bar(

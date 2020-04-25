@@ -1,5 +1,5 @@
-<div class="row">
-    <div class="mr-auto ml-2" *ngIf="client$ | async as client"  matTooltip="Clientes registrados">
+<div class="row" *ngIf="client$ | async as client">
+    <div class="mr-auto ml-2" matTooltip="Clientes registrados">
         <h1 class="font-weight-light pl-3 pt-3 ml-4">{{client.length}}
             <span>
                 <mat-icon class="icon-display-2 ml-1">people_alt</mat-icon>
@@ -17,9 +17,5 @@
         </mat-form-field>
     </div>
 </div>
-<!-- <div class="mx-auto my-auto" *ngIf="client$.length < 1 | async as client">
-    <div>
-        <h2>No hay ningun cliente</h2>
-    </div>
-</div> -->
+
 <list></list>
