@@ -1,5 +1,8 @@
 import { Injectable } from "@angular/core";
-import { AngularFirestore } from "@angular/fire/firestore";
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from "@angular/fire/firestore";
 import { BehaviorSubject } from "rxjs";
 import { SnackbarService } from "../layout/snackbar.service";
 @Injectable({
@@ -9,7 +12,10 @@ export class ClientService {
   constructor(
     private firestore: AngularFirestore,
     private snack: SnackbarService
-  ) {}
+  ) {
+    this.ClientsCollection = this.firestore.collection("clients");
+  }
+  ClientsCollection: AngularFirestoreCollection<Object>;
   //Get all UserClients
   getClients(uid: string) {
     return this.firestore
@@ -18,17 +24,17 @@ export class ClientService {
   }
 
   getClient(client_id: string) {
-    return this.firestore.collection("clients").doc(client_id).valueChanges();
+    return this.ClientsCollection.doc(client_id).valueChanges();
   }
 
   updateClient(client_id: string, data: Object) {
     this.snack.bar("Cliente actualizado exitosamente", "OK");
-    this.firestore.collection("clients").doc(client_id).update(data);
+    this.ClientsCollection.doc(client_id).update(data);
   }
 
   addClient(client: Object) {
     this.snack.bar("Cliente agregado exitosamente", "OK");
-    this.firestore.collection("clients").add(client);
+    this.ClientsCollection.add(client);
   }
 
   //Toggle the display of BottomNav
@@ -37,4 +43,7 @@ export class ClientService {
   toggleBottomNav(state: Boolean) {
     this.source.next(state);
   }
+
+
+  
 }

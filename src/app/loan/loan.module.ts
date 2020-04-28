@@ -8,6 +8,9 @@ import { LoanDetailComponent } from "./loan-detail/loan-detail.component";
 import { LoanPaymentComponent } from "./loan-payment/loan-payment.component";
 import { LoanLayoutComponent } from "./loan-layout/loan-layout.component";
 import { LayoutModule } from "../layout/layout.module";
+import { LoanFormComponent } from "./loan-layout/loan-form/loan-form.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ListLComponent } from "./loan-list/list-l/list-l.component"; //Forms
 
 @NgModule({
   declarations: [
@@ -16,7 +19,15 @@ import { LayoutModule } from "../layout/layout.module";
     LoanDetailComponent,
     LoanPaymentComponent,
     LoanLayoutComponent,
+    LoanFormComponent,
+    ListLComponent,
   ],
-  imports: [CommonModule, LoanRoutingModule, LayoutModule],
+  imports: [
+    CommonModule,
+    LoanRoutingModule,
+    LayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class LoanModule {}

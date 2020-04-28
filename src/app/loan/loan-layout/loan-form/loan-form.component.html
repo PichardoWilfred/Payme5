@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row mb-5">
+        <div class="col p-4">
+            <form [formGroup]="loanForm" autocomplete="off" (ngSubmit)="submit()">
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Monto</mat-label>
+                    <input matInput formControlName="mount" type="number" [(ngModel)]="mount">
+                    <mat-icon matSuffix>work</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Período de pagos</mat-label>
+                    <mat-select formControlName="payment_period" [(ngModel)]="payment_period">
+                        <mat-option value="mensual">Mensual</mat-option>
+                        <mat-option value="semanal">Semanal</mat-option>
+                        <mat-option value="anual">Anual</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Tasa de interés</mat-label>
+                    <input matInput formControlName="interest_rate" type="number" [(ngModel)]="interest_rate">
+                    <mat-icon matSuffix>&#37;</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Cantidad de cuotas</mat-label>
+                    <input matInput formControlName="fees_amount" type="number" [(ngModel)]="fees_amount">
+                    <mat-icon matSuffix>payment</mat-icon>
+                </mat-form-field>
+
+                <h4 class="font-weight-light p-2 m-2">Interés total: {{full_interest || null }} </h4>
+                <h4 class="font-weight-light p-2 m-2">Pago total: {{full_interest || null }} </h4>
+
+                <!-- <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Interés total</mat-label>
+                    <input matInput formControlName="total_interest" type="number">
+                </mat-form-field>
+                <mat-form-field class="col-12 col-md-6">
+                    <mat-label>Pago total</mat-label>
+                    <input matInput formControlName="full_payment" type="number">
+                </mat-form-field> -->
+                <button type="submit" [disabled]="loanForm.invalid" mat-flat-button color="primary"
+                    class="col-12 col-md-12">
+                    Crear préstamos
+                </button>
+            </form>
+
+        </div>
+    </div>
+</div>

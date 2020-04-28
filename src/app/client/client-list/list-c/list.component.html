@@ -1,7 +1,10 @@
 <div class="row">
     <div class="col">
+        <!-- <h4 (click)="noLoanFilter()">NO LOAN FILTER</h4>
+        <h4 (click)="loanFilter()">LOAN FILTER</h4> -->
+        <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
         <mat-nav-list>
-            <mat-list-item *ngFor="let client of client$ | async" [routerLink]="['/client',client.client_id]">
+            <mat-list-item *ngFor="let client of client$" [routerLink]="['/client',client.client_id]">
                 <mat-icon matListIcon class="icon-display">person_outline</mat-icon>
                 <p matLine class="font-weight-bold"> {{client.name}} </p>
                 <p matLine class="font-weight-thin">
@@ -10,7 +13,6 @@
                 <mat-divider></mat-divider>
             </mat-list-item>
         </mat-nav-list>
-
     </div>
     <div class="col-12">
         <div *ngIf="noClients" class="col-12 col-md-6 text-center disabled py-5 my-4">
@@ -20,5 +22,4 @@
             </p>
         </div>
     </div>
-    <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
 </div>

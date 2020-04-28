@@ -23,25 +23,7 @@ export class NewClientComponent implements OnInit {
     });
   }
   uid: any;
-  Default: Object = {
-    email: "",
-    name: "",
-    ssn: "",
-    address: "",
-    cellphone: null,
-    phone: null,
-    civil_status: "",
-    work_status: "",
-    salary: null,
-    relative_name: "",
-    relative_email: "",
-    relative_cellphone: "",
-    relative_bond: "",
-    guarantor_name: "",
-    guarantor_email: "",
-    guarantor_cellphone: "",
-  };
-
+  Default: Object = {};
   newClient(clientData: Object) {
     clientData["uid"] = this.uid;
     clientData["active_loan"] = false;

@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col">
+        <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
+        <mat-nav-list>
+            <mat-list-item *ngFor="let loan of loan$" [routerLink]="['/loan', loan.loan_id]">
+                <mat-icon matListIcon class="icon-display">person_outline</mat-icon>
+                <p matLine class="font-weight-bold"> {{loan.mount}} </p>
+                <!-- <p matLine class="font-weight-thin">
+                    {{client.cellphone}}
+                </p> -->
+                <mat-divider></mat-divider>
+            </mat-list-item>
+        </mat-nav-list>
+    </div>
+    <div class="col-12">
+        <div *ngIf="noLoans" class="col-12 col-md-6 text-center disabled py-5 my-4">
+            <mat-icon class="display-2 mr-5 pr-5 pb-0">work</mat-icon>
+            <p class="font-weight-light px-3 mt-0 pt-0">
+                No hay préstamos registrados
+            </p>
+        </div>
+    </div>
+</div>

@@ -8,7 +8,7 @@ import { NewClientComponent } from "./new-client/new-client.component";
 import { ClientDetailComponent } from "./client-detail/client-detail.component";
 import { ClientLayoutComponent } from "./client-layout/client-layout.component";
 import { LayoutModule } from "../layout/layout.module";
-import { ListComponent } from "./client-list/list/list.component";
+import { ListComponent } from "./client-list/list-c/list.component";
 import { ClientFormComponent } from "./client-layout/client-form/client-form.component";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"; //Forms

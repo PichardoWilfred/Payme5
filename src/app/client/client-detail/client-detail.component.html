@@ -1,3 +1,4 @@
-<div *ngIf="client$ | async as client">
-    <client-form [initialFormValue]="client" (formValue)="updateClient($event)">Guardar Cambios</client-form>
+<mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
+<div *ngIf="client$">
+    <client-form [initialFormValue]="client$" (formValue)="updateClient($event)">Guardar Cambios</client-form>
 </div>

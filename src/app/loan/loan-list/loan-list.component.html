@@ -1,34 +1,24 @@
-<div class="row">
-    <div class="mr-auto ml-2">
-        <h1 class="font-weight-light pl-3 pt-3 ml-4">17
-            <span>
-                <mat-icon class="icon-display-2 ml-1">work</mat-icon>
-            </span>
-        </h1>
+<div class="row text-center">
+    <div class="col-12 justify-content-center pt-2">
+        <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner" [diameter]="50"></mat-spinner>
+        <div class="mr-5" matTooltip="Préstamos registrados" *ngIf="loansLength > 0">
+            <h1 class="font-weight-light pl-3 pt-3 ml-2">{{loansLength}}
+                <span>
+                    <mat-icon class="icon-display-2 ml-1">work</mat-icon>
+                </span>
+            </h1>
+        </div>
     </div>
-    <div class="ml-auto mr-4 pr-1 pt-3">
+</div>
+<app-list-l (loans)="setLoans($event)"></app-list-l>
+<!-- <div class="ml-auto mr-4 pr-1 pt-3">
         <mat-form-field>
             <mat-label>Mostrar</mat-label>
             <mat-select [(value)]="selected">
                 <mat-option value="all">Todos</mat-option>
                 <mat-option value="active">Activos</mat-option>
-                <mat-option value="00">Inactivos</mat-option>
+                <mat-option value="no-loan">Inactivos</mat-option>
             </mat-select>
         </mat-form-field>
     </div>
-</div>
-<div class="row">
-    <div class="col">
-        <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
-        <mat-nav-list>
-            <mat-list-item *ngFor="let loan of loan$ | async">
-                <mat-icon matListIcon class="icon-display">work_outline</mat-icon>
-                <p matLine class="font-weight-bold"> {{loan.nombre_cliente}} </p>
-                <p matLine class="font-weight-thin">
-                    {{loan.fecha_creacion}}
-                </p>
-                <mat-divider></mat-divider>
-            </mat-list-item>
-        </mat-nav-list>
-    </div>
-</div>
+</div> -->
