@@ -37,6 +37,12 @@ export class ListComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  uid: string;
+  client$: Object[];
+  showSpinner: boolean = true;
+  noClients: boolean;
+
   ngOnDestroy() {
     this.stateSubscription.unsubscribe();
     this.clientSubscription.unsubscribe();
@@ -44,19 +50,4 @@ export class ListComponent implements OnInit, OnDestroy {
   }
   stateSubscription: Subscription;
   clientSubscription: Subscription;
-  uid: string;
-  client$: Object[];
-  showSpinner: boolean = true;
-  noClients: boolean;
-
-  noLoanFilter() {
-    this.client$ = this.client$.filter((clients) => {
-      return clients["active_loan"] == false;
-    });
-  }
-  loanFilter() {
-    this.client$ = this.client$.filter((clients) => {
-      return clients["active_loan"] == true;
-    });
-  }
 }

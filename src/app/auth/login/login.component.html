@@ -19,7 +19,8 @@
                         <mat-icon>{{hidepassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                 </mat-form-field>
-                <p (click)="goRegister()" class="font-weight-light text-center registerLink">¿No tiene una cuenta?
+                <p [routerLink]="['/auth/register']" class="font-weight-light text-center registerLink">¿No tiene una
+                    cuenta?
                     <b>Crear una cuenta</b>
                 </p>
                 <button type="submit" [disabled]="loginForm.invalid" mat-flat-button color="primary"

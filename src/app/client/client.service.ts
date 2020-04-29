@@ -22,7 +22,14 @@ export class ClientService {
       .collection("clients", (ref) => ref.where("uid", "==", uid))
       .valueChanges({ idField: "client_id" });
   }
-
+  
+  getAvailableClients(uid: string) {
+    return this.firestore
+      .collection("clients", (ref) =>
+        ref.where("uid", "==", uid).where("active_loan", "==", false)
+      )
+      .valueChanges({ idField: "client_id" });
+  }
   getClient(client_id: string) {
     return this.ClientsCollection.doc(client_id).valueChanges();
   }
@@ -43,7 +50,4 @@ export class ClientService {
   toggleBottomNav(state: Boolean) {
     this.source.next(state);
   }
-
-
-  
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ClientService } from "../client.service";
 import { Router } from "@angular/router";
-import { AuthService } from "../../auth/auth.service";
 import { AngularFireAuth } from "@angular/fire/auth";
 
 @Component({

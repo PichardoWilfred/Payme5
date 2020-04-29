@@ -12,6 +12,7 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { AuthGuardGuard } from "./auth/auth-guard.guard";
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { AuthGuardGuard } from "./auth/auth-guard.guard";
     AngularFirestoreModule,
     AngularFireAuthModule,
     AppRoutingModule,
+    ModalModule.forRoot(),
   ],
   providers: [AuthGuardGuard],
   bootstrap: [AppComponent],

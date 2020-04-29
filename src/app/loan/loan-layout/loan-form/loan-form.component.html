@@ -25,24 +25,48 @@
                     <input matInput formControlName="fees_amount" type="number" [(ngModel)]="fees_amount">
                     <mat-icon matSuffix>payment</mat-icon>
                 </mat-form-field>
+                <!-- type="submit" -->
+                <button (click)="openModal(template)" [disabled]="loanForm.invalid" mat-flat-button color="primary"
+                    class="col-12 col-md-12">
+                    Siguiente
+                </button>
+            </form>
+        </div>
 
-                <h4 class="font-weight-light p-2 m-2">Interés total: {{full_interest || null }} </h4>
-                <h4 class="font-weight-light p-2 m-2">Pago total: {{full_interest || null }} </h4>
+        <ng-template #template>
+            <div class="modal-header pb-2">
+                <h5 class="font-weight-light">Nuevo préstamo</h5>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12 col-md-6 text-center p-1">
+                        <p class="font-weight-light"><b>Pagos por cuota:</b> {{fee_payment || null }} <b>$</b>
+                        </p>
+                        <p class="font-weight-light"><b>Interés total:</b> {{full_interest || null }} <b>$</b></p>
+                        <p class="font-weight-light"><b>Pago total:</b> {{total_payment || null }}<b>$</b>
+                        </p>
+                    </div>
+                    <div class="col-12 col-md-6 text-center p-2">
+                        <button (click)="submit()" [disabled]="loanForm.invalid" mat-flat-button color="primary"
+                            class="col-12 col-md-12">
+                            Crear Préstamo
+                        </button>
+                    </div>
+                </div>
 
-                <!-- <mat-form-field class="col-12 col-md-6">
+            </div>
+        </ng-template>
+
+    </div>
+</div>
+<!-- <mat-form-field class="col-12 col-md-6">
                     <mat-label>Interés total</mat-label>
                     <input matInput formControlName="total_interest" type="number">
                 </mat-form-field>
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Pago total</mat-label>
                     <input matInput formControlName="full_payment" type="number">
-                </mat-form-field> -->
-                <button type="submit" [disabled]="loanForm.invalid" mat-flat-button color="primary"
-                    class="col-12 col-md-12">
-                    Crear préstamos
-                </button>
-            </form>
-
-        </div>
-    </div>
-</div>
+      </mat-form-field> -->

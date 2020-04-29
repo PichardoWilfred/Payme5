@@ -32,7 +32,7 @@ export class ClientFormComponent implements OnInit {
     phone: [null, [Validators.minLength(10)]],
     civil_status: ["", [Validators.required]],
     work_status: ["", [Validators.required]],
-    salary: [{ value: null, disabled: false  }, [Validators.minLength(3)]],
+    salary: [{ value: null, disabled: false }, [Validators.minLength(3)]],
     relative_name: [
       "",
       [Validators.required, Validators.minLength(10), Validators.maxLength(70)],

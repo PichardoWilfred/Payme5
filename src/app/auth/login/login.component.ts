@@ -25,10 +25,7 @@ export class LoginComponent implements OnInit {
       [Validators.required, Validators.minLength(5), Validators.maxLength(70)],
     ],
   });
-  goRegister() {
-    this.router.navigate(["auth/register"]);
-  }
   async login() {
-   await this.auth.login(this.loginForm.value);
+    await this.auth.login(this.loginForm.value);
   }
 }

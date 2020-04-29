@@ -38,7 +38,7 @@
                     <input matInput type="number" formControlName="phone">
                     <mat-icon matSuffix>phone</mat-icon>
                 </mat-form-field>
-                <p (click)="goLogin()" class="font-weight-light text-center loginLink">¿Ya tiene una cuenta?
+                <p [routerLink]="['/auth/login']" class="font-weight-light text-center loginLink">¿Ya tiene una cuenta?
                     <b>Iniciar sesión</b>
                 </p>
                 <button type="submit" [disabled]="registerForm.invalid" mat-flat-button color="primary"

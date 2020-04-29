@@ -17,7 +17,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
   clientSubscription: Subscription;
   showSpinner: boolean = true;
   ngOnInit() {
-    this.db.toggleBottomNav(false);
+    this.db.toggleBottomNav(false); //este es el Behavior Subject del NavBottom
     this.client_id = this.route.snapshot.paramMap.get("id");
     this.clientSubscription = this.db
       .getClient(this.client_id)

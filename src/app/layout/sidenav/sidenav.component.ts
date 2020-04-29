@@ -12,7 +12,7 @@ export class SidenavComponent implements OnInit {
   showFiller: Boolean = false;
   ToolbarTitle: string = "Home";
 
-  navigate(sidenav: any, title: string) {
+  navigate(sidenav: any) {
     sidenav.toggle();
   }
 }
