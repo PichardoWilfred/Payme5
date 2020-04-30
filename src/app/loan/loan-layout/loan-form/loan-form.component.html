@@ -1,7 +1,15 @@
 <div class="container">
     <div class="row mb-5">
         <div class="col p-4">
-            <form [formGroup]="loanForm" autocomplete="off" (ngSubmit)="submit()">
+            <form [formGroup]="loanForm" autocomplete="off">
+                <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="emailHint">
+                    <mat-label>Cliente</mat-label>
+                    <mat-select formControlName="client_id" [(ngModel)]="client_id">
+                        <mat-option *ngFor=" let client of client$ | async" [value]="client.client_id"
+                            (click)="setHint(client)">{{client.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Monto</mat-label>
                     <input matInput formControlName="mount" type="number" [(ngModel)]="mount">

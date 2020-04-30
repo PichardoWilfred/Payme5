@@ -1,1 +1,16 @@
-<p>loan-detail works!</p>
+<mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
+<div *ngIf="loan$ as loan">
+
+    <div class="row">
+        <div class="col-12 p-4">
+            <h5>Monto: {{loan.mount}}</h5>
+            <h5>Cliente: {{loan.client_name}}</h5>
+            <h5>{{loan.active}}</h5>
+            <button type="submit" [disabled]="!loan.active" (click)="cancelLoan()" mat-flat-button color="accent"
+                class="col-12 col-md-12">
+                CANCELAR
+            </button>
+        </div>
+    </div>
+
+</div>

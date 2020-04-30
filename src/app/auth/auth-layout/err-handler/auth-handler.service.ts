@@ -21,6 +21,9 @@ export class AuthHandlerService {
         this.snack.bar("Contraseña incorrecta", "OK");
         break;
       }
+      case "auth/network-request-failed": {
+        this.snack.bar("Error de conexión", "OK");
+      }
 
       default: {
         console.log("❗❗Copiar:\n", err);

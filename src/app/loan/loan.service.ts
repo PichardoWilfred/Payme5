@@ -17,15 +17,34 @@ export class LoanService {
   loansCollection: AngularFirestoreCollection<any>;
 
   addLoan(loan: Object) {
+    let id: string = this.firestore.createId();
+    this.firestore.collection("loans").doc(id).set(loan);
+    this.firestore
+      .collection("clients")
+      .doc(loan["client_id"])
+      .update({ active_loan: true, loan_id: id });
     this.snack.bar("Préstamo creado exitosamente", "OK");
-    this.firestore.collection("loans").add(loan);
   }
 
-  getLoans(client_id: string) {
+  getLoans(user_id: string) {
     return this.firestore
-      .collection("loans", (ref) => ref.where("client_id", "==", client_id))
+      .collection("loans", (ref) => ref.where("user_id", "==", user_id))
       .valueChanges({ idField: "loan_id" });
   }
 
-  
+  getLoan(loan_id: string) {
+    return this.firestore.collection("loans").doc(loan_id).valueChanges();
+  }
+
+  cancelLoan(loan: Object, loan_id: string) {
+    this.firestore
+      .collection("loans")
+      .doc(loan_id)
+      .update({ active: false });
+
+    this.firestore
+      .collection("clients")
+      .doc(loan["client_id"])
+      .update({ active_loan: false, loan_id: "" });
+  }
 }
