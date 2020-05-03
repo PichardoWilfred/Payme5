@@ -1,16 +1,18 @@
 <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
 <div *ngIf="loan$ as loan">
-
     <div class="row">
         <div class="col-12 p-4">
-            <h5>Monto: {{loan.mount}}</h5>
-            <h5>Cliente: {{loan.client_name}}</h5>
-            <h5>{{loan.active}}</h5>
+            <h5 class="font-weight-light"> <b>Monto:</b> {{loan.amount}}</h5>
+            <h5 class="font-weight-light"> <b>Cliente:</b> {{loan.client_name}}</h5>
+            <h5 class="font-weight-light"> <b>Activado:</b> {{loan.active}}</h5>
             <button type="submit" [disabled]="!loan.active" (click)="cancelLoan()" mat-flat-button color="accent"
                 class="col-12 col-md-12">
                 CANCELAR
             </button>
+            <button [disabled]="!loan.active" [routerLink]="['/loan', loan_id, 'payments']" mat-flat-button
+                color="primary" class="col-12 col-md-12 mt-3">
+                Ver pagos
+            </button>
         </div>
     </div>
-
 </div>

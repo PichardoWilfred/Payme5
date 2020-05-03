@@ -1,1 +1,26 @@
-<p>loan-payment works!</p>
+<mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
+<div *ngIf="loanP$ as loan">
+    <div class="row">
+        <div class="col-12 p-4">
+            <mat-list>
+                <mat-list-item *ngFor="let payment of payments_made">
+                    <mat-icon mat-list-icon class="enabled-dollar">monetization_on</mat-icon>
+                    <p matLine>{{ payment.date.toDate() | date: 'fullDate' }}</p>
+                    <p matLine class="font-weight-light">{{loanP$.fee_payment | currency: 'RD$'}}</p>
+                    <mat-icon class="icon-display">check_circle</mat-icon>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+
+                <mat-list-item *ngFor="let payment of payments_notMade">
+                    <mat-icon mat-list-icon class="disabled-dollar">attach_money</mat-icon>
+                    <p matLine>{{ payment.date.toDate() | date: 'fullDate' }}</p>
+                    <p matLine class="font-weight-light">{{payment.expected_amount | currency: 'RD$'}}</p>
+                    <button mat-icon-button (click)="pay(payment)">
+                        <mat-icon class="icon-display">check_circle_outline</mat-icon>
+                    </button>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+            </mat-list>
+        </div>
+    </div>
+</div>

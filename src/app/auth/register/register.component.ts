@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
   }
 
   async register() {
+    this.registerForm.value["created_at"] = new Date();
     await this.auth.register(this.registerForm.value);
-    
   }
 }

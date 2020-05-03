@@ -1,18 +1,10 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  TemplateRef,
-} from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { Observable, Subscription } from "rxjs";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { ModalModule } from "ngx-bootstrap/modal";
-import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { ClientService } from "src/app/client/client.service";
-
+import * as moment from "moment";
+import "moment/locale/es";
 @Component({
   selector: "loan-form",
   templateUrl: "./loan-form.component.html",
@@ -23,20 +15,24 @@ export class LoanFormComponent implements OnInit {
   @Output() formValue = new EventEmitter<Object>();
   constructor(
     private fb: FormBuilder,
-    private modal: BsModalService,
     private af: AngularFireAuth,
     private db: ClientService
   ) {}
-  modalRef: BsModalRef;
+
   ngOnInit() {
     this.stateSubscription = this.af.authState.subscribe((auth) => {
       this.client$ = this.db.getAvailableClients(auth.uid);
+      this.user_id = auth.uid;
     });
   }
-
+  ngOnDestroy() {
+    this.stateSubscription.unsubscribe();
+  }
+  stateSubscription: Subscription;
+  user_id: string;
   loanForm: FormGroup = this.fb.group({
     client_id: ["", Validators.required],
-    mount: ["", Validators.required],
+    amount: ["", Validators.required],
     payment_period: ["", Validators.required],
     interest_rate: ["", Validators.required],
     fees_amount: ["", Validators.required],
@@ -45,54 +41,84 @@ export class LoanFormComponent implements OnInit {
   client$: Observable<Object[]>;
   emailHint: string = "cliente@gmail.com";
   client_name: string;
+  client_id: string = null;
 
-  mount: number = null;
-  payment_period: number = null;
+  amount: number = null;
+  payment_period: string = null;
   interest_rate: number = null;
   fees_amount: number = null;
-  client_id: string = null;
+  paymentDates: string[] = null;
 
   full_interest: number;
   fee_payment: number = null;
   total_payment: number = null;
 
-  openModal(template: TemplateRef<any>) {
-    this.full_interest = this.mount * (this.interest_rate * 0.01) || null;
-    this.total_payment = this.mount + this.full_interest || null;
+  getResults() {
+    this.full_interest = this.amount * (this.interest_rate * 0.01) || null;
+    this.total_payment = this.amount + this.full_interest || null;
     if (this.total_payment && this.fees_amount) {
-      this.fee_payment = this.total_payment / this.fees_amount;
+      this.fee_payment = Math.ceil(this.total_payment / this.fees_amount);
     }
-    this.modalRef = this.modal.show(template);
+    this.setPaymentDates(this.payment_period, this.fees_amount);
   }
 
   submit() {
-    let loanFormValue = this.loanForm.value;
-    loanFormValue["client_id"] = this.client_id;
-    loanFormValue["client_email"] = this.emailHint;
-    loanFormValue["client_name"] = this.client_name;
-
-    loanFormValue["full_interest"] = this.full_interest;
-    loanFormValue["total_payment"] = this.total_payment;
-    loanFormValue["fee_payment"] = this.fee_payment;
-    loanFormValue["active"] = true;
-
+    let loanFormValue = {
+      ...this.loanForm.value,
+      client_id: this.client_id,
+      client_email: this.emailHint,
+      client_name: this.client_name,
+      full_interest: this.full_interest,
+      total_payment: this.total_payment,
+      fee_payment: this.fee_payment,
+      active: true,
+      state: "pending",
+      created_at: new Date(),
+      payment_dates: this.paymentDates,
+      missing_amount: this.total_payment,
+      tota_amount_paid: null,
+    };
     this.formValue.emit(loanFormValue);
-    this.modalRef.hide();
-    // console.log("============================");
-    // console.log("La id seleccionada fue: " + this.client_id);
-    // console.log("La tasa de interes: " + this.interest_rate);
-    // console.log("Los pagos por cuota: " + this.fee_payment);
-    // console.log("El Monto: " + this.mount);
-    // console.log("El interés total es: " + this.full_interest);
   }
 
-  setHint(client: Object) {
-    this.emailHint = client["email"];
-    this.client_name = client["name"];
+  setHint({ email, name }) {
+    this.emailHint = email;
+    this.client_name = name;
   }
 
-  ngOnDestroy() {
-    this.stateSubscription.unsubscribe();
+  setPaymentDates(payment_period: string, cuotes: number) {
+    switch (payment_period) {
+      case "mensual": {
+        this.paymentDates = this.createDates(cuotes, "months");
+        break;
+      }
+      case "semanal": {
+        this.paymentDates = this.createDates(cuotes, "weeks");
+        break;
+      }
+      case "anual": {
+        this.paymentDates = this.createDates(cuotes, "years");
+        break;
+      }
+      default:
+        console.log("ERROR CREATING PAYMENTDATES");
+        break;
+    }
   }
-  stateSubscription: Subscription;
+  createDates(cuotes: number, time_period: string) {
+    let format: string = "MM/DD/YYYY";
+    let today: any = moment();
+    let dates = [];
+    for (let i = 0; i < cuotes; i++) {
+      let payment = {
+        user_id: this.user_id,
+        index: i,
+        date: new Date(today.add(1, time_period).format(format)),
+        paid: false,
+        expected_amount: this.fee_payment,
+      };
+      dates.push(payment);
+    }
+    return dates;
+  }
 }

@@ -1,4 +1,12 @@
 <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
-<div *ngIf="client$">
-    <client-form [initialFormValue]="client$" (formValue)="updateClient($event)">Guardar Cambios</client-form>
+<div *ngIf="client$ as client">
+    <client-form [initialFormValue]="client$" (formValue)="updateClient($event)">
+        <span class="save">Guardar cambios</span>
+        <span class="checkLoan">
+            <button [disabled]="!hasLoan" mat-flat-button color="accent" [routerLink]="['/loan',client.loan_id]"
+                class="col-12 col-md-12 mt-3">
+                Ver Préstamo
+            </button></span>
+    </client-form>
+
 </div>

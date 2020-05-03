@@ -9,11 +9,11 @@ import { LoanService } from "../loan.service";
 export class LoanListComponent implements OnInit {
   constructor() {}
   ngOnInit() {}
-  loansLength: string;
+  loansLength: number;
   showSpinner: boolean = true;
 
   setLoans(length: number) {
-    this.loansLength = length.toString();
+    this.loansLength = length;
     this.showSpinner = false;
   }
 }

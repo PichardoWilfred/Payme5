@@ -26,6 +26,7 @@ export class NewClientComponent implements OnInit {
   newClient(clientData: Object) {
     clientData["uid"] = this.uid;
     clientData["active_loan"] = false;
+    clientData["created_at"] = new Date();
     this.db.addClient(clientData);
     this.route.navigate(["client/client-list"]);
   }

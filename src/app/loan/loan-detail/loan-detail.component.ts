@@ -7,7 +7,7 @@ import { LoanService } from "../loan.service";
   templateUrl: "./loan-detail.component.html",
   styleUrls: ["./loan-detail.component.scss"],
 })
-export class LoanDetailComponent implements OnInit {
+export class LoanDetailComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private db: LoanService,

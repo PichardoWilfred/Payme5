@@ -16,6 +16,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
   ) {}
   clientSubscription: Subscription;
   showSpinner: boolean = true;
+  hasLoan: boolean;
   ngOnInit() {
     this.db.toggleBottomNav(false); //este es el Behavior Subject del NavBottom
     this.client_id = this.route.snapshot.paramMap.get("id");
@@ -24,6 +25,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
       .subscribe((client) => {
         this.client$ = client;
         this.showSpinner = false;
+        this.hasLoan = client["loan_id"].length ? true : false;
       });
   }
   ngOnDestroy() {
@@ -35,6 +37,6 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
 
   updateClient(clientData: Object) {
     this.db.updateClient(this.client_id, clientData);
-    this.router.navigate(["client/client-list"]);  
+    this.router.navigate(["client/client-list"]);
   }
 }

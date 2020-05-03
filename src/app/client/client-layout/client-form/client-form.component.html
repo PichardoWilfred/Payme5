@@ -96,9 +96,11 @@
                 </mat-form-field>
                 <button type="submit" [disabled]="clientForm.invalid" mat-flat-button color="primary"
                     class="col-12 col-md-12">
-                    <ng-content></ng-content>
+                    <ng-content select=".save"></ng-content>
                 </button>
             </form>
+            <ng-content select=".checkLoan"></ng-content>
+
         </div>
     </div>
 </div>

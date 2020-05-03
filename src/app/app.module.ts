@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { LOCALE_ID, NgModule } from "@angular/core";
 import { AppComponent } from "./app.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -12,7 +12,12 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 
 import { AuthGuardGuard } from "./auth/auth-guard.guard";
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { ModalModule } from "ngx-bootstrap/modal";
+
+// import localeEsAr from '@angular/common/locales/es-AR'; //Date related Stuff
+import { registerLocaleData } from "@angular/common";
+import localeEs from "@angular/common/locales/es-DO";
+registerLocaleData(localeEs, "es-DO");
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +31,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AppRoutingModule,
     ModalModule.forRoot(),
   ],
-  providers: [AuthGuardGuard],
+  providers: [AuthGuardGuard, { provide: LOCALE_ID, useValue: "es-DO" }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

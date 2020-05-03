@@ -4,13 +4,15 @@ import {
   AngularFirestoreCollection,
 } from "@angular/fire/firestore";
 import { SnackbarService } from "../layout/snackbar.service";
+import { PaymentService } from "../payment/payment.service";
 @Injectable({
   providedIn: "root",
 })
 export class LoanService {
   constructor(
     private firestore: AngularFirestore,
-    private snack: SnackbarService
+    private snack: SnackbarService,
+    private payment: PaymentService
   ) {
     this.loansCollection = this.firestore.collection("loans");
   }
@@ -23,6 +25,10 @@ export class LoanService {
       .collection("clients")
       .doc(loan["client_id"])
       .update({ active_loan: true, loan_id: id });
+    loan["payment_dates"].forEach((payment) => {
+      payment["loan_id"] = id;
+    });
+    this.payment.addPayments(loan["payment_dates"]);
     this.snack.bar("Préstamo creado exitosamente", "OK");
   }
 
@@ -40,7 +46,7 @@ export class LoanService {
     this.firestore
       .collection("loans")
       .doc(loan_id)
-      .update({ active: false });
+      .update({ active: false, state: "canceled" });
 
     this.firestore
       .collection("clients")

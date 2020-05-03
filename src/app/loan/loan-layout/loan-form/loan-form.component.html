@@ -1,80 +1,85 @@
 <div class="container">
-    <div class="row mb-5">
-        <div class="col p-4">
-            <form [formGroup]="loanForm" autocomplete="off">
-                <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="emailHint">
-                    <mat-label>Cliente</mat-label>
-                    <mat-select formControlName="client_id" [(ngModel)]="client_id">
-                        <mat-option *ngFor=" let client of client$ | async" [value]="client.client_id"
-                            (click)="setHint(client)">{{client.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="col-12 col-md-6">
-                    <mat-label>Monto</mat-label>
-                    <input matInput formControlName="mount" type="number" [(ngModel)]="mount">
-                    <mat-icon matSuffix>work</mat-icon>
-                </mat-form-field>
-                <mat-form-field class="col-12 col-md-6">
-                    <mat-label>Período de pagos</mat-label>
-                    <mat-select formControlName="payment_period" [(ngModel)]="payment_period">
-                        <mat-option value="mensual">Mensual</mat-option>
-                        <mat-option value="semanal">Semanal</mat-option>
-                        <mat-option value="anual">Anual</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="col-12 col-md-6">
-                    <mat-label>Tasa de interés</mat-label>
-                    <input matInput formControlName="interest_rate" type="number" [(ngModel)]="interest_rate">
-                    <mat-icon matSuffix>&#37;</mat-icon>
-                </mat-form-field>
-                <mat-form-field class="col-12 col-md-6">
-                    <mat-label>Cantidad de cuotas</mat-label>
-                    <input matInput formControlName="fees_amount" type="number" [(ngModel)]="fees_amount">
-                    <mat-icon matSuffix>payment</mat-icon>
-                </mat-form-field>
-                <!-- type="submit" -->
-                <button (click)="openModal(template)" [disabled]="loanForm.invalid" mat-flat-button color="primary"
-                    class="col-12 col-md-12">
-                    Siguiente
-                </button>
-            </form>
-        </div>
-
-        <ng-template #template>
-            <div class="modal-header pb-2">
-                <h5 class="font-weight-light">Nuevo préstamo</h5>
-                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12 col-md-6 text-center p-1">
-                        <p class="font-weight-light"><b>Pagos por cuota:</b> {{fee_payment || null }} <b>$</b>
-                        </p>
-                        <p class="font-weight-light"><b>Interés total:</b> {{full_interest || null }} <b>$</b></p>
-                        <p class="font-weight-light"><b>Pago total:</b> {{total_payment || null }}<b>$</b>
-                        </p>
-                    </div>
-                    <div class="col-12 col-md-6 text-center p-2">
-                        <button (click)="submit()" [disabled]="loanForm.invalid" mat-flat-button color="primary"
-                            class="col-12 col-md-12">
-                            Crear Préstamo
+    <div class="row mb-1">
+        <mat-vertical-stepper linear (selectionChange)="getResults()">
+            <mat-step [stepControl]="loanForm" label="Ingrese la información del préstamo">
+                <form [formGroup]="loanForm" autocomplete="off">
+                    <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="emailHint">
+                        <mat-label>Cliente</mat-label>
+                        <mat-select formControlName="client_id" [(ngModel)]="client_id">
+                            <mat-option *ngFor=" let client of client$ | async" [value]="client.client_id"
+                                (click)="setHint(client)">{{client.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-md-6">
+                        <mat-label>Monto</mat-label>
+                        <input matInput formControlName="amount" type="number" [(ngModel)]="amount">
+                        <mat-icon matSuffix>monetization_on</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-md-6">
+                        <mat-label>Período de pagos</mat-label>
+                        <mat-select formControlName="payment_period" [(ngModel)]="payment_period">
+                            <mat-option value="mensual">Mensual</mat-option>
+                            <mat-option value="semanal">Semanal</mat-option>
+                            <mat-option value="anual">Anual</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-md-6">
+                        <mat-label>Tasa de interés</mat-label>
+                        <input matInput formControlName="interest_rate" type="number" [(ngModel)]="interest_rate">
+                        <mat-icon matSuffix>&#37;</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field class="col-12 col-md-6">
+                        <mat-label>Cantidad de cuotas</mat-label>
+                        <input matInput formControlName="fees_amount" type="number" [(ngModel)]="fees_amount">
+                        <mat-icon matSuffix>payment</mat-icon>
+                    </mat-form-field>
+                    <div class="col-12 col-md-6 p-2">
+                        <button [disabled]="loanForm.invalid" mat-flat-button color="primary" class="col-12 col-md-12"
+                            matStepperNext (click)="getResults()">
+                            Siguiente
                         </button>
                     </div>
+                </form>
+            </mat-step>
+            <mat-step label="Confirmar préstamo" class="pb-0">
+                <div class="row p-2 pb-0">
+                    <div class="col-12 col-md-10">
+                        <p class="font-weight-light"><b>Pagos por cuota:</b>
+                            {{fee_payment || null | currency: 'RD$'}}
+                        </p>
+                        <p class="font-weight-light"><b>Interés total:</b>
+                            {{full_interest || null | currency: 'RD$'}}
+                        </p>
+                        <p class="font-weight-light"><b>Pago total:</b>
+                            {{total_payment || null  | currency: 'RD$'}}
+                        </p>
+                        <cdk-virtual-scroll-viewport itemSize="50" class="dates-list w-100">
+                            <mat-list>
+                                <mat-list-item *cdkVirtualFor="let payment of paymentDates">
+                                    <mat-icon mat-list-icon class="disabled">today</mat-icon>
+                                    <p matLine>
+                                        {{ payment.date | date: 'fullDate' }}</p>
+                                    <p matLine class="font-weight-light mb-0 mt-2">{{fee_payment | currency: 'RD$'}}
+                                    </p>
+                                    <mat-divider></mat-divider>
+                                </mat-list-item>
+                            </mat-list>
+                        </cdk-virtual-scroll-viewport>
+                        <div class="col-12 col-md-6 p-2 mt-2">
+                            <button (click)="submit()" [disabled]="loanForm.invalid" mat-flat-button color="primary"
+                                matStepperNext class="col-12 col-md-12">
+                                Crear Préstamo
+                            </button>
+                        </div>
+                    </div>
                 </div>
-
-            </div>
-        </ng-template>
-
+            </mat-step>
+        </mat-vertical-stepper>
     </div>
+
+
+
+
+
 </div>
-<!-- <mat-form-field class="col-12 col-md-6">
-                    <mat-label>Interés total</mat-label>
-                    <input matInput formControlName="total_interest" type="number">
-                </mat-form-field>
-                <mat-form-field class="col-12 col-md-6">
-                    <mat-label>Pago total</mat-label>
-                    <input matInput formControlName="full_payment" type="number">
-      </mat-form-field> -->

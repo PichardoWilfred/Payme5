@@ -18,6 +18,9 @@ import { MatInputModule } from "@angular/material/input";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatStepperModule } from "@angular/material/stepper";
+import { ScrollingModule } from "@angular/cdk/scrolling";
+
 @NgModule({
   declarations: [
     SidenavComponent,
@@ -40,8 +43,12 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
     MatInputModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatStepperModule,
+    ScrollingModule,
   ],
   exports: [
+    MatStepperModule,
+    ScrollingModule,
     SidenavComponent,
     MatProgressBarModule,
     MatToolbarModule,
