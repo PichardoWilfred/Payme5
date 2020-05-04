@@ -33,7 +33,6 @@ export class PaymentService {
       loan_id,
       payment_id,
       missing_amount,
-      amount_paid,
       total_amount_paid,
     } = payment;
     this.firestore.collection("payments").doc(payment_id).set(payment);
@@ -41,7 +40,7 @@ export class PaymentService {
       .collection("loans")
       .doc(loan_id)
       .update({
-        total_amount_paid: total_amount_paid + amount_paid,
+        total_amount_paid: total_amount_paid,
         missing_amount: missing_amount,
       });
   }

@@ -76,7 +76,7 @@ export class LoanFormComponent implements OnInit {
       created_at: new Date(),
       payment_dates: this.paymentDates,
       missing_amount: this.total_payment,
-      tota_amount_paid: null,
+      total_amount_paid: 0,
     };
     this.formValue.emit(loanFormValue);
   }

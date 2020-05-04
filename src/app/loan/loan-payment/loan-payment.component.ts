@@ -1,26 +1,31 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, TemplateRef } from "@angular/core";
 import { Subscription, Observer, Observable } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { LoanService } from "../loan.service";
-
 import * as moment from "moment";
 import { PaymentService } from "src/app/payment/payment.service";
 import { SnackbarService } from "src/app/layout/snackbar.service";
+import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+
 @Component({
   selector: "app-loan-payment",
   templateUrl: "./loan-payment.component.html",
   styleUrls: ["./loan-payment.component.scss"],
 })
 export class LoanPaymentComponent implements OnInit, OnDestroy {
+  modalRef: BsModalRef;
   constructor(
     private route: ActivatedRoute,
     private loan: LoanService,
     private payment: PaymentService,
-    private snack: SnackbarService
+    private snack: SnackbarService,
+    private modalService: BsModalService
   ) {}
   loanPSubscription: Subscription;
   payments_notMadeSubscription: Subscription;
   payments_madeSubscription: Subscription;
+
+  selectedPayment: Object;
 
   showSpinner: boolean = true;
   loanP$: Object;
@@ -29,7 +34,7 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
   payments_made: Object[];
   payments_notMade: Object[];
 
-  amount_paid: number = 500; //MODAL
+  amount_paid: number; //MODAL
   missing_amount: number;
   total_amount_paid: number;
 
@@ -39,7 +44,6 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
       .getLoan(this.loanP_id)
       .subscribe((loan) => {
         this.loanP$ = loan;
-        this.amount_paid = loan["amount_paid"];
         this.missing_amount = loan["missing_amount"];
         this.total_amount_paid = loan["total_amount_paid"];
 
@@ -61,8 +65,10 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
     this.loanPSubscription.unsubscribe();
   }
 
-  pay(payment) {
-    const { index, payment_id, loan_id, fee_payment } = payment;
+  pay() {
+    this.modalRef.hide();
+    let index = this.selectedPayment["index"];
+    let expected_amount = this.selectedPayment["expected_amount"];
 
     let thereIsLowerDate = this.payments_notMade.some(
       (payment) => payment["index"] < index
@@ -71,18 +77,28 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
     if (thereIsLowerDate) {
       this.snack.bar("Aún no puede realizar este pago", "OK");
     } else {
-      //Updating the Payment
+      //Notpaid_Fix
+      let notpaid_amount = expected_amount - this.amount_paid; //Updating the Payment
+
+      if (notpaid_amount < 0) {
+        notpaid_amount = 0;
+      }
+
       let payment_made: Object = {
-        ...payment,
+        ...this.selectedPayment,
         paid: true,
         date_paid: new Date(),
-        amount_paid: 500,
+        amount_paid: this.amount_paid,
         missing_amount: this.missing_amount - this.amount_paid,
         total_amount_paid: this.total_amount_paid + this.amount_paid,
-        notpaid_amount: fee_payment - this.amount_paid,
+        notpaid_amount: notpaid_amount,
       };
-
       this.payment.pay(payment_made);
     }
+  }
+
+  openModal(template: TemplateRef<any>, payment) {
+    this.modalRef = this.modalService.show(template);
+    this.selectedPayment = payment;
   }
 }
