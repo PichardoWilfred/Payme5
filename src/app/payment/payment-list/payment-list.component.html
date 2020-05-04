@@ -1,34 +1,23 @@
 <div class="row">
-    <div class="mr-auto ml-2">
-        <h1 class="font-weight-light pl-3 pt-4 ml-4">17
-            <span>
-                <mat-icon class="icon-display-2 ml-1">local_atm</mat-icon>
-            </span>
-        </h1>
-    </div>
-    <div class="ml-auto mr-4 pr-1 pt-3">
-        <mat-form-field>
-            <mat-label>Mostrar</mat-label>
-            <mat-select [(value)]="selected">
-                <mat-option value="all">Todos</mat-option>
-                <mat-option value="active">Activos</mat-option>
-                <mat-option value="non_active">Inactivos</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-</div>
-<div class="row">
     <div class="col">
+        <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
         <mat-nav-list>
-            <mat-list-item *ngFor="let payment of payments">
-                <mat-icon matListIcon class="icon-display">attach_money</mat-icon>
-                <p matLine class="font-weight-bold"> {{payment.name}} </p>
-                <p class="font-weight-thin">19/12/2020</p>
+            <mat-list-item *ngFor="let payment of payment$ | async" [routerLink]="['/payment', payment.payment_id]">
+                <mat-icon matListIcon class=" icon-display">attach_money</mat-icon>
+                <p matLine class="font-weight-bold">{{payment.date_paid.toDate() |  date: 'shortDate'}}</p>
                 <p matLine class="font-weight-thin">
-                    {{payment.amount}}
+                    {{payment.amount_paid | currency:'RD$'}}
                 </p>
                 <mat-divider></mat-divider>
             </mat-list-item>
         </mat-nav-list>
+    </div>
+    <div class="col-12">
+        <div *ngIf="noPayments" class="col-12 col-md-6 text-center disabled py-5 my-4">
+            <mat-icon class="display-2 mr-5 pr-5 pb-0">attach_money</mat-icon>
+            <p class="font-weight-light px-3 mt-0 pt-0">
+                No hay pagos realizados
+            </p>
+        </div>
     </div>
 </div>

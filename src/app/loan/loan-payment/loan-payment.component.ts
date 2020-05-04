@@ -6,6 +6,7 @@ import * as moment from "moment";
 import { PaymentService } from "src/app/payment/payment.service";
 import { SnackbarService } from "src/app/layout/snackbar.service";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-loan-payment",
@@ -15,12 +16,17 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 export class LoanPaymentComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private loan: LoanService,
     private payment: PaymentService,
     private snack: SnackbarService,
     private modalService: BsModalService
   ) {}
+  paymentForm: FormGroup = this.fb.group({
+    amount_paid: [null, [Validators.required]],
+  });
+
   loanPSubscription: Subscription;
   payments_notMadeSubscription: Subscription;
   payments_madeSubscription: Subscription;
@@ -46,7 +52,7 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
         this.loanP$ = loan;
         this.missing_amount = loan["missing_amount"];
         this.total_amount_paid = loan["total_amount_paid"];
-
+        
         this.payments_notMadeSubscription = this.payment
           .getPayments(this.loanP_id, false)
           .subscribe((payments) => {
@@ -77,19 +83,21 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
     if (thereIsLowerDate) {
       this.snack.bar("Aún no puede realizar este pago", "OK");
     } else {
-      //Notpaid_Fix
-      let notpaid_amount = expected_amount - this.amount_paid; //Updating the Payment
+      //Notpaid fix
+      let notpaid_amount = expected_amount - this.amount_paid;
+      if (notpaid_amount < 0) notpaid_amount = 0;
 
-      if (notpaid_amount < 0) {
-        notpaid_amount = 0;
-      }
+      //MissingAmount fix
+      let missing_amount = this.missing_amount - this.amount_paid;
+      if (missing_amount < 0) missing_amount = 0;
 
       let payment_made: Object = {
         ...this.selectedPayment,
+        client_name: this.loanP$["client_name"],
         paid: true,
         date_paid: new Date(),
         amount_paid: this.amount_paid,
-        missing_amount: this.missing_amount - this.amount_paid,
+        missing_amount: missing_amount,
         total_amount_paid: this.total_amount_paid + this.amount_paid,
         notpaid_amount: notpaid_amount,
       };

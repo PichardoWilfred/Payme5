@@ -28,20 +28,24 @@ export class PaymentService {
       .valueChanges({ idField: "payment_id" });
   }
 
+  getAllPayments(user_id: string) {
+    return this.firestore
+      .collection("payments", (ref) =>
+        ref.where("user_id", "==", user_id).where("paid", "==", true)
+      )
+      .valueChanges({ idField: "payment_id" });
+  }
+
+  getPayment(payment_id: string) {
+    return this.firestore.collection("payments").doc(payment_id).valueChanges();
+  }
+
   pay(payment) {
-    const {
-      loan_id,
-      payment_id,
-      missing_amount,
-      total_amount_paid,
-    } = payment;
+    const { loan_id, payment_id, missing_amount, total_amount_paid } = payment;
     this.firestore.collection("payments").doc(payment_id).set(payment);
-    this.firestore
-      .collection("loans")
-      .doc(loan_id)
-      .update({
-        total_amount_paid: total_amount_paid,
-        missing_amount: missing_amount,
-      });
+    this.firestore.collection("loans").doc(loan_id).update({
+      total_amount_paid: total_amount_paid,
+      missing_amount: missing_amount,
+    });
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ClientService } from "../client.service";
+import { ClientService } from "../client.service"; 
 
 @Component({
   selector: "app-client-detail",

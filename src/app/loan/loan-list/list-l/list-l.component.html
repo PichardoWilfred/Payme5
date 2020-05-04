@@ -3,7 +3,7 @@
         <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
         <mat-nav-list>
             <mat-list-item *ngFor="let loan of loan$" [routerLink]="['/loan', loan.loan_id]">
-                <mat-icon matListIcon class="icon-display">work</mat-icon>
+                <mat-icon matListIcon class="icon-display">work_outline</mat-icon>
                 <p matLine class="font-weight-bold"> {{loan.client_name}} </p>
                 <p matLine class="font-weight-thin">
                     {{loan.amount | currency:'RD$'}}

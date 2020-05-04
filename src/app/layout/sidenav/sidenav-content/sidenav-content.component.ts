@@ -16,7 +16,6 @@ export class SidenavContentComponent implements OnInit {
     { icon: "work", path: "/loan/loan-list", name: "Préstamos" },
     { icon: "people_alt", path: "/client/client-list", name: "Clientes" },
     { icon: "local_atm", path: "/payment/payment-list", name: "Pagos" },
-    { icon: "description", path: "/notes", name: "Notas" },
   ];
 
   navigateTo(route: String, routeRoot: String) {

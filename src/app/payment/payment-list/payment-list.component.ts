@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { PaymentService } from "src/app/payment/payment.service";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-payment-list",
@@ -6,64 +9,25 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./payment-list.component.scss"],
 })
 export class PaymentListComponent implements OnInit {
-  constructor() {}
+  constructor(private payment: PaymentService, private auth: AngularFireAuth) {}
+  payment$: Observable<Object[]>;
+  showSpinner: boolean = true;
+  noPayments: boolean;
+  ngOnInit() {
+    this.auth.authState.subscribe((user) => {
+      if (user) {
+        this.payment$ = this.payment.getAllPayments(user.uid);
+        this.payment$.subscribe((payments) => {
+          this.showSpinner = false;
+          if (payments.length) {
+            this.noPayments = false;
+          } else {
+            this.noPayments = true;
+          }
+        });
+      }
+    });
+  }
 
-  ngOnInit() {}
-  payments: Object[] = [
-    {
-      name: "Wilfredo Almonte",
-      date: "22/03/2020",
-      amount: "10.00",
-    },
-    {
-      name: "Wilfredo Almonte",
-      date: "22/03/2020",
-      amount: "10.00",
-    },
-    {
-      name: "Wilfredo Almonte",
-      date: "22/03/2020",
-      amount: "10.00",
-    },
-    {
-      name: "Wilfredo Almonte",
-      date: "22/03/2020",
-      amount: "10.00",
-    },
-    {
-      name: "Wilfredo Almonte",
-      date: "22/03/2020",
-      amount: "10.00",
-    },
-    {
-      name: "Wilfredo Almonte",
-      date: "22/03/2020",
-      amount: "10.00",
-    },
-    {
-      name: "Wilfredo Almonte",
-      date: "22/03/2020",
-      amount: "10.00",
-    },
-    {
-      name: "Wilfredo Almonte",
-      date: "22/03/2020",
-      amount: "10.00",
-    },
-    {
-      name: "Wilfredo Almonte",
-      date: "22/03/2020",
-      amount: "10.00",
-    },
-    {
-      name: "Wilfredo Almonte",
-      date: "22/03/2020",
-      amount: "10.00",
-    },
-    {
-      name: "Wilfredo Almonte",
-      date: "22/03/2020",
-      amount: "10.00",
-    },
-  ];
+  
 }
