@@ -4,7 +4,7 @@
       <a href="index.html" class="hero-logo" data-aos="zoom-in"><img src="/src/assets/imagenes/payme moneda (1).png" alt=""></a>
       <h1 data-aos="zoom-in">Bienvenido a Payme</h1>
       <h2 data-aos="fade-up">Más allá de prestamos.</h2>
-      <a data-aos="fade-up" href="#about" class="btn-get-started scrollto">Conoce más</a>
+      <a data-aos="fade-up" (click)="scroll(about)" class="btn-get-started scrollto">Conoce más</a>
     </div>
   </section><!-- End Hero -->
 
@@ -29,7 +29,7 @@
   <main id="main">
 
     <!-- ======= About Us Section ======= -->
-    <section id="about" class="about">
+    <section id="about" class="about" #about>
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
