@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Observable } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ClientService } from "../client.service"; 
+import { ClientService } from "../client.service";
 
 @Component({
   selector: "app-client-detail",
@@ -14,25 +14,24 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
     private db: ClientService,
     private router: Router
   ) {}
-  clientSubscription: Subscription;
+  // clientSubscription: Subscription;
+  client$: Observable<Object>;
   showSpinner: boolean = true;
   hasLoan: boolean;
   ngOnInit() {
     this.db.toggleBottomNav(false); //este es el Behavior Subject del NavBottom
     this.client_id = this.route.snapshot.paramMap.get("id");
-    this.clientSubscription = this.db
-      .getClient(this.client_id)
-      .subscribe((client) => {
-        this.client$ = client;
-        this.showSpinner = false;
-        this.hasLoan = client["loan_id"].length ? true : false;
-      });
+
+    this.client$ = this.db.getClient(this.client_id);
+    this.client$.subscribe((client) => {
+      this.showSpinner = false;
+      this.hasLoan = client["loan_id"].length ? true : false;
+    });
   }
   ngOnDestroy() {
-    this.clientSubscription.unsubscribe();
+    // this.clientSubscription.unsubscribe();
     this.db.toggleBottomNav(true);
   }
-  client$: Object;
   client_id: string;
 
   updateClient(clientData: Object) {

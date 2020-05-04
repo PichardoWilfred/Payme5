@@ -1,5 +1,5 @@
 <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
-<div *ngIf="loan$ as loan">
+<div *ngIf="loan$ | async as loan">
     <div class="row p-4">
         <div class="col-12">
             <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="loan.client_email">

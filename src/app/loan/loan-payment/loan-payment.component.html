@@ -10,7 +10,8 @@
                     <mat-icon class="icon-display">check_circle</mat-icon>
                     <mat-divider></mat-divider>
                 </mat-list-item>
-
+            </mat-nav-list>
+            <mat-list>
                 <mat-list-item *ngFor="let payment of payments_notMade">
                     <mat-icon mat-list-icon class="disabled-dollar">attach_money</mat-icon>
                     <p matLine>{{ payment.date.toDate() | date: 'fullDate' }}</p>
@@ -20,7 +21,7 @@
                     </button>
                     <mat-divider></mat-divider>
                 </mat-list-item>
-            </mat-nav-list>
+            </mat-list>
         </div>
     </div>
     <ng-template #template>

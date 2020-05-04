@@ -1,6 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
-import { LoanService } from "../loan.service";
 @Component({
   selector: "loanList",
   templateUrl: "./loan-list.component.html",

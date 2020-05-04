@@ -52,7 +52,7 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
         this.loanP$ = loan;
         this.missing_amount = loan["missing_amount"];
         this.total_amount_paid = loan["total_amount_paid"];
-        
+
         this.payments_notMadeSubscription = this.payment
           .getPayments(this.loanP_id, false)
           .subscribe((payments) => {
@@ -94,6 +94,7 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
       let payment_made: Object = {
         ...this.selectedPayment,
         client_name: this.loanP$["client_name"],
+        client_email: this.loanP$["client_email"],
         paid: true,
         date_paid: new Date(),
         amount_paid: this.amount_paid,

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Subscription, Observable } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { LoanService } from "../loan.service";
 @Component({
@@ -16,20 +16,18 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   loanSubscription: Subscription;
   showSpinner: boolean = true;
 
-  loan$: Object;
+  loan$: Observable<Object>;
   loan_id: string;
 
   ngOnInit() {
     this.loan_id = this.route.snapshot.paramMap.get("id");
-    this.loanSubscription = this.db.getLoan(this.loan_id).subscribe((loan) => {
-      this.loan$ = loan;
+    this.loan$ = this.db.getLoan(this.loan_id);
+    this.loan$.subscribe(() => {
       this.showSpinner = false;
     });
   }
 
-  ngOnDestroy() {
-    this.loanSubscription.unsubscribe();
-  }
+  ngOnDestroy() {}
 
   cancelLoan() {
     this.db.cancelLoan(this.loan$, this.loan_id);

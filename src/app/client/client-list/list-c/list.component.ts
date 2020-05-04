@@ -5,7 +5,7 @@ import {
   Output,
   OnDestroy,
 } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Subscription, Observable } from "rxjs";
 import { ClientService } from "../../client.service";
 import { AngularFireAuth } from "@angular/fire/auth";
 
@@ -18,36 +18,33 @@ export class ListComponent implements OnInit, OnDestroy {
   @Output() clients = new EventEmitter<any>();
   constructor(private db: ClientService, private af: AngularFireAuth) {}
   ngOnInit() {
-    this.stateSubscription = this.af.authState.subscribe((user) => {
+    this.af.authState.subscribe((user) => {
       if (user) {
         this.uid = user.uid;
-        this.clientSubscription = this.db
-          .getClients(user.uid)
-          .subscribe((clients) => {
-            this.client$ = clients;
-            this.showSpinner = false;
-
-            if (clients.length) {
-              this.noClients = false;
-            } else {
-              this.noClients = true;
-            }
-            this.clients.emit(clients.length);
-          });
+        this.client$ = this.db.getClients(user.uid);
+        this.client$.subscribe((clients) => {
+          this.showSpinner = false;
+          if (clients.length) {
+            this.noClients = false;
+          } else {
+            this.noClients = true;
+          }
+          this.clients.emit(clients.length);
+        });
       }
     });
   }
 
   uid: string;
-  client$: Object[];
+  client$: Observable<Object[]>;
   showSpinner: boolean = true;
   noClients: boolean;
 
   ngOnDestroy() {
-    this.stateSubscription.unsubscribe();
-    this.clientSubscription.unsubscribe();
+    // this.stateSubscription.unsubscribe();
+    // this.clientSubscription.unsubscribe();
     this.clients.emit(0);
   }
-  stateSubscription: Subscription;
-  clientSubscription: Subscription;
+  // stateSubscription: Subscription;
+  // clientSubscription: Subscription;
 }

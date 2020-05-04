@@ -22,7 +22,6 @@ export class PaymentDetailComponent implements OnInit {
     this.payment_id = this.route.snapshot.paramMap.get("id");
     this.payment$ = this.payment.getPayment(this.payment_id);
     this.payment$.subscribe((payment) => {
-      console.log(payment);
       this.showSpinner = false;
     });
   }
