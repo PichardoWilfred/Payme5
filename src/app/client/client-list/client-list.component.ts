@@ -7,7 +7,7 @@ import { Component, OnInit } from "@angular/core";
 export class ClientListComponent implements OnInit {
   constructor() {}
   ngOnInit() {}
-  clientsLength: string;
+  clientsLength: any;
   showSpinner: boolean = true;
 
   setLength(length: number) {
