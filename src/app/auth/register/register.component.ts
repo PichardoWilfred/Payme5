@@ -9,6 +9,8 @@ import { SnackbarService } from "../../layout/snackbar.service";
   styleUrls: ["./register.component.scss"],
 })
 export class RegisterComponent implements OnInit {
+
+  hidepassword= true;
   constructor(
     private fb: FormBuilder,
     private router: Router,

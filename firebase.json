@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "public",
+    "site": "payme-fea4d",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",
