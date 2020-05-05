@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
+
+  imgSrc1 = require('../../../assets/imagenes/payme_moneda.png');
+  imgSrc2 = require('../../../assets/imagenes/payme_letra.png');
+  imgSrc3 = require('../../../assets/imagenes/foto_prestamo.png');
+
   constructor() { }
 
   ngOnInit() {
@@ -15,4 +20,7 @@ export class AboutComponent implements OnInit {
   scroll(el: HTMLElement) {
     el.scrollIntoView({behavior: 'smooth'});
   }
+
+
+
 }
