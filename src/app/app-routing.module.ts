@@ -30,7 +30,7 @@ const AppRoutes: Routes = [
     loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
   },
   { path: "", redirectTo: "/home/dashboard", pathMatch: "full" },
-  {path: '**', redirectTo: "/auth/login"}
+  {path: "**", redirectTo: "/auth/login"}
 ];
 
 @NgModule({
