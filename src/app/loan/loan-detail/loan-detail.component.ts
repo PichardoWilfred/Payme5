@@ -19,6 +19,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   loan$: Observable<Object>;
   loan_id: string;
   client_id: string;
+  
   ngOnInit() {
     this.loan_id = this.route.snapshot.paramMap.get("id");
     this.loan$ = this.db.getLoan(this.loan_id);
