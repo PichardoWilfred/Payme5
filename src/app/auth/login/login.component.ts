@@ -8,6 +8,8 @@ import { AuthService } from "../auth.service";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
+
+  imgSrc2 = require('../../../assets/imagenes/payme_letra_negro.png');
   constructor(
     private fb: FormBuilder,
     private router: Router,
