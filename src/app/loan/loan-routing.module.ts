@@ -17,6 +17,8 @@ const loanRoutes: Routes = [
       { path: "loan-list", component: LoanListComponent },
       { path: ":id", component: LoanDetailComponent },
       { path: ":id/payments", component: LoanPaymentComponent },
+
+      { path: "", redirectTo: "/loan/loan-list" },
     ],
     canActivate: [AuthGuardGuard],
   },

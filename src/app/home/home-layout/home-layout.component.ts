@@ -11,7 +11,7 @@ export class HomeLayoutComponent implements OnInit {
   ngOnInit() {}
 
   homeNavBottom: Object[] = [
-    { path: "dashboard", icon: "dashboard", title: "Tablero" },
+    // { path: "dashboard", icon: "dashboard", title: "Tablero" },
     { path: "about", icon: "home", title: "Inicio" },
   ];
 }

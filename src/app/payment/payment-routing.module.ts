@@ -14,6 +14,7 @@ const paymentRoutes: Routes = [
     children: [
       { path: "payment-list", component: PaymentListComponent },
       { path: ":id", component: PaymentDetailComponent },
+      { path: "", redirectTo: "/payment/payment-list" },
     ],
     canActivate: [AuthGuardGuard],
   },
