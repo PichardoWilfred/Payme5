@@ -18,11 +18,12 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
 
   loan$: Observable<Object>;
   loan_id: string;
-
+  client_id: string;
   ngOnInit() {
     this.loan_id = this.route.snapshot.paramMap.get("id");
     this.loan$ = this.db.getLoan(this.loan_id);
-    this.loan$.subscribe(() => {
+    this.loan$.subscribe((loan) => {
+      this.client_id = loan["client_id"];
       this.showSpinner = false;
     });
   }
@@ -30,7 +31,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {}
 
   cancelLoan() {
-    this.db.cancelLoan(this.loan$, this.loan_id);
+    this.db.cancelLoan(this.client_id, this.loan_id);
     this.router.navigate(["loan/loan-list"]);
   }
 }

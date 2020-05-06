@@ -42,7 +42,7 @@ export class LoanService {
     return this.firestore.collection("loans").doc(loan_id).valueChanges();
   }
 
-  cancelLoan(loan: Object, loan_id: string) {
+  cancelLoan(client_id: string, loan_id: string) {
     this.firestore
       .collection("loans")
       .doc(loan_id)
@@ -50,7 +50,7 @@ export class LoanService {
 
     this.firestore
       .collection("clients")
-      .doc(loan["client_id"])
+      .doc(client_id)
       .update({ active_loan: false, loan_id: "" });
   }
 }
