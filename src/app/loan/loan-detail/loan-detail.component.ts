@@ -3,6 +3,7 @@ import { Subscription, Observable } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { LoanService } from "../loan.service";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
+import { AuthService } from "src/app/auth/auth.service";
 @Component({
   selector: "app-loan-detail",
   templateUrl: "./loan-detail.component.html",
@@ -13,7 +14,8 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private db: LoanService,
     private router: Router,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private authS: AuthService
   ) {}
   loanSubscription: Subscription;
   showSpinner: boolean = true;
@@ -25,6 +27,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   loan_completed: boolean;
   completed: boolean;
   ngOnInit() {
+    this.authS.toggleAuth("detail");
     this.loan_id = this.route.snapshot.paramMap.get("id");
     this.loan$ = this.db.getLoan(this.loan_id);
     this.loan$.subscribe((loan) => {
@@ -34,7 +37,9 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    this.authS.toggleAuth("logged");
+  }
 
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, { class: "modal-sm" });

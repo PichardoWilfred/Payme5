@@ -28,10 +28,10 @@ export class AuthService {
   }
 
   //Toolbar content
-  private toolbarAuth = new BehaviorSubject(false);
+  private toolbarAuth = new BehaviorSubject("");
   toolbarContent = this.toolbarAuth.asObservable();
-  
-  toggleAuth(state: boolean) {
+
+  toggleAuth(state: string) {
     this.toolbarAuth.next(state);
   }
 

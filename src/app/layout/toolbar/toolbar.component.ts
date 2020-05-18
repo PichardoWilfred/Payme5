@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { AuthService } from "../../auth/auth.service";
 import { Router } from "@angular/router";
+import { Location } from "@angular/common";
 @Component({
   selector: "app-toolbar",
   templateUrl: "./toolbar.component.html",
@@ -8,7 +9,7 @@ import { Router } from "@angular/router";
 })
 export class ToolbarComponent implements OnInit {
   @Output() toggleEvent = new EventEmitter<boolean>();
-  logged: boolean;
+  state: string;
 
   toggleSideBar(toggle: boolean) {
     this.toggleEvent.emit(toggle);
@@ -16,7 +17,8 @@ export class ToolbarComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private router: Router,
-    private authS: AuthService
+    private authS: AuthService,
+    private location: Location
   ) {}
 
   async logout() {
@@ -25,7 +27,11 @@ export class ToolbarComponent implements OnInit {
   }
   ngOnInit() {
     this.authS.toolbarContent.subscribe((state) => {
-      this.logged = state;
+      this.state = state;
     });
+  }
+
+  back(){
+    this.location.back();
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Observable } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ClientService } from "../client.service";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
   selector: "app-client-detail",
@@ -12,14 +13,17 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private db: ClientService,
-    private router: Router
+    private router: Router,
+    private authS: AuthService
   ) {}
   // clientSubscription: Subscription;
   client$: Observable<Object>;
   showSpinner: boolean = true;
   hasLoan: boolean;
   ngOnInit() {
-    this.db.toggleBottomNav(false); //este es el Behavior Subject del NavBottom
+    this.authS.toggleAuth("detail");
+    this.authS.toolbarContent.subscribe(console.log);
+    //este es el Behavior Subject del NavBottom
     this.client_id = this.route.snapshot.paramMap.get("id");
 
     this.client$ = this.db.getClient(this.client_id);
@@ -29,8 +33,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    // this.clientSubscription.unsubscribe();
-    this.db.toggleBottomNav(true);
+    this.authS.toggleAuth("logged");
   }
   client_id: string;
 

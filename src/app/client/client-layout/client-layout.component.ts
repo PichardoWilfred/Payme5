@@ -10,8 +10,7 @@ export class ClientLayoutComponent implements OnInit {
   constructor(private toggle: ClientService, private authS: AuthService) {}
   showNavBottom: Boolean;
   ngOnInit() {
-    this.authS.changeTitle("Clientes")
-    this.toggle.showBottomNav.subscribe((data) => (this.showNavBottom = data));
+    this.authS.changeTitle("Clientes");
   }
   clientNavBottom: Object[] = [
     { path: "client-list", icon: "group", title: "Clientes" },

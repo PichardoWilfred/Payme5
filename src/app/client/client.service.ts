@@ -22,7 +22,7 @@ export class ClientService {
       .collection("clients", (ref) => ref.where("uid", "==", uid))
       .valueChanges({ idField: "client_id" });
   }
-  
+
   getAvailableClients(uid: string) {
     return this.firestore
       .collection("clients", (ref) =>
@@ -43,11 +43,5 @@ export class ClientService {
     this.snack.bar("Cliente agregado exitosamente", "OK");
     this.ClientsCollection.add(client);
   }
-
-  //Toggle the display of BottomNav
-  source = new BehaviorSubject<Boolean>(true);
-  showBottomNav = this.source.asObservable();
-  toggleBottomNav(state: Boolean) {
-    this.source.next(state);
-  }
+  
 }

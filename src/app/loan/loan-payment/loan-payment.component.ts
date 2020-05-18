@@ -8,26 +8,28 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import * as moment from "moment";
 import "moment/locale/es";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
   selector: "app-loan-payment",
   templateUrl: "./loan-payment.component.html",
   styleUrls: ["./loan-payment.component.scss"],
 })
-export class LoanPaymentComponent implements OnInit {
+export class LoanPaymentComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private loan: LoanService,
     private payment: PaymentService,
-    private snack: SnackbarService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private authS: AuthService
   ) {}
   paymentForm: FormGroup = this.fb.group({
     amount_paid: [null, [Validators.required]],
   });
   ngOnInit() {
+    this.authS.toggleAuth("detail");
     this.loan_id = this.route.snapshot.paramMap.get("id");
     this.Ogloan = this.loan.getLoan(this.loan_id);
     this.Ogloan.subscribe((loan) => {
@@ -36,6 +38,9 @@ export class LoanPaymentComponent implements OnInit {
       this.payments_date = loan["payment_dates"];
       this.checkIfCompleted(loan);
     });
+  }
+  ngOnDestroy() {
+    this.authS.toggleAuth("logged");
   }
   showThesePayments: boolean = false;
   payments_made: Observable<Object[]>;

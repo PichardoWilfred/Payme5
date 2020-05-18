@@ -1,5 +1,6 @@
 <mat-toolbar color="primary" class="position-sticky fixed-top">
-  <mat-toolbar-row *ngIf="logged">
+
+  <mat-toolbar-row *ngIf="state == 'logged'">
     <span class="mr-2 pt-1 mt-1">
       <button mat-icon-button (click)="toggleSideBar(true)">
         <mat-icon>menu</mat-icon>
@@ -27,10 +28,16 @@
     </button>
   </mat-toolbar-row>
 
-  <mat-toolbar-row *ngIf="!logged">
+  <mat-toolbar-row *ngIf="state == 'unlogged'">
     <span class="font-weight-light">
       Payme
     </span>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row *ngIf="state == 'detail'">
+    <!-- <span class="font-weight-light"> -->
+    <mat-icon (click)="back()">arrow_back</mat-icon>
+    <!-- </span> -->
   </mat-toolbar-row>
 
 

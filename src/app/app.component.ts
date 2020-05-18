@@ -14,9 +14,9 @@ export class AppComponent implements OnInit {
     this.auth.authState.subscribe((user) => {
       this.user = user;
       if (user) {
-        this.authS.toggleAuth(true);
+        this.authS.toggleAuth("logged");
       } else {
-        this.authS.toggleAuth(false);
+        this.authS.toggleAuth("unlogged");
       }
     });
   }
