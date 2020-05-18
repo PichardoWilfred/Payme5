@@ -28,7 +28,7 @@ export class LoanService {
     loan["payment_dates"].forEach((payment) => {
       payment["loan_id"] = id;
     });
-    this.payment.addPayments(loan["payment_dates"]);
+    // this.payment.addPayments(loan["payment_dates"]);
     this.snack.bar("Préstamo creado exitosamente", "OK");
   }
 
@@ -42,11 +42,15 @@ export class LoanService {
     return this.firestore.collection("loans").doc(loan_id).valueChanges();
   }
 
-  cancelLoan(client_id: string, loan_id: string) {
-    this.firestore
-      .collection("loans")
-      .doc(loan_id)
-      .update({ active: false, state: "canceled" });
+  disableLoan(client_id: string, loan_id: string, completed: boolean) {
+    if (completed) {
+      this.firestore.collection("loans").doc(loan_id).update({ active: false });
+    } else {
+      this.firestore
+        .collection("loans")
+        .doc(loan_id)
+        .update({ active: false, state: "canceled" });
+    }
 
     this.firestore
       .collection("clients")

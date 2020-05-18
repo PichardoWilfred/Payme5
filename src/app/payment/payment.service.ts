@@ -11,28 +11,9 @@ export class PaymentService {
     private snack: SnackbarService
   ) {}
 
-  addPayments(payments: Object[]) {
-    payments.forEach((payment) => {
-      this.firestore.collection("payments").add(payment);
-    });
-  }
-
-  getPayments(loan_id: string, paid: boolean) {
-    return this.firestore
-      .collection("payments", (ref) =>
-        ref
-          .where("loan_id", "==", loan_id)
-          .where("paid", "==", paid)
-          .orderBy("index")
-      )
-      .valueChanges({ idField: "payment_id" });
-  }
-
   getAllPayments(user_id: string) {
     return this.firestore
-      .collection("payments", (ref) =>
-        ref.where("user_id", "==", user_id).where("paid", "==", true)
-      )
+      .collection("payments", (ref) => ref.where("user_id", "==", user_id))
       .valueChanges({ idField: "payment_id" });
   }
 
@@ -40,12 +21,17 @@ export class PaymentService {
     return this.firestore.collection("payments").doc(payment_id).valueChanges();
   }
 
-  pay(payment) {
-    const { loan_id, payment_id, missing_amount, total_amount_paid } = payment;
+  returnPayment(index, loan_id) {
+    return this.firestore
+      .collection("payments", (ref) =>
+        ref.where("loan_id", "==", loan_id).where("index", "==", index)
+      )
+      .valueChanges({ idField: "payment_id" });
+  }
+
+  pay(payment, loan, loan_id) {
+    let payment_id = this.firestore.createId();
     this.firestore.collection("payments").doc(payment_id).set(payment);
-    this.firestore.collection("loans").doc(loan_id).update({
-      total_amount_paid: total_amount_paid,
-      missing_amount: missing_amount,
-    });
+    this.firestore.collection("loans").doc(loan_id).update(loan);
   }
 }

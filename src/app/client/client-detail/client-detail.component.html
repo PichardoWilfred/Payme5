@@ -3,10 +3,21 @@
     <client-form [initialFormValue]="client" (formValue)="updateClient($event)">
         <span class="save">Guardar cambios</span>
         <span class="checkLoan">
-            <button [disabled]="!hasLoan" mat-flat-button color="accent" [routerLink]="['/loan',client.loan_id]"
-                class="col-12 col-md-12 mt-3">
-                Ver Préstamo
-            </button></span>
+            <mat-list *ngIf="!client.active_loan" class="mt-3 ">
+                <mat-list-item>
+                    <mat-icon matListIcon class="icon-big disabled">work_outline</mat-icon>
+                    <p matLine class="font-weight-light ml-5 disabled"> Ver préstamo </p>
+                </mat-list-item>
+            </mat-list>
+            <mat-nav-list *ngIf="client.active_loan">
+                <mat-divider class="mt-3 w-100"></mat-divider>
+                <mat-list-item [routerLink]="['/loan', client.loan_id]">
+                    <mat-icon matListIcon class="icon-big">work_outline</mat-icon>
+                    <p matLine class="font-weight-bold ml-5"> Ver préstamo </p>
+                </mat-list-item>
+                <mat-divider class="mb-3 w-100"></mat-divider>
+            </mat-nav-list>
+        </span>
     </client-form>
 
 </div>

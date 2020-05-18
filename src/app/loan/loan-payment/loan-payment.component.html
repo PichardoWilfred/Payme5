@@ -1,32 +1,53 @@
 <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
-<div *ngIf="loanP$ as loan">
-    <div class="row">
+<div *ngIf="loan$ as loan">
+    <div class="row p-4">
+        <div class="col-12 ">
+            <mat-form-field class="col-12 col-md-6">
+                <mat-label>Monto por cuota</mat-label>
+                <input matInput [value]="loan.fee_payment | currency:'RD$'" readonly>
+            </mat-form-field>
+            <mat-form-field *ngIf="loan.extra_amount" class="col-12 col-md-6">
+                <mat-label>Monto sobrante</mat-label>
+                <input matInput [value]="loan.extra_amount | currency:'RD$'" readonly>
+            </mat-form-field>
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let payment of payments_date"
+                    (click)="returnPayments(payment.index,loan_id)">
+                    <mat-expansion-panel-header [collapsedHeight]="'7vh'">
+                        <mat-panel-title>
+                            <mat-icon class="mat-list-icon myIcon">today</mat-icon>
+                            <p class="pr-1">{{ payment.date.toDate() | date: 'shortDate' }}</p>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            <p>{{ payment.payment_amount_paid | currency: 'RD$'}}</p>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <cdk-virtual-scroll-viewport itemSize="50" class="dates-list w-100">
+                        <mat-nav-list>
+                            <mat-list-item *ngFor="let payment_made of payments_made | async"
+                                [routerLink]="['/payment', payment_made.payment_id]">
+                                <mat-icon mat-list-icon>payment</mat-icon>
+                                <p matLine>
+                                    {{ payment_made.created_at.toDate() | date: 'longDate' }}</p>
+                                <p matLine class="font-weight-light mb-0">{{payment_made.amount_paid | currency: 'RD$'}}
+                                </p>
+                                <mat-divider></mat-divider>
+                            </mat-list-item>
+                        </mat-nav-list>
+                    </cdk-virtual-scroll-viewport>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
         <div class="col-12 p-4">
-            <mat-nav-list>
-                <mat-list-item *ngFor="let payment of payments_made" [routerLink]="['/payment', payment.payment_id]">
-                    <mat-icon mat-list-icon class="enabled-dollar">monetization_on</mat-icon>
-                    <p matLine>{{ payment.date.toDate() | date: 'fullDate' }}</p>
-                    <p matLine class="font-weight-light">{{payment.expected_amount| currency: 'RD$'}}</p>
-                    <mat-icon class="icon-display">check_circle</mat-icon>
-                    <mat-divider></mat-divider>
-                </mat-list-item>
-            </mat-nav-list>
-            <mat-list>
-                <mat-list-item *ngFor="let payment of payments_notMade">
-                    <mat-icon mat-list-icon class="disabled-dollar">attach_money</mat-icon>
-                    <p matLine>{{ payment.date.toDate() | date: 'fullDate' }}</p>
-                    <p matLine class="font-weight-light">{{payment.expected_amount | currency: 'RD$'}}</p>
-                    <button mat-icon-button (click)="openModal(template, payment)">
-                        <mat-icon class="icon-display">check_circle_outline</mat-icon>
-                    </button>
-                    <mat-divider></mat-divider>
-                </mat-list-item>
-            </mat-list>
+            <button type="submit" [disabled]="loan_completed" mat-flat-button class="col-12"
+                (click)="openModal(template)" color="primary">
+                Realizar Pago
+            </button>
         </div>
     </div>
     <ng-template #template>
         <div class="modal-header">
-            <h5 class="modal-title pull-left font-weight-light">Realizar Pago</h5>
+            <h5 class="modal-title pull-left font-weight-light">Nuevo pago</h5>
             <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -41,9 +62,9 @@
                     </mat-form-field>
                 </div>
                 <div class="col-12 mx-auto">
-                    <button type="submit" mat-flat-button class="col-12" (click)="pay()" color="primary"
+                    <button type="submit" mat-flat-button class="col-12" (click)="pay(loan)" color="primary"
                         [disabled]="paymentForm.invalid">
-                        Realizar pago
+                        Aceptar
                     </button>
                 </div>
             </form>

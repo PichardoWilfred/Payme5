@@ -41,10 +41,6 @@ export class ListComponent implements OnInit, OnDestroy {
   noClients: boolean;
 
   ngOnDestroy() {
-    // this.stateSubscription.unsubscribe();
-    // this.clientSubscription.unsubscribe();
     this.clients.emit(0);
   }
-  // stateSubscription: Subscription;
-  // clientSubscription: Subscription;
 }

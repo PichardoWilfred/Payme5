@@ -77,6 +77,7 @@ export class LoanFormComponent implements OnInit {
       payment_dates: this.paymentDates,
       missing_amount: this.total_payment,
       total_amount_paid: 0,
+      extra_amount: 0,
     };
     this.formValue.emit(loanFormValue);
   }
@@ -101,7 +102,7 @@ export class LoanFormComponent implements OnInit {
         break;
       }
       default:
-        console.log("ERROR CREATING PAYMENTDATES");
+        console.log("ERROR IN PAYMENT CREATION");
         break;
     }
   }
@@ -111,11 +112,11 @@ export class LoanFormComponent implements OnInit {
     let dates = [];
     for (let i = 0; i < cuotes; i++) {
       let payment = {
-        user_id: this.user_id,
         index: i,
         date: new Date(today.add(1, time_period).format(format)),
         paid: false,
-        expected_amount: this.fee_payment,
+        payment_amount_paid: 0,
+        late: false,
       };
       dates.push(payment);
     }

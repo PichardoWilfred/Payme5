@@ -1,9 +1,8 @@
 .icon-display {
   transform: scale(1.4);
-
 }
-.disabled-dollar {
-  transform: scale(2);
+.disabled {
+  transform: scale(1);
   color: rgb(167, 167, 167);
 }
 
@@ -11,3 +10,8 @@
   transform: scale(2);
   color: rgb(0, 0, 0);
 }
+
+.dates-list {
+  height: 25vh;
+}
+

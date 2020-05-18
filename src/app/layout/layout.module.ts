@@ -20,7 +20,7 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatStepperModule } from "@angular/material/stepper";
 import { ScrollingModule } from "@angular/cdk/scrolling";
-
+import { MatExpansionModule } from "@angular/material/expansion";
 @NgModule({
   declarations: [
     SidenavComponent,
@@ -29,6 +29,7 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
     BottomNavComponent,
   ],
   imports: [
+    MatExpansionModule,
     CommonModule,
     MatSidenavModule,
     MatMenuModule,
@@ -63,6 +64,7 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
     MatInputModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatExpansionModule,
   ],
 })
 export class LayoutModule {}

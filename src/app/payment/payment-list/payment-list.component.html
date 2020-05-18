@@ -4,7 +4,7 @@
         <mat-nav-list>
             <mat-list-item *ngFor="let payment of payment$ | async" [routerLink]="['/payment', payment.payment_id]">
                 <mat-icon matListIcon class=" icon-display">attach_money</mat-icon>
-                <p matLine class="font-weight-bold">{{payment.date_paid.toDate() |  date: 'shortDate'}}</p>
+                <p matLine class="font-weight-bold">{{payment.created_at.toDate() |  date: 'shortDate'}}</p>
                 <p matLine class="font-weight-thin">
                     {{payment.amount_paid | currency:'RD$'}}
                 </p>
