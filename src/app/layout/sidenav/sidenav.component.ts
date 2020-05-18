@@ -10,7 +10,7 @@ export class SidenavComponent implements OnInit {
   ngOnInit() {}
 
   showFiller: Boolean = false;
-  ToolbarTitle: string = "Home";
+  ToolbarTitle: string = "Inicio";
 
   navigate(sidenav: any) {
     sidenav.toggle();

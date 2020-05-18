@@ -3,7 +3,8 @@
         <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
         <mat-nav-list>
             <mat-list-item *ngFor="let client of client$ | async" [routerLink]="['/client',client.client_id]">
-                <mat-icon matListIcon class="icon-display">person_outline</mat-icon>
+                <mat-icon matListIcon *ngIf="!client.active_loan" class="icon-display">person_outline</mat-icon>
+                <mat-icon matListIcon *ngIf="client.active_loan" class="icon-display">person</mat-icon>
                 <p matLine class="font-weight-bold"> {{client.name}} </p>
                 <p matLine class="font-weight-thin">
                     {{client.cellphone}}
