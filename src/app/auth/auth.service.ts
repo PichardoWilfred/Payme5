@@ -4,7 +4,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AuthHandlerService } from "./auth-layout/err-handler/auth-handler.service";
 import { SnackbarService } from "../layout/snackbar.service";
-import { Observable, BehaviorSubject, of } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 import { switchMap, map } from "rxjs/operators";
 
 @Injectable({
@@ -18,8 +18,23 @@ export class AuthService {
     private err: AuthHandlerService,
     private snack: SnackbarService
   ) {}
-  // uid: string;
-  user$: Observable<boolean>; //for guard
+
+  //Toolbar titles
+  private title = new BehaviorSubject("");
+  actualTitle = this.title.asObservable();
+
+  changeTitle(message: string) {
+    this.title.next(message);
+  }
+
+  //Toolbar content
+  private toolbarAuth = new BehaviorSubject(false);
+  toolbarContent = this.toolbarAuth.asObservable();
+  
+  toggleAuth(state: boolean) {
+    this.toolbarAuth.next(state);
+  }
+
   async register(user: any) {
     try {
       let res = await this.auth.createUserWithEmailAndPassword(

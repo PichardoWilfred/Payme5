@@ -1,6 +1,5 @@
 <mat-toolbar color="primary" class="position-sticky fixed-top">
-  <mat-toolbar-row>
-
+  <mat-toolbar-row *ngIf="logged">
     <span class="mr-2 pt-1 mt-1">
       <button mat-icon-button (click)="toggleSideBar(true)">
         <mat-icon>menu</mat-icon>
@@ -27,4 +26,12 @@
       <mat-icon>more_vert</mat-icon>
     </button>
   </mat-toolbar-row>
+
+  <mat-toolbar-row *ngIf="!logged">
+    <span class="font-weight-light">
+      Payme
+    </span>
+  </mat-toolbar-row>
+
+
 </mat-toolbar>

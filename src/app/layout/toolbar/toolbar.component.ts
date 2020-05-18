@@ -8,15 +8,24 @@ import { Router } from "@angular/router";
 })
 export class ToolbarComponent implements OnInit {
   @Output() toggleEvent = new EventEmitter<boolean>();
+  logged: boolean;
 
   toggleSideBar(toggle: boolean) {
     this.toggleEvent.emit(toggle);
   }
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private authS: AuthService
+  ) {}
 
   async logout() {
     this.router.navigate(["auth/login"]);
     await this.auth.logout();
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this.authS.toolbarContent.subscribe((state) => {
+      this.logged = state;
+    });
+  }
 }

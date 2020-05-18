@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
   selector: "app-home-layout",
@@ -6,12 +7,13 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./home-layout.component.scss"],
 })
 export class HomeLayoutComponent implements OnInit {
-  constructor() {}
+  constructor(private authS: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authS.changeTitle("Inicio");
+  }
 
   homeNavBottom: Object[] = [
-    // { path: "dashboard", icon: "dashboard", title: "Tablero" },
     { path: "about", icon: "home", title: "Inicio" },
   ];
 }

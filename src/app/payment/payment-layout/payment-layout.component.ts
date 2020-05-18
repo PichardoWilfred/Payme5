@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
   selector: "app-payment-layout",
@@ -6,9 +7,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./payment-layout.component.scss"],
 })
 export class PaymentLayoutComponent implements OnInit {
-  constructor() {}
+  constructor(private authS: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.authS.changeTitle("Pagos realizados");
+  }
   paymentNavBottom: Object[] = [
     { path: "payment-list", icon: "payment", title: "Pagos" },
   ];

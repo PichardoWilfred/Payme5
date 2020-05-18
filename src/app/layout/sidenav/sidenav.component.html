@@ -1,11 +1,11 @@
 <mat-sidenav-container class="h-100">
     <mat-sidenav mode="over" #sideNav class="w-75">
-        <app-sidenav-content (toggleNavigate)="navigate(sideNav)" (toolBarTitle)="ToolbarTitle=$event">
+        <app-sidenav-content (toggleNavigate)="navigate(sideNav)">
         </app-sidenav-content>
     </mat-sidenav>
     <mat-sidenav-content>
         <app-toolbar (toggleEvent)="sideNav.toggle()">
-            {{ToolbarTitle}}
+            {{toolbarTitle}}
         </app-toolbar>
         <ng-content></ng-content>
     </mat-sidenav-content>

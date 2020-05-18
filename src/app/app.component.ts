@@ -13,6 +13,11 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.auth.authState.subscribe((user) => {
       this.user = user;
+      if (user) {
+        this.authS.toggleAuth(true);
+      } else {
+        this.authS.toggleAuth(false);
+      }
     });
   }
   title = "Payme";
