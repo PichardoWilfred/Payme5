@@ -9,6 +9,11 @@
                 <p matLine class="font-weight-thin">
                     {{loan.amount | currency:'RD$'}}
                 </p>
+                <p>
+                    <mat-icon *ngIf="loan.state == 'canceled' " color="warn">not_interested</mat-icon>
+                    <mat-icon *ngIf="loan.state == 'completed' " color="primary">check_circle_outline</mat-icon>
+                    <mat-icon *ngIf="loan.state == 'pending'" color="accent">remove_circle_outline</mat-icon>
+                </p>
                 <mat-divider></mat-divider>
             </mat-list-item>
         </mat-nav-list>

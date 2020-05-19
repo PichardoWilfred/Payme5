@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { LoanService } from "../loan.service";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { AuthService } from "src/app/auth/auth.service";
+import { SnackbarService } from "src/app/layout/snackbar.service";
 @Component({
   selector: "app-loan-detail",
   templateUrl: "./loan-detail.component.html",
@@ -15,7 +16,8 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
     private db: LoanService,
     private router: Router,
     private modalService: BsModalService,
-    private authS: AuthService
+    private authS: AuthService,
+    private snack: SnackbarService
   ) {}
   loanSubscription: Subscription;
   showSpinner: boolean = true;
@@ -49,6 +51,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
     this.db.disableLoan(this.client_id, this.loan_id, false);
     this.router.navigate(["loan/loan-list"]);
     this.modalRef.hide();
+    this.snack.bar("El préstamo fue cancelado", "OK");
   }
 
   decline(): void {

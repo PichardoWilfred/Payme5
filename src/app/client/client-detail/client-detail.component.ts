@@ -22,8 +22,6 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
   hasLoan: boolean;
   ngOnInit() {
     this.authS.toggleAuth("detail");
-    this.authS.toolbarContent.subscribe(console.log);
-    //este es el Behavior Subject del NavBottom
     this.client_id = this.route.snapshot.paramMap.get("id");
 
     this.client$ = this.db.getClient(this.client_id);

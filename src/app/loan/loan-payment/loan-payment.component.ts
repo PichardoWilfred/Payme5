@@ -23,7 +23,8 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
     private loan: LoanService,
     private payment: PaymentService,
     private modalService: BsModalService,
-    private authS: AuthService
+    private authS: AuthService,
+    private snack: SnackbarService
   ) {}
   paymentForm: FormGroup = this.fb.group({
     amount_paid: [null, [Validators.required]],
@@ -130,11 +131,10 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
       expected_amount: this.loan$["fee_payment"],
     };
 
-    // console.table(this.loan$);
-    // console.table(this.loan$["payment_dates"]);
     this.checkIfCompleted(this.loan$);
     this.payment.pay(payment_made, this.loan$, this.loan_id);
     this.modalRef.hide();
+    this.snack.bar("El pago fue realizado exitosamente", "OK");
   }
 
   checkIfCompleted(loan) {

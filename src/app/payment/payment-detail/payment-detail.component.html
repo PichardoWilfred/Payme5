@@ -1,43 +1,47 @@
-<div class="row p-4">
-    <div class="col-12">
-        <div *ngIf="payment$ | async as payment">
-            <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="payment.client_email">
-                <mat-label>Cliente</mat-label>
-                <mat-select [(value)]="payment.client_name">
-                    <mat-option [value]="payment.client_name">{{payment.client_name}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="col-12 col-md-6 pt-2">
-                <mat-label>Monto pagado</mat-label>
-                <input matInput [value]="payment.amount_paid | currency:'RD$'" readonly>
-                <mat-hint>Monto esperado: {{payment.expected_amount | currency:'RD$'}}</mat-hint>
-            </mat-form-field>
-
-            <mat-form-field class="col-12 col-md-6 pt-2">
-                <mat-label>Fecha de pago</mat-label>
-                <input matInput [value]="payment.date.toDate() | date:'fullDate'" readonly>
-                <mat-icon matSuffix>today</mat-icon>
-            </mat-form-field>
-
-            <mat-form-field class="col-12 col-md-6">
-                <mat-label>Balance actual</mat-label>
-                <input matInput [value]="payment.total_amount_paid | currency:'RD$'" readonly>
-            </mat-form-field>
-
-            <mat-form-field class="col-12 col-md-6">
-                <mat-label>Balance pendiente</mat-label>
-                <input matInput [value]="payment.missing_amount | currency:'RD$'" readonly>
-            </mat-form-field>
-
-            <div class="col-12 mt-2">
-                <button [routerLink]="['/loan', payment.loan_id]" mat-stroked-button color="primary"
-                    class="col-12 col-md-12">
-                    <mat-icon>work_outline</mat-icon> Ver préstamo
-                </button>
-            </div>
-
+<div *ngIf="payment$ | async as payment">
+    <div class="row mb-0">
+        <div *ngIf="payment.late" class="col-5 ml-auto pb-0 pb-0 mb-0 mt-3 ml-5 pl-4">
+            <button mat-flat-button color="warn">Atrasado</button>
         </div>
+    </div>
+    <div class="row p-4">
+        <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="payment.client_email">
+            <mat-label>Cliente</mat-label>
+            <mat-select [(value)]="payment.client_name">
+                <mat-option [value]="payment.client_name">{{payment.client_name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-6 pt-2">
+            <mat-label>Monto pagado</mat-label>
+            <input matInput [value]="payment.amount_paid | currency:'RD$'" readonly>
+            <mat-hint>Monto esperado: {{payment.expected_amount | currency:'RD$'}}</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-6 pt-2 mb-2">
+            <mat-label>Fecha de pago</mat-label>
+            <input matInput [value]="payment.created_at.toDate() | date:'fullDate'" readonly>
+            <mat-hint>Fecha esperada: {{payment.date.toDate() | date:'fullDate'}}</mat-hint>
+            <mat-icon matSuffix>today</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-6">
+            <mat-label>Balance actual</mat-label>
+            <input matInput [value]="payment.total_amount_paid | currency:'RD$'" readonly>
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-6">
+            <mat-label>Balance pendiente</mat-label>
+            <input matInput [value]="payment.missing_amount | currency:'RD$'" readonly>
+        </mat-form-field>
+
+        <div class="col-12 mt-2">
+            <button [routerLink]="['/loan', payment.loan_id]" mat-stroked-button color="primary"
+                class="col-12 col-md-12">
+                <mat-icon>work_outline</mat-icon> Ver préstamo
+            </button>
+        </div>
+
     </div>
 </div>

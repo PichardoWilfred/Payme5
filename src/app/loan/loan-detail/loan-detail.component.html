@@ -2,7 +2,10 @@
 <div *ngIf="loan$ | async as loan">
     <div class="row mb-0 pb-0">
         <div class="col-5 mr-auto pt-3 pb-0 mb-0 ml-4 gray">
-            {{loan.state}}
+            <button mat-flat-button *ngIf="loan.state == 'completed' " color="primary">Completo</button>
+            <button mat-flat-button *ngIf="loan.state == 'pending' " color="accent">Activo</button>
+            <button mat-flat-button *ngIf="loan.state == 'canceled' " color="warn">Cancelado</button>
+
         </div>
         <div class="col-5 ml-auto">
             <p class="font-weight_light pt-3 pb-0 mb-0 ml-5 gray">{{loan.created_at.toDate() | date: 'shortDate' }}
