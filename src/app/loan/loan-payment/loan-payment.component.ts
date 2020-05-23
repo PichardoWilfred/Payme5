@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import * as moment from "moment";
 import "moment/locale/es";
 import { AuthService } from "src/app/auth/auth.service";
+import { LayoutService } from "src/app/layout/layout.service";
 
 @Component({
   selector: "app-loan-payment",
@@ -23,14 +24,14 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
     private loan: LoanService,
     private payment: PaymentService,
     private modalService: BsModalService,
-    private authS: AuthService,
+    private layout: LayoutService,
     private snack: SnackbarService
   ) {}
   paymentForm: FormGroup = this.fb.group({
     amount_paid: [null, [Validators.required]],
   });
   ngOnInit() {
-    this.authS.toggleAuth("detail");
+    this.layout.toggleAuth("detail");
     this.loan_id = this.route.snapshot.paramMap.get("id");
     this.Ogloan = this.loan.getLoan(this.loan_id);
     this.Ogloan.subscribe((loan) => {
@@ -41,7 +42,7 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.authS.toggleAuth("logged");
+    this.layout.toggleAuth("logged");
   }
   showThesePayments: boolean = false;
   payments_made: Observable<Object[]>;

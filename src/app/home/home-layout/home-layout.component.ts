@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { AuthService } from "src/app/auth/auth.service";
+import { LayoutService } from "src/app/layout/layout.service";
 
 @Component({
   selector: "app-home-layout",
@@ -7,13 +7,11 @@ import { AuthService } from "src/app/auth/auth.service";
   styleUrls: ["./home-layout.component.scss"],
 })
 export class HomeLayoutComponent implements OnInit {
-  constructor(private authS: AuthService) {}
+  constructor(private layout: LayoutService) {}
 
   ngOnInit() {
-    this.authS.changeTitle("Inicio");
+    this.layout.changeTitle("Inicio");
   }
 
-  homeNavBottom: Object[] = [
-    { path: "about", icon: "home", title: "Inicio" },
-  ];
+  homeNavBottom: Object[] = [{ path: "about", icon: "home", title: "Inicio" }];
 }

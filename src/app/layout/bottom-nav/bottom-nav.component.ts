@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from "@angular/core";
+import { LayoutService } from "../layout.service";
 
 @Component({
   selector: "app-bottom-nav",
@@ -7,8 +8,11 @@ import { Component, OnInit, Input } from "@angular/core";
 })
 export class BottomNavComponent implements OnInit {
   @Input() options: [];
-  constructor() {}
-  ngOnInit() {}
-
-  
+  state: string;
+  constructor(private layout: LayoutService) {}
+  ngOnInit() {
+    this.layout.toolbarContent.subscribe((state) => {
+      this.state = state;
+    });
+  }
 }

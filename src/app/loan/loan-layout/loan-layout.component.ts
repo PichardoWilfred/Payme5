@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "src/app/auth/auth.service";
+import { LayoutService } from "src/app/layout/layout.service";
 
 @Component({
   selector: "app-loan-layout",
@@ -7,10 +8,10 @@ import { AuthService } from "src/app/auth/auth.service";
   styleUrls: ["./loan-layout.component.scss"],
 })
 export class LoanLayoutComponent implements OnInit {
-  constructor(private authS: AuthService) {}
+  constructor(private layout: LayoutService) {}
 
   ngOnInit() {
-    this.authS.changeTitle("Préstamo");
+    this.layout.changeTitle("Préstamos");
   }
   loanNavBottom: Object[] = [
     { path: "loan-list", icon: "list", title: "Préstamos" },

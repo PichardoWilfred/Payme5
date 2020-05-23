@@ -1,23 +1,27 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "../auth.service";
-import { SnackbarService } from "../../layout/snackbar.service";
+import { LayoutService } from "src/app/layout/layout.service";
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"],
 })
-export class RegisterComponent implements OnInit {
-
-  hidepassword= true;
+export class RegisterComponent implements OnInit, OnDestroy {
+  hidepassword = true;
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private auth: AuthService,
-    private snack: SnackbarService
+    private layout: LayoutService
   ) {}
-  ngOnInit() {}
+  ngOnInit() {
+    this.layout.changeTitle("Crear usuario");
+  }
+  ngOnDestroy() {
+    this.layout.changeTitle("");
+  }
   registerForm: FormGroup = this.fb.group({
     name: [
       "",

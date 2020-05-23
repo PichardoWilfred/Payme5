@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Observable } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ClientService } from "../client.service";
-import { AuthService } from "src/app/auth/auth.service";
+import { LayoutService } from "src/app/layout/layout.service";
 
 @Component({
   selector: "app-client-detail",
@@ -14,14 +14,15 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private db: ClientService,
     private router: Router,
-    private authS: AuthService
+    private layout: LayoutService
   ) {}
-  // clientSubscription: Subscription;
+
   client$: Observable<Object>;
   showSpinner: boolean = true;
   hasLoan: boolean;
+
   ngOnInit() {
-    this.authS.toggleAuth("detail");
+    this.layout.toggleAuth("detail");
     this.client_id = this.route.snapshot.paramMap.get("id");
 
     this.client$ = this.db.getClient(this.client_id);
@@ -31,7 +32,7 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.authS.toggleAuth("logged");
+    this.layout.toggleAuth("logged");
   }
   client_id: string;
 

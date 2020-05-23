@@ -7,7 +7,7 @@
       </button>
     </span>
     <h2 class="mr-2 pt-1 mt-1 font-weight-light">
-      <ng-content></ng-content>
+      {{toolTitle}}
     </h2>
 
     <mat-menu #appMenu="matMenu">
@@ -30,14 +30,12 @@
 
   <mat-toolbar-row *ngIf="state == 'unlogged'">
     <span class="font-weight-light">
-      Payme
+      {{toolTitle}}
     </span>
   </mat-toolbar-row>
 
   <mat-toolbar-row *ngIf="state == 'detail'">
-    <!-- <span class="font-weight-light"> -->
     <mat-icon (click)="back()">arrow_back</mat-icon>
-    <!-- </span> -->
   </mat-toolbar-row>
 
 

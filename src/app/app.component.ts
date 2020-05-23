@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
-import { AuthService } from "./auth/auth.service";
-import { Observable } from "rxjs";
+import { LayoutService } from "./layout/layout.service";
 
 @Component({
   selector: "app-root",
@@ -9,14 +8,14 @@ import { Observable } from "rxjs";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  constructor(private authS: AuthService, private auth: AngularFireAuth) {}
+  constructor(private auth: AngularFireAuth, private layout: LayoutService) {}
   ngOnInit() {
     this.auth.authState.subscribe((user) => {
       this.user = user;
       if (user) {
-        this.authS.toggleAuth("logged");
+        this.layout.toggleAuth("logged");
       } else {
-        this.authS.toggleAuth("unlogged");
+        this.layout.toggleAuth("unlogged");
       }
     });
   }

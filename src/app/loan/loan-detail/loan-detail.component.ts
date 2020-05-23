@@ -3,8 +3,8 @@ import { Subscription, Observable } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { LoanService } from "../loan.service";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
-import { AuthService } from "src/app/auth/auth.service";
 import { SnackbarService } from "src/app/layout/snackbar.service";
+import { LayoutService } from "src/app/layout/layout.service";
 @Component({
   selector: "app-loan-detail",
   templateUrl: "./loan-detail.component.html",
@@ -16,7 +16,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
     private db: LoanService,
     private router: Router,
     private modalService: BsModalService,
-    private authS: AuthService,
+    private layout: LayoutService,
     private snack: SnackbarService
   ) {}
   loanSubscription: Subscription;
@@ -29,7 +29,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   loan_completed: boolean;
   completed: boolean;
   ngOnInit() {
-    this.authS.toggleAuth("detail");
+    this.layout.toggleAuth("detail");
     this.loan_id = this.route.snapshot.paramMap.get("id");
     this.loan$ = this.db.getLoan(this.loan_id);
     this.loan$.subscribe((loan) => {
@@ -40,7 +40,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.authS.toggleAuth("logged");
+    this.layout.toggleAuth("logged");
   }
 
   openModal(template: TemplateRef<any>) {

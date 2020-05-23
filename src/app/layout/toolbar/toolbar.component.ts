@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { AuthService } from "../../auth/auth.service";
 import { Router } from "@angular/router";
 import { Location } from "@angular/common";
+import { LayoutService } from "../layout.service";
 @Component({
   selector: "app-toolbar",
   templateUrl: "./toolbar.component.html",
@@ -10,14 +11,14 @@ import { Location } from "@angular/common";
 export class ToolbarComponent implements OnInit {
   @Output() toggleEvent = new EventEmitter<boolean>();
   state: string;
-
+  toolTitle: string;
   toggleSideBar(toggle: boolean) {
     this.toggleEvent.emit(toggle);
   }
   constructor(
     private auth: AuthService,
     private router: Router,
-    private authS: AuthService,
+    private layout: LayoutService,
     private location: Location
   ) {}
 
@@ -26,12 +27,15 @@ export class ToolbarComponent implements OnInit {
     await this.auth.logout();
   }
   ngOnInit() {
-    this.authS.toolbarContent.subscribe((state) => {
+    this.layout.toolbarContent.subscribe((state) => {
       this.state = state;
+    });
+    this.layout.actualTitle.subscribe((title) => {
+      this.toolTitle = title;
     });
   }
 
-  back(){
+  back() {
     this.location.back();
   }
 }

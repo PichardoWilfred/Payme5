@@ -1,20 +1,25 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
 import { AuthService } from "../auth.service";
+import { LayoutService } from "src/app/layout/layout.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private layout: LayoutService
   ) {}
   hidepassword = true;
-  ngOnInit() {}
+  ngOnInit() {
+    this.layout.changeTitle("Iniciar Sesión");
+  }
+  ngOnDestroy() {
+    this.layout.changeTitle("");
+  }
   loginForm: FormGroup = this.fb.group({
     email: [
       "",

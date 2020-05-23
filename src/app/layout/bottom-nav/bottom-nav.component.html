@@ -1,4 +1,4 @@
-<mat-toolbar class="bottom-nav fixed-bottom">
+<mat-toolbar class="bottom-nav fixed-bottom" *ngIf="state!='detail'">
     <div class="d-flex h-100 w-100">
         <button *ngFor="let option of options" mat-button class="h-100 w-100" [routerLink]="option.path"
             routerLinkActive="primary">
