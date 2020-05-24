@@ -1,7 +1,10 @@
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../auth.service";
 import { LayoutService } from "src/app/layout/layout.service";
+import { AngularFireAuth } from "@angular/fire/auth";
+import { Router } from "@angular/router";
+
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
@@ -10,8 +13,10 @@ import { LayoutService } from "src/app/layout/layout.service";
 export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
-    private auth: AuthService,
-    private layout: LayoutService
+    private authS: AuthService,
+    private layout: LayoutService,
+    private auth: AngularFireAuth,
+    private route: Router
   ) {}
   hidepassword = true;
   ngOnInit() {
@@ -20,6 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.layout.changeTitle("");
   }
+
   loginForm: FormGroup = this.fb.group({
     email: [
       "",
@@ -31,6 +37,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     ],
   });
   async login() {
-    await this.auth.login(this.loginForm.value);
+    await this.authS.login(this.loginForm.value);
   }
 }

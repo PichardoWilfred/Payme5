@@ -23,8 +23,8 @@ export class ToolbarComponent implements OnInit {
   ) {}
 
   async logout() {
-    this.router.navigate(["auth/login"]);
     await this.auth.logout();
+    this.router.navigate(["auth/login"]);
   }
   ngOnInit() {
     this.layout.toolbarContent.subscribe((state) => {

@@ -6,21 +6,16 @@ import {
   UrlTree,
   Router,
 } from "@angular/router";
-import { Observable } from "rxjs";
-import { AuthService } from "../auth/auth.service";
-import { SnackbarService } from "../layout/snackbar.service";
 import { map } from "rxjs/operators";
+import { Observable } from "rxjs";
 import { AngularFireAuth } from "@angular/fire/auth";
+import { Location } from "@angular/common";
 
 @Injectable({
   providedIn: "root",
 })
-export class AuthGuardGuard implements CanActivate {
-  constructor(
-    private auth: AngularFireAuth,
-    private route: Router,
-    private snack: SnackbarService
-  ) {}
+export class AuthLoggedGuard implements CanActivate {
+  constructor(private auth: AngularFireAuth, private location: Location) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -31,12 +26,8 @@ export class AuthGuardGuard implements CanActivate {
     | UrlTree {
     return this.auth.authState.pipe(
       map((user) => {
-        if (!user) {
-          this.snack.bar(
-            "Necesita iniciar sesión para acceder a esta ruta",
-            "OK"
-          );
-          this.route.navigate(["auth/login"]);
+        if (user) {
+          this.location.back();
           return false;
         }
         return true;

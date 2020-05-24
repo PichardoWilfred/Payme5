@@ -1,5 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AuthGuardGuard } from "./auth/auth-guard.guard";
+import { AuthLoggedGuard } from "./auth/auth-logged.guard";
 
 const AppRoutes: Routes = [
   {
@@ -9,24 +11,29 @@ const AppRoutes: Routes = [
   },
   {
     path: "home",
+    canActivate: [AuthGuardGuard],
     loadChildren: () => import("./home/home.module").then((m) => m.HomeModule),
   },
   {
     path: "loan",
+    canActivate: [AuthGuardGuard],
     loadChildren: () => import("./loan/loan.module").then((m) => m.LoanModule),
   },
   {
     path: "payment",
+    canActivate: [AuthGuardGuard],
     loadChildren: () =>
       import("./payment/payment.module").then((m) => m.PaymentModule),
   },
   {
     path: "client",
+    canActivate: [AuthGuardGuard],
     loadChildren: () =>
       import("./client/clients.module").then((m) => m.ClientModule),
   },
   {
     path: "auth",
+    canActivate: [AuthLoggedGuard],
     loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
   },
   { path: "", redirectTo: "/home/about", pathMatch: "full" },

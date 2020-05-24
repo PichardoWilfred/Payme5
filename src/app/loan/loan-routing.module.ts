@@ -20,7 +20,6 @@ const loanRoutes: Routes = [
 
       { path: "", redirectTo: "/loan/loan-list" },
     ],
-    canActivate: [AuthGuardGuard],
   },
 ];
 

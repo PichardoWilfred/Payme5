@@ -16,9 +16,8 @@ const clientRoutes: Routes = [
       { path: "client-list", component: ClientListComponent },
       { path: ":id", component: ClientDetailComponent },
 
-      { path: "", redirectTo: "/client/client-list"},
+      { path: "", redirectTo: "/client/client-list" },
     ],
-    canActivate: [AuthGuardGuard],
   },
 ];
 

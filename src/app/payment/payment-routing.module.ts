@@ -4,7 +4,6 @@ import { Routes, RouterModule } from "@angular/router";
 import { PaymentListComponent } from "./payment-list/payment-list.component";
 import { PaymentLayoutComponent } from "./payment-layout/payment-layout.component";
 
-import { AuthGuardGuard } from "../auth/auth-guard.guard"; //guard
 import { PaymentDetailComponent } from "./payment-detail/payment-detail.component";
 
 const paymentRoutes: Routes = [
@@ -16,7 +15,6 @@ const paymentRoutes: Routes = [
       { path: ":id", component: PaymentDetailComponent },
       { path: "", redirectTo: "/payment/payment-list" },
     ],
-    canActivate: [AuthGuardGuard],
   },
 ];
 

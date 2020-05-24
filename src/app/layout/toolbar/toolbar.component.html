@@ -34,8 +34,15 @@
     </span>
   </mat-toolbar-row>
 
+
+  <mat-toolbar-row *ngIf="state == '' ">
+
+  </mat-toolbar-row>
+
   <mat-toolbar-row *ngIf="state == 'detail'">
-    <mat-icon (click)="back()">arrow_back</mat-icon>
+    <button mat-icon-button (click)="back()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
   </mat-toolbar-row>
 
 

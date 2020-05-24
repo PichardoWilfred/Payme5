@@ -17,7 +17,6 @@ const homeRoutes: Routes = [
       { path: "", redirectTo: "/home/about" },
       { path: "**", redirectTo: "/home" },
     ],
-    canActivate: [AuthGuardGuard],
   },
 ];
 
