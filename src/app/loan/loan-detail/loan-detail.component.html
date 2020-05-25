@@ -65,7 +65,7 @@
         <mat-divider class="col-12 ml-auto mb-2"></mat-divider>
         <div class="col-12" [routerLink]="['/loan',loan_id,'payments']">
             <h4 class="font-weight-light ml-3">Fechas de pago ({{loan.fees_amount}})</h4>
-            <cdk-virtual-scroll-viewport itemSize="50" class="dates-list w-100">
+            <cdk-virtual-scroll-viewport itemSize="50" class="list-1 w-100">
                 <mat-nav-list>
                     <mat-list-item *cdkVirtualFor="let payment of loan.payment_dates">
                         <mat-icon mat-list-icon class="disabled">today</mat-icon>

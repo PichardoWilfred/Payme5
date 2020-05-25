@@ -11,7 +11,6 @@ export class AppComponent implements OnInit {
   constructor(private auth: AngularFireAuth, private layout: LayoutService) {}
   ngOnInit() {
     this.auth.authState.subscribe((user) => {
-      this.user = user;
       if (user) {
         this.layout.toggleAuth("logged");
       } else {
@@ -20,5 +19,4 @@ export class AppComponent implements OnInit {
     });
   }
   title = "Payme";
-  user: any;
 }

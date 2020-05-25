@@ -5,7 +5,7 @@ import {
   Output,
   OnDestroy,
 } from "@angular/core";
-import { Subscription, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { ClientService } from "../../client.service";
 import { AngularFireAuth } from "@angular/fire/auth";
 
@@ -24,7 +24,7 @@ export class ListComponent implements OnInit, OnDestroy {
         this.client$ = this.db.getClients(user.uid);
         this.client$.subscribe((clients) => {
           this.showSpinner = false;
-          if (clients.length) {
+          if (clients.length > 1) {
             this.noClients = false;
           } else {
             this.noClients = true;
@@ -34,13 +34,11 @@ export class ListComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  ngOnDestroy() {
+    this.clients.emit(0);
+  }
   uid: string;
   client$: Observable<Object[]>;
   showSpinner: boolean = true;
   noClients: boolean;
-
-  ngOnDestroy() {
-    this.clients.emit(0);
-  }
 }

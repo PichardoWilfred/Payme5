@@ -13,5 +13,6 @@ export class ClientListComponent implements OnInit {
   setLength(length: number) {
     this.clientsLength = length.toString();
     this.showSpinner = false;
+    
   }
 }

@@ -15,6 +15,7 @@ export class ListLComponent implements OnInit {
   showSpinner: boolean = true;
   noLoans: boolean;
 
+  style: string = "active";
   ngOnInit() {
     this.auth.authState.subscribe((user) => {
       if (user) {

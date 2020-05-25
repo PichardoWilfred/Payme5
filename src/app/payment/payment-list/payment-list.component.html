@@ -1,16 +1,18 @@
-<div class="row">
+<div class="row mb-5">
     <div class="col">
         <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
-        <mat-nav-list>
-            <mat-list-item *ngFor="let payment of payment$ | async" [routerLink]="['/payment', payment.payment_id]">
-                <mat-icon matListIcon class=" icon-display">attach_money</mat-icon>
-                <p matLine class="font-weight-bold">{{payment.created_at.toDate() |  date: 'shortDate'}}</p>
-                <p matLine class="font-weight-thin">
-                    {{payment.amount_paid | currency:'RD$'}}
-                </p>
-                <mat-divider></mat-divider>
-            </mat-list-item>
-        </mat-nav-list>
+        <cdk-virtual-scroll-viewport itemSize="50" class="list-1">
+            <mat-nav-list>
+                <mat-list-item *ngFor="let payment of payment$ | async" [routerLink]="['/payment', payment.payment_id]">
+                    <mat-icon matListIcon class=" icon-display">attach_money</mat-icon>
+                    <p matLine class="font-weight-bold">{{payment.created_at.toDate() |  date: 'shortDate'}}</p>
+                    <p matLine class="font-weight-thin">
+                        {{payment.amount_paid | currency:'RD$'}}
+                    </p>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+            </mat-nav-list>
+        </cdk-virtual-scroll-viewport>
     </div>
     <div class="col-12">
         <div *ngIf="noPayments" class="col-12 col-md-6 text-center disabled  py-5 my-4">

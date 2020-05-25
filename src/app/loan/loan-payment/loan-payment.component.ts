@@ -162,12 +162,6 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
       .reduce((prev, curr) => (prev.index < curr.index ? prev : curr));
     return payment_over;
   }
-
-  getPayments(index, loan_id) {
-    let payments = this.payment.returnPayment(index, loan_id);
-    return payments;
-  }
-
   returnPayments(index, loan_id) {
     this.payments_made = this.payment.returnPayment(index, loan_id);
   }

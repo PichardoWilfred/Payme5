@@ -1,22 +1,25 @@
-<div class="row">
+<div class="row mb-5">
     <div class="col">
         <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
-        <mat-nav-list>
-            <mat-list-item [class.disabled]="!loan.active" *ngFor="let loan of loan$ | async"
-                [routerLink]="['/loan', loan.loan_id]">
-                <mat-icon matListIcon class="icon-display">work_outline</mat-icon>
-                <p matLine class="font-weight-bold"> {{loan.client_name}} </p>
-                <p matLine class="font-weight-thin">
-                    {{loan.amount | currency:'RD$'}}
-                </p>
-                <p>
-                    <mat-icon *ngIf="loan.state == 'canceled' " color="warn">not_interested</mat-icon>
-                    <mat-icon *ngIf="loan.state == 'completed' " color="primary">check_circle_outline</mat-icon>
-                    <mat-icon *ngIf="loan.state == 'pending'" color="accent">remove_circle_outline</mat-icon>
-                </p>
-                <mat-divider></mat-divider>
-            </mat-list-item>
-        </mat-nav-list>
+        <cdk-virtual-scroll-viewport itemSize="50" class="list-1">
+            <mat-nav-list>
+                <!-- [class]="loan.active ? 'active':'gray'" -->
+                <mat-list-item [style.color]="loan.active ? 'rgb(53, 53, 53)':'rgb(167, 167, 167)'"
+                    *ngFor="let loan of loan$ | async" [routerLink]="['/loan', loan.loan_id]">
+                    <mat-icon matListIcon class="icon-1">work_outline</mat-icon>
+                    <p matLine class="font-weight-bold"> {{loan.client_name}} </p>
+                    <p matLine class="font-weight-thin">
+                        {{loan.amount | currency:'RD$'}}
+                    </p>
+                    <p>
+                        <mat-icon *ngIf="loan.state == 'canceled' " color="warn">not_interested</mat-icon>
+                        <mat-icon *ngIf="loan.state == 'completed' " color="primary">check_circle_outline</mat-icon>
+                        <mat-icon *ngIf="loan.state == 'pending'" color="accent">remove_circle_outline</mat-icon>
+                    </p>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+            </mat-nav-list>
+        </cdk-virtual-scroll-viewport>
     </div>
     <div class="col-12">
         <div *ngIf="noLoans" class="col-12 col-md-6 text-center disabled py-5 my-4">
