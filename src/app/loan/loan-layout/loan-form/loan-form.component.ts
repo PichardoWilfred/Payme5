@@ -21,7 +21,7 @@ export class LoanFormComponent implements OnInit {
 
   ngOnInit() {
     this.stateSubscription = this.af.authState.subscribe((auth) => {
-      this.client$ = this.db.getAvailableClients(auth.uid);
+      this.client$ = this.db.getClients(auth.uid);
       this.user_id = auth.uid;
     });
   }
@@ -39,7 +39,8 @@ export class LoanFormComponent implements OnInit {
   });
 
   client$: Observable<Object[]>;
-  emailHint: string = "cliente@gmail.com";
+  emailHint: string = "ejemplo@gmail.com";
+  clientNotSelected: boolean = true;
   client_name: string;
   client_id: string = null;
 
@@ -78,13 +79,19 @@ export class LoanFormComponent implements OnInit {
       missing_amount: this.total_payment,
       total_amount_paid: 0,
       extra_amount: 0,
+      firstCheck: true,
+      cancel_reason: "",
     };
     this.formValue.emit(loanFormValue);
   }
 
-  setHint({ email, name }) {
-    this.emailHint = email;
-    this.client_name = name;
+  setHint(client) {
+    const { email, name } = client;
+    if (!client["active_loan"]) {
+      this.emailHint = email;
+      this.client_name = name;
+      this.clientNotSelected = false;
+    }
   }
 
   setPaymentDates(payment_period: string, cuotes: number) {

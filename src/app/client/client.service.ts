@@ -3,7 +3,6 @@ import {
   AngularFirestore,
   AngularFirestoreCollection,
 } from "@angular/fire/firestore";
-import { BehaviorSubject } from "rxjs";
 import { SnackbarService } from "../layout/snackbar.service";
 @Injectable({
   providedIn: "root",
@@ -43,5 +42,4 @@ export class ClientService {
     this.snack.bar("Cliente agregado exitosamente", "OK");
     this.ClientsCollection.add(client);
   }
-  
 }

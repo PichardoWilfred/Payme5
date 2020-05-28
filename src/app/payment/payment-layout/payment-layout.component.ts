@@ -10,9 +10,9 @@ export class PaymentLayoutComponent implements OnInit {
   constructor(private layout: LayoutService) {}
 
   ngOnInit() {
-    this.layout.changeTitle("Pagos realizados");
+    this.layout.changeTitle("Pagos");
   }
   paymentNavBottom: Object[] = [
-    { path: "payment-list", icon: "payment", title: "Pagos" },
+    { path: "payment-list", icon: "attach_money", title: "Pagos" },
   ];
 }

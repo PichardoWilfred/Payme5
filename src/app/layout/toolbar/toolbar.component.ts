@@ -23,6 +23,7 @@ export class ToolbarComponent implements OnInit {
   ) {}
 
   async logout() {
+    this.layout.changeTitle("")
     await this.auth.logout();
     this.router.navigate(["auth/login"]);
   }

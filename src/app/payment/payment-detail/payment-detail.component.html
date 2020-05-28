@@ -4,7 +4,7 @@
             <button mat-flat-button color="warn">Atrasado</button>
         </div>
     </div>
-    <div class="row p-4">
+    <div class="row p-4 m-1">
         <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="payment.client_email">
             <mat-label>Cliente</mat-label>
             <mat-select [(value)]="payment.client_name">
@@ -34,12 +34,11 @@
             <mat-label>Balance pendiente</mat-label>
             <input matInput [value]="payment.missing_amount | currency:'RD$'" readonly>
         </mat-form-field>
-
-        <div class="col-12 mt-2">
-            <button [routerLink]="['/loan', payment.loan_id]" mat-stroked-button color="primary"
-                class="col-12 col-md-12">
-                <mat-icon>work_outline</mat-icon> Ver préstamo
+        <div class="fab-container">
+            <button mat-fab [routerLink]="['/loan', payment.loan_id]" color="primary">
+                <mat-icon>work</mat-icon>
             </button>
         </div>
     </div>
+
 </div>

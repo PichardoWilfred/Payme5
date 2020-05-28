@@ -2,10 +2,10 @@
     <div class="d-flex h-100 w-100">
         <button *ngFor="let option of options" mat-button class="h-100 w-100" [routerLink]="option.path"
             routerLinkActive="primary">
-            <mat-icon class="icon mr-1 gray" routerLinkActive="active">
+            <mat-icon class="icon mr-1 gray" routerLinkActive="option-color">
                 {{option.icon}}
             </mat-icon>
-            <span class="span gray" routerLinkActive="active">{{option.title}}</span>
+            <span class="span gray" routerLinkActive="option-color">{{option.title}}</span>
         </button>
     </div>
 </mat-toolbar>

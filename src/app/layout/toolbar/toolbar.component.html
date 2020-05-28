@@ -1,5 +1,4 @@
 <mat-toolbar color="primary" class="position-sticky fixed-top">
-
   <mat-toolbar-row *ngIf="state == 'logged'">
     <span class="mr-2 pt-1 mt-1">
       <button mat-icon-button (click)="toggleSideBar(true)">
@@ -9,11 +8,7 @@
     <h2 class="mr-2 pt-1 mt-1 font-weight-light">
       {{toolTitle}}
     </h2>
-
     <mat-menu #appMenu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>settings</mat-icon>Configuración
-      </button>
       <button mat-menu-item routerLink="home/about">
         <mat-icon>help</mat-icon>Ayuda
       </button>
@@ -22,7 +17,6 @@
         <mat-icon>power_settings_new</mat-icon>Cerrar Sesión
       </button>
     </mat-menu>
-
     <button mat-icon-button [matMenuTriggerFor]="appMenu" class="ml-auto">
       <mat-icon>more_vert</mat-icon>
     </button>
@@ -34,9 +28,7 @@
     </span>
   </mat-toolbar-row>
 
-
   <mat-toolbar-row *ngIf="state == '' ">
-
   </mat-toolbar-row>
 
   <mat-toolbar-row *ngIf="state == 'detail'">

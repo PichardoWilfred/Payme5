@@ -13,7 +13,7 @@
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let payment of payments_date"
                     (click)="returnPayments(payment.index,loan_id)">
-                    <mat-expansion-panel-header [collapsedHeight]="'7vh'">
+                    <mat-expansion-panel-header [collapsedHeight]="'12vh'">
                         <mat-panel-title>
                             <mat-icon class="mat-list-icon myIcon">today</mat-icon>
                             <p class="pr-1">{{ payment.date.toDate() | date: 'shortDate' }}</p>
@@ -22,7 +22,7 @@
                             <p>{{ payment.payment_amount_paid | currency: 'RD$'}}</p>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <cdk-virtual-scroll-viewport itemSize="50" class="dates-list w-100">
+                    <cdk-virtual-scroll-viewport itemSize="50" class="list-s w-100">
                         <mat-nav-list>
                             <mat-list-item *ngFor="let payment_made of payments_made | async"
                                 [routerLink]="['/payment', payment_made.payment_id]">
@@ -38,10 +38,9 @@
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
-        <div class="col-12 p-4">
-            <button type="submit" [disabled]="loan_completed" mat-flat-button class="col-12"
-                (click)="openModal(template)" color="primary">
-                Realizar Pago
+        <div class="fab-container">
+            <button type="submit" [disabled]="loan_completed" mat-fab (click)="openModal(template)" color="primary">
+                <mat-icon>payment</mat-icon>
             </button>
         </div>
     </div>

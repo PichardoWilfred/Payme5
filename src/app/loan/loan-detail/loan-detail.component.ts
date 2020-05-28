@@ -5,6 +5,8 @@ import { LoanService } from "../loan.service";
 import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { SnackbarService } from "src/app/layout/snackbar.service";
 import { LayoutService } from "src/app/layout/layout.service";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+
 @Component({
   selector: "app-loan-detail",
   templateUrl: "./loan-detail.component.html",
@@ -17,7 +19,8 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
     private router: Router,
     private modalService: BsModalService,
     private layout: LayoutService,
-    private snack: SnackbarService
+    private snack: SnackbarService,
+    private fb: FormBuilder
   ) {}
   loanSubscription: Subscription;
   showSpinner: boolean = true;
@@ -26,8 +29,11 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   loan_id: string;
   client_id: string;
 
+  canceled: boolean;
+  cancel_reason: string;
   loan_completed: boolean;
   completed: boolean;
+  fabColor: string;
   ngOnInit() {
     this.layout.toggleAuth("detail");
     this.loan_id = this.route.snapshot.paramMap.get("id");
@@ -36,8 +42,19 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
       this.client_id = loan["client_id"];
       this.showSpinner = false;
       this.checkCompleted(loan);
+      if (loan["state"] == "canceled") {
+        this.canceled = true;
+      } else {
+        this.canceled = false;
+      }
+      this.showSnack(this.loan_id, loan);
+      this.fabColor = this.setFabColor(loan);
     });
   }
+
+  cancelForm: FormGroup = this.fb.group({
+    cancel_reason: ["", Validators.required],
+  });
 
   ngOnDestroy() {
     this.layout.toggleAuth("logged");
@@ -48,7 +65,12 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   }
 
   confirm(): void {
-    this.db.disableLoan(this.client_id, this.loan_id, false);
+    this.db.disableLoan(
+      this.client_id,
+      this.loan_id,
+      false,
+      this.cancel_reason
+    );
     this.router.navigate(["loan/loan-list"]);
     this.modalRef.hide();
     this.snack.bar("El préstamo fue cancelado", "OK");
@@ -71,6 +93,35 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   }
 
   completeLoan() {
-    this.db.disableLoan(this.client_id, this.loan_id, true);
+    this.db.disableLoan(this.client_id, this.loan_id, true, "");
+  }
+
+  showSnack(id, loan) {
+    let updated_loan = loan;
+    if (updated_loan["firstCheck"]) {
+      this.snack.bar10s(
+        "Presione el botón azul con el calendario para realizar un pago",
+        "OK"
+      );
+      this.db.firstCheckDone(id);
+    }
+  }
+
+  setFabColor(loan) {
+    let color;
+    switch (loan["state"]) {
+      case "completed":
+        color = "primary";
+        break;
+      case "canceled":
+        color = "warn";
+        break;
+      case "pending":
+        color = "accent";
+        break;
+      default:
+        break;
+    }
+    return color;
   }
 }

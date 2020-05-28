@@ -1,25 +1,28 @@
-<div class="row mb-5">
+<div class="row mb-5 mt-5">
     <div class="col">
         <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
-        <cdk-virtual-scroll-viewport itemSize="50" class="list-1">
+        <cdk-virtual-scroll-viewport itemSize="50" class="list-1" *ngIf="!noPayments">
             <mat-nav-list>
                 <mat-list-item *ngFor="let payment of payment$ | async" [routerLink]="['/payment', payment.payment_id]">
-                    <mat-icon matListIcon class=" icon-display">attach_money</mat-icon>
-                    <p matLine class="font-weight-bold">{{payment.created_at.toDate() |  date: 'shortDate'}}</p>
+                    <mat-icon matListIcon class="icon-1 mr-0">attach_money</mat-icon>
+                    <p matLine class="font-weight-bold">{{payment.client_name}}</p>
                     <p matLine class="font-weight-thin">
                         {{payment.amount_paid | currency:'RD$'}}
+                    </p>
+                    <p class="font-weight-thin date ml-2 mb-5 gray">
+                        {{payment.created_at.toDate() |  date: 'shortDate'}}
                     </p>
                     <mat-divider></mat-divider>
                 </mat-list-item>
             </mat-nav-list>
         </cdk-virtual-scroll-viewport>
     </div>
-    <div class="col-12">
-        <div *ngIf="noPayments" class="col-12 col-md-6 text-center disabled  py-5 my-4">
-            <mat-icon class="display-2 mr-5 pr-5 pb-0">attach_money</mat-icon>
-            <p class="font-weight-light px-3 mt-0 pt-0">
-                No hay pagos realizados
-            </p>
-        </div>
+</div>
+<div class="row">
+    <div *ngIf="noPayments" class="col-12 col-md-6 text-center not-found my-5 my-4">
+        <mat-icon class="icon-b mb-5 mt-5">monetization_on</mat-icon>
+        <p class="font-weight-light px-3">
+            No hay pagos registrados
+        </p>
     </div>
 </div>

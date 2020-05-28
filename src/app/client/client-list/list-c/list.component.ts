@@ -24,10 +24,10 @@ export class ListComponent implements OnInit, OnDestroy {
         this.client$ = this.db.getClients(user.uid);
         this.client$.subscribe((clients) => {
           this.showSpinner = false;
-          if (clients.length > 1) {
-            this.noClients = false;
+          if (clients.length) {
+            this.theresNotClients = false;
           } else {
-            this.noClients = true;
+            this.theresNotClients = true;
           }
           this.clients.emit(clients.length);
         });
@@ -40,5 +40,5 @@ export class ListComponent implements OnInit, OnDestroy {
   uid: string;
   client$: Observable<Object[]>;
   showSpinner: boolean = true;
-  noClients: boolean;
+  theresNotClients: boolean;
 }

@@ -7,17 +7,3 @@ input::-webkit-inner-spin-button {
 input[type="number"] {
   -moz-appearance: textfield;
 }
-.icon-display {
-  transform: scale(1);
-}
-.disabled {
-  transform: scale(1.5);
-  color: rgb(167, 167, 167);
-}
-.enabled-dollar {
-  transform: scale(1.5);
-  color: rgb(0, 0, 0);
-}
-.dates-list {
-  height: 12em;
-}

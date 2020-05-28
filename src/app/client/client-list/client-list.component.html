@@ -1,22 +1,13 @@
 <div class="row text-center">
     <div class="col-12 justify-content-center pt-2">
         <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner" [diameter]="50"></mat-spinner>
-        <div class="mr-5" matTooltip="Clientes registrados" *ngIf="clientsLength > 0">
-            <h1 class="font-weight-light">{{clientsLength}}
+        <div class="mr-5 active" *ngIf="clientsLength > 0">
+            <h1 class="font-weight-light active">{{clientsLength}}
                 <span>
-                    <mat-icon class="icon-display-2 ml-1">people_alt</mat-icon>
+                    <mat-icon class="icon-2 ml-1 active">people_alt</mat-icon>
                 </span>
             </h1>
         </div>
     </div>
 </div>
 <list (clients)="setLength($event)"></list>
-<div *ngIf="clientsLength <= 0">
-    <div class="col-12 col-md-6 text-center not-found py-5 my-4">
-        <mat-icon class="display-2 mr-5 pr-5 pb-0">supervised_user_circle</mat-icon>
-        <p class="font-weight-light px-3 mt-0 pt-0">
-            No hay clientes registrados
-        </p>
-        <h2>NO HAY NADA</h2>
-    </div>
-</div>

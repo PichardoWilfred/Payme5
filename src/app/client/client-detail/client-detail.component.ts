@@ -28,7 +28,8 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
     this.client$ = this.db.getClient(this.client_id);
     this.client$.subscribe((client) => {
       this.showSpinner = false;
-      this.hasLoan = client["loan_id"].length ? true : false;
+      this.hasLoan = client["active_loan"];
+      // this.hasLoan = client["loan_id"].length ? true : false;
     });
   }
   ngOnDestroy() {

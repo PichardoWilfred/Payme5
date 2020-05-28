@@ -15,4 +15,10 @@ export class SnackbarService {
   bar(message: string, action: string) {
     this._snackBar.open(message, action, this.config);
   }
+  bar10s(message: string, action: string) {
+    this._snackBar.open(message, action, {
+      duration: 10000,
+      panelClass: ["snackbar-action"],
+    });
+  }
 }

@@ -1,12 +1,12 @@
 <div class="row mb-5">
     <div class="col">
         <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
-        <cdk-virtual-scroll-viewport itemSize="50" class="list-1">
+        <cdk-virtual-scroll-viewport itemSize="50" class="list-1" *ngIf="!noLoans">
             <mat-nav-list>
-                <!-- [class]="loan.active ? 'active':'gray'" -->
                 <mat-list-item [style.color]="loan.active ? 'rgb(53, 53, 53)':'rgb(167, 167, 167)'"
                     *ngFor="let loan of loan$ | async" [routerLink]="['/loan', loan.loan_id]">
-                    <mat-icon matListIcon class="icon-1">work_outline</mat-icon>
+                    <mat-icon *ngIf="!loan.active" matListIcon class="icon-1">work</mat-icon>
+                    <mat-icon *ngIf="loan.active" matListIcon class="icon-1">work</mat-icon>
                     <p matLine class="font-weight-bold"> {{loan.client_name}} </p>
                     <p matLine class="font-weight-thin">
                         {{loan.amount | currency:'RD$'}}
@@ -14,19 +14,20 @@
                     <p>
                         <mat-icon *ngIf="loan.state == 'canceled' " color="warn">not_interested</mat-icon>
                         <mat-icon *ngIf="loan.state == 'completed' " color="primary">check_circle_outline</mat-icon>
-                        <mat-icon *ngIf="loan.state == 'pending'" color="accent">remove_circle_outline</mat-icon>
+                        <mat-icon *ngIf="loan.state == 'pending'" color="accent">more_horiz</mat-icon>
                     </p>
-                    <mat-divider></mat-divider>
+                    <mat-divider class="ml-3"></mat-divider>
                 </mat-list-item>
             </mat-nav-list>
         </cdk-virtual-scroll-viewport>
     </div>
-    <div class="col-12">
-        <div *ngIf="noLoans" class="col-12 col-md-6 text-center disabled py-5 my-4">
-            <mat-icon class="display-2 mr-5 pr-5 pb-0">work</mat-icon>
-            <p class="font-weight-light px-3 mt-0 pt-0">
-                No hay préstamos registrados
-            </p>
-        </div>
+
+</div>
+<div class="row">
+    <div *ngIf="noLoans" class="col-12 col-md-6 text-center not-found my-5 my-4">
+        <mat-icon class="icon-b mb-5 mt-5">work</mat-icon>
+        <p class="font-weight-light px-3">
+            No hay préstamos registrados
+        </p>
     </div>
 </div>

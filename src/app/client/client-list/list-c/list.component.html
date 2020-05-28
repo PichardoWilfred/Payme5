@@ -2,7 +2,7 @@
     <div class="col-12">
         <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner">
         </mat-spinner>
-        <cdk-virtual-scroll-viewport itemSize="50" class="list-1">
+        <cdk-virtual-scroll-viewport itemSize="50" class="list-1" *ngIf="!theresNotClients">
             <mat-nav-list>
                 <mat-list-item *ngFor="let client of client$ | async" [routerLink]="['/client',client.client_id]">
                     <mat-icon matListIcon *ngIf="!client.active_loan" class="icon-1 active">person_outline
@@ -12,9 +12,17 @@
                     <p matLine class="font-weight-thin">
                         {{client.cellphone}}
                     </p>
-                    <mat-divider></mat-divider>
+                    <mat-divider class="ml-3"></mat-divider>
                 </mat-list-item>
             </mat-nav-list>
         </cdk-virtual-scroll-viewport>
+    </div>
+</div>
+<div class="row align-items-center">
+    <div class="col-12 col-md-6 text-center not-found my-5 my-4" *ngIf="theresNotClients">
+        <mat-icon class="icon-b mb-5 mt-5">supervised_user_circle</mat-icon>
+        <p class="font-weight-light px-3">
+            No hay clientes registrados
+        </p>
     </div>
 </div>

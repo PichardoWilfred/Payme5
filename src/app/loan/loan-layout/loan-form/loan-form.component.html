@@ -5,11 +5,16 @@
                 <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="emailHint">
                     <mat-label>Cliente</mat-label>
                     <mat-select formControlName="client_id" [(ngModel)]="client_id">
-                        <mat-option *ngFor=" let client of client$ | async" [value]="client.client_id"
-                            (click)="setHint(client)">{{client.name}}
+                        <mat-option [disabled]="client.active_loan" *ngFor=" let client of client$ | async"
+                            [value]="client.client_id" (click)="setHint(client)">{{client.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
+                <div class="col-12 col-md-6" *ngIf="clientNotSelected">
+                    <p class="font-weight-light date gray">Solo puedes crear
+                        prestamos a clientes que no tengan
+                        ninguno activo</p>
+                </div>
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Monto</mat-label>
                     <input matInput formControlName="amount" type="number" [(ngModel)]="amount">
@@ -53,10 +58,10 @@
                     <p class="font-weight-light"><b>Pago total:</b>
                         {{total_payment || null  | currency: 'RD$'}}
                     </p>
-                    <cdk-virtual-scroll-viewport itemSize="50" class="dates-list w-100">
+                    <cdk-virtual-scroll-viewport itemSize="50" class="list-s w-100">
                         <mat-list>
                             <mat-list-item *cdkVirtualFor="let payment of paymentDates">
-                                <mat-icon mat-list-icon class="disabled">today</mat-icon>
+                                <mat-icon mat-list-icon class="icon-1" color="primary">today</mat-icon>
                                 <p matLine>
                                     {{ payment.date | date: 'fullDate' }}</p>
                                 <p matLine class="font-weight-light mb-0 mt-2">{{fee_payment | currency: 'RD$'}}

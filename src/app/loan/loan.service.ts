@@ -42,19 +42,32 @@ export class LoanService {
     return this.firestore.collection("loans").doc(loan_id).valueChanges();
   }
 
-  disableLoan(client_id: string, loan_id: string, completed: boolean) {
+  disableLoan(
+    client_id: string,
+    loan_id: string,
+    completed: boolean,
+    cancel_reason: string
+  ) {
     if (completed) {
       this.firestore.collection("loans").doc(loan_id).update({ active: false });
     } else {
       this.firestore
         .collection("loans")
         .doc(loan_id)
-        .update({ active: false, state: "canceled" });
+        .update({
+          active: false,
+          state: "canceled",
+          cancel_reason: cancel_reason,
+        });
     }
 
     this.firestore
       .collection("clients")
       .doc(client_id)
       .update({ active_loan: false, loan_id: "" });
+  }
+
+  firstCheckDone(id) {
+    this.firestore.collection("loans").doc(id).update({ firstCheck: false });
   }
 }
