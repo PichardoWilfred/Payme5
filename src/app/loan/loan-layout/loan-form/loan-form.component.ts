@@ -1,10 +1,20 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+} from "@angular/core";
 import { Observable, Subscription } from "rxjs";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { ClientService } from "src/app/client/client.service";
 import * as moment from "moment";
 import "moment/locale/es";
+import { GuarantorService } from "src/app/guarantor/guarantor.service";
+import { MatStepper } from "@angular/material";
+
 @Component({
   selector: "loan-form",
   templateUrl: "./loan-form.component.html",
@@ -16,7 +26,8 @@ export class LoanFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private af: AngularFireAuth,
-    private db: ClientService
+    private db: ClientService,
+    private guarantor: GuarantorService
   ) {}
 
   ngOnInit() {
@@ -38,11 +49,22 @@ export class LoanFormComponent implements OnInit {
     fees_amount: ["", Validators.required],
   });
 
+  @ViewChild("stepper", { static: false }) stepper: MatStepper;
+
   client$: Observable<Object[]>;
-  emailHint: string = "ejemplo@gmail.com";
+  clientEmailHint: string = "";
   clientNotSelected: boolean = true;
   client_name: string;
   client_id: string = null;
+
+  guarantor$: Observable<Object[]>;
+  guarantorEmailHint: string = "";
+  guarantor_name: string;
+  guarantor_id: string = null;
+  guarantor_cellphone: string;
+
+  theresGuarantors: boolean = false;
+  selectedGuarantor: boolean = false;
 
   amount: number = null;
   payment_period: string = null;
@@ -54,6 +76,10 @@ export class LoanFormComponent implements OnInit {
   fee_payment: number = null;
   total_payment: number = null;
 
+  move(index: number) {
+    this.stepper.selectedIndex = index;
+  }
+
   getResults() {
     this.full_interest = this.amount * (this.interest_rate * 0.01) || null;
     this.total_payment = this.amount + this.full_interest || null;
@@ -61,37 +87,50 @@ export class LoanFormComponent implements OnInit {
       this.fee_payment = Math.ceil(this.total_payment / this.fees_amount);
     }
     this.setPaymentDates(this.payment_period, this.fees_amount);
+
+    this.guarantor$ = this.guarantor.getGuarantors(this.client_id);
+    this.guarantor$.subscribe((guarantor) => {
+      if (guarantor.length) {
+        this.theresGuarantors = true;
+      } else {
+        this.theresGuarantors = false;
+      }
+    });
   }
 
-  submit() {
-    let loanFormValue = {
-      ...this.loanForm.value,
+  addGuarantor(guarantor) {
+    let new_guarantor = {
+      ...guarantor,
       client_id: this.client_id,
-      client_email: this.emailHint,
       client_name: this.client_name,
-      full_interest: this.full_interest,
-      total_payment: this.total_payment,
-      fee_payment: this.fee_payment,
-      active: true,
-      state: "pending",
-      created_at: new Date(),
-      payment_dates: this.paymentDates,
-      missing_amount: this.total_payment,
-      total_amount_paid: 0,
-      extra_amount: 0,
-      firstCheck: true,
-      cancel_reason: "",
+      client_email: this.clientEmailHint,
     };
-    this.formValue.emit(loanFormValue);
+
+    const { name, email, cellphone, guarantor_id } = guarantor;
+    this.guarantor.addGuarantor(new_guarantor);
+    this.guarantor_name = name;
+    this.guarantorEmailHint = email;
+    this.guarantor_cellphone = cellphone;
+    this.guarantor_id = guarantor_id;
+
+    this.stepper.next();
   }
 
-  setHint(client) {
+  setClientHint(client) {
     const { email, name } = client;
     if (!client["active_loan"]) {
-      this.emailHint = email;
+      this.clientEmailHint = email;
       this.client_name = name;
       this.clientNotSelected = false;
+      this.guarantorEmailHint = "";
+      this.guarantor_id = "";
     }
+  }
+
+  setGuarantorHint(guarantor) {
+    const { email, name } = guarantor;
+    this.guarantorEmailHint = email;
+    this.guarantor_name = name;
   }
 
   setPaymentDates(payment_period: string, cuotes: number) {
@@ -128,5 +167,30 @@ export class LoanFormComponent implements OnInit {
       dates.push(payment);
     }
     return dates;
+  }
+
+  submit() {
+    let loanFormValue = {
+      ...this.loanForm.value,
+      client_id: this.client_id,
+      client_email: this.clientEmailHint,
+      client_name: this.client_name,
+      full_interest: this.full_interest,
+      total_payment: this.total_payment,
+      fee_payment: this.fee_payment,
+      active: true,
+      state: "pending",
+      created_at: new Date(),
+      payment_dates: this.paymentDates,
+      missing_amount: this.total_payment,
+      total_amount_paid: 0,
+      extra_amount: 0,
+      firstCheck: true,
+      cancel_reason: "",
+      guarantor_id: this.guarantor_id,
+      guarantor_name: this.guarantor_name,
+      guarantor_email: this.guarantorEmailHint,
+    };
+    this.formValue.emit(loanFormValue);
   }
 }

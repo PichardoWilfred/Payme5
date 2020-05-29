@@ -1,12 +1,12 @@
 <div class="row mb-5 p-3">
-    <mat-vertical-stepper linear (selectionChange)="getResults()">
+    <mat-vertical-stepper linear (selectionChange)="getResults()" #stepper>
         <mat-step [stepControl]="loanForm" label="Ingrese la información del préstamo">
             <form [formGroup]="loanForm" autocomplete="off">
-                <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="emailHint">
+                <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="clientEmailHint">
                     <mat-label>Cliente</mat-label>
                     <mat-select formControlName="client_id" [(ngModel)]="client_id">
                         <mat-option [disabled]="client.active_loan" *ngFor=" let client of client$ | async"
-                            [value]="client.client_id" (click)="setHint(client)">{{client.name}}
+                            [value]="client.client_id" (click)="setClientHint(client)">{{client.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -46,7 +46,31 @@
                 </div>
             </form>
         </mat-step>
-        <mat-step label="Confirmar préstamo" class="pb-0">
+        <mat-step label="Seleccionar garante" class="pb-0">
+            <div *ngIf="theresGuarantors">
+                <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="guarantorEmailHint">
+                    <mat-label>Garante</mat-label>
+                    <mat-select [(ngModel)]="guarantor_id">
+                        <mat-option *ngFor=" let guarantor of guarantor$ | async" [value]="guarantor.guarantor_id"
+                            (click)="setGuarantorHint(guarantor)">{{guarantor.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button (click)="move(2)" [disabled]="!guarantor_id" mat-flat-button color="primary"
+                    class="col-12 col-md-12">
+                    Siguiente
+                </button>
+            </div>
+            <div *ngIf="!theresGuarantors">
+                <button (click)="move(2)" mat-button color="primary" class="col-12 col-md-12">
+                    Añadir Garante
+                </button>
+            </div>
+        </mat-step>
+        <mat-step *ngIf="!theresGuarantors" label="Añadir garante" class="pb-0">
+            <guarantor-form (newGuarantor)="addGuarantor($event)"></guarantor-form>
+        </mat-step>
+        <mat-step label="Crear préstamo" class="pb-0">
             <div class="row p-2 pb-0">
                 <div class="col-12 col-md-10">
                     <p class="font-weight-light"><b>Pagos por cuota:</b>
@@ -71,9 +95,9 @@
                         </mat-list>
                     </cdk-virtual-scroll-viewport>
                     <div class="col-12 col-md-6 p-2 mt-2">
-                        <button (click)="submit()" [disabled]="loanForm.invalid" mat-flat-button color="primary"
-                            matStepperNext class="col-12 col-md-12">
-                            Crear Préstamo
+                        <button (click)="submit()" [disabled]="loanForm.invalid || !guarantor_id" mat-flat-button
+                            color="primary" matStepperNext class="col-12 col-md-12">
+                            Crear préstamo
                         </button>
                     </div>
                 </div>

@@ -1,0 +1,22 @@
+<form [formGroup]="guarantorForm" autocomplete="off">
+    <mat-form-field class="col-12 col-md-6">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="col-12 col-md-6">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput formControlName="email">
+        <mat-icon matSuffix>mail</mat-icon>
+    </mat-form-field>
+    <mat-form-field class="col-12 col-md-6">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="cellphone" type="number">
+        <mat-icon matSuffix>phone</mat-icon>
+    </mat-form-field>
+    <div class="col-12 col-md-6 p-2">
+        <button (click)="submit()" [disabled]="guarantorForm.invalid" mat-flat-button color="primary"
+            class="col-12 col-md-12" matStepperNext>
+            Añadir Garante
+        </button>
+    </div>
+</form>

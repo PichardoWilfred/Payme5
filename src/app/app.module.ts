@@ -10,11 +10,9 @@ import { environment } from "../environments/environment"; //FirebaseModules
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
-
 import { AuthGuardGuard } from "./auth/auth-guard.guard";
 import { ModalModule } from "ngx-bootstrap/modal";
 
-// import localeEsAr from '@angular/common/locales/es-AR'; //Date related Stuff
 import { registerLocaleData } from "@angular/common";
 import localeEs from "@angular/common/locales/es-DO";
 registerLocaleData(localeEs, "es-DO");

@@ -40,16 +40,6 @@ export class ClientFormComponent implements OnInit {
     relative_email: ["", [Validators.required, Validators.email]],
     relative_cellphone: [null, [Validators.required, Validators.minLength(10)]],
     relative_bond: ["", [Validators.required]],
-    // guarantor_name: [
-    //   "",
-    //   [
-    //     Validators.required,
-    //     Validators.minLength(10),
-    //     Validators.maxLength(100),
-    //   ],
-    // ],
-    // guarantor_email: ["", [Validators.required, Validators.email]],
-    // guarantor_cellphone: ["", [Validators.required, Validators.minLength(10)]],
   });
   submit() {
     this.formValue.emit(this.clientForm.value);
