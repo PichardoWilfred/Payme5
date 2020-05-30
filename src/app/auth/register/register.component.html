@@ -1,42 +1,39 @@
 <div class="row p-4 mt-3 align-items-center">
-    <div class="col-12 col-md-12">
+    <div class="col-12 col-md-12 mt-3">
         <form [formGroup]="registerForm" autocomplete="off" (ngSubmit)="register()">
             <mat-form-field class="col-12 col-md-6">
                 <mat-label>Nombre completo</mat-label>
                 <input matInput formControlName="name">
-                <mat-icon matSuffix>person</mat-icon>
+                <mat-icon color="primary" matSuffix>person</mat-icon>
             </mat-form-field>
             <mat-form-field class="col-12 col-md-12">
                 <mat-label>Correo electrónico</mat-label>
                 <input matInput formControlName="email">
-                <mat-icon matSuffix>email</mat-icon>
+                <mat-icon color="primary" matSuffix>email</mat-icon>
             </mat-form-field>
             <mat-form-field class="col-12 col-md-6">
                 <mat-label>Nombre de usuario</mat-label>
                 <input matInput formControlName="username">
-                <mat-icon matSuffix>account_circle</mat-icon>
+                <mat-icon color="primary" matSuffix>account_circle</mat-icon>
             </mat-form-field>
             <mat-form-field class="col-12 col-md-12">
                 <mat-label>Contraseña</mat-label>
                 <input matInput [type]="hidepassword ? 'password' : 'text'" formControlName="password">
                 <button mat-icon-button matSuffix (click)="hidepassword = !hidepassword"
                     [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidepassword">
-                    <mat-icon>{{hidepassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-icon color="primary">{{hidepassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
             </mat-form-field>
             <mat-form-field class="col-12 col-md-6">
                 <mat-label>Celular</mat-label>
                 <input matInput type="number" formControlName="cellphone">
-                <mat-icon matSuffix>smartphone</mat-icon>
+                <mat-icon color="primary" matSuffix>smartphone</mat-icon>
             </mat-form-field>
             <mat-form-field class="col-12 col-md-6 mb-2" hintLabel="No obligatorio">
                 <mat-label>Teléfono</mat-label>
                 <input matInput type="number" formControlName="phone">
-                <mat-icon matSuffix>phone</mat-icon>
+                <mat-icon color="primary" matSuffix>phone</mat-icon>
             </mat-form-field>
-            <p [routerLink]="['/auth/login']" class="font-weight-light text-center link">¿Ya tiene una cuenta?
-                <b>Iniciar sesión</b>
-            </p>
             <button type="submit" [disabled]="registerForm.invalid" mat-flat-button color="primary"
                 class="col-12 col-md-12"> Crear cuenta
             </button>

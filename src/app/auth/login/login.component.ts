@@ -2,8 +2,6 @@ import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../auth.service";
 import { LayoutService } from "src/app/layout/layout.service";
-import { AngularFireAuth } from "@angular/fire/auth";
-import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -14,18 +12,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private authS: AuthService,
-    private layout: LayoutService,
-    private auth: AngularFireAuth,
-    private route: Router
+    private layout: LayoutService
   ) {}
-  hidepassword = true;
   ngOnInit() {
     this.layout.changeTitle("Iniciar Sesión");
+    this.layout.toggleAuth("unlogged");
   }
   ngOnDestroy() {
     this.layout.changeTitle("");
   }
-
+  hidepassword = true;
   loginForm: FormGroup = this.fb.group({
     email: [
       "",

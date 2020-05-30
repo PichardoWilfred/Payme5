@@ -15,19 +15,36 @@ body {
   pointer-events: none !important;
 }
 
+.open-sans {
+  font-family: "Open Sans" !important;
+}
+
 .date {
   font-size: 0.8em;
+}
+
+.desc {
+  color: #c5cae9;
+}
+.white {
+  color: white;
 }
 
 .link {
   color: #64b5f6 !important;
 }
+
 .gray {
   color: rgb(167, 167, 167);
 }
 .active {
   color: #444444;
 }
+
+.indigo {
+  color: #3f51b5;
+}
+
 .option-color {
   color: #646464;
 }

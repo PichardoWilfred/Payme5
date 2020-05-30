@@ -8,7 +8,8 @@ import { AuthLayoutComponent } from "./auth-layout/auth-layout.component";
 import { LayoutModule } from "../layout/layout.module";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { AuthToolbarComponent } from "./auth-layout/auth-toolbar/auth-toolbar.component"; //Forms
+import { AuthToolbarComponent } from "./auth-layout/auth-toolbar/auth-toolbar.component";
+import { WelcomeComponent } from './welcome/welcome.component'; //Forms
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AuthToolbarComponent } from "./auth-layout/auth-toolbar/auth-toolbar.co
     RegisterComponent,
     AuthLayoutComponent,
     AuthToolbarComponent,
+    WelcomeComponent,
   ],
   imports: [
     CommonModule,

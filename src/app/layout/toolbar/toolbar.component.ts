@@ -12,6 +12,7 @@ export class ToolbarComponent implements OnInit {
   @Output() toggleEvent = new EventEmitter<boolean>();
   state: string;
   toolTitle: string;
+  welcomeView: boolean;
   toggleSideBar(toggle: boolean) {
     this.toggleEvent.emit(toggle);
   }
@@ -23,13 +24,16 @@ export class ToolbarComponent implements OnInit {
   ) {}
 
   async logout() {
-    this.layout.changeTitle("")
+    this.layout.changeTitle("");
     await this.auth.logout();
     this.router.navigate(["auth/login"]);
   }
   ngOnInit() {
     this.layout.toolbarContent.subscribe((state) => {
       this.state = state;
+      if (state == "welcome") {
+        this.welcomeView = true;
+      }
     });
     this.layout.actualTitle.subscribe((title) => {
       this.toolTitle = title;

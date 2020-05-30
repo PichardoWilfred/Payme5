@@ -1,34 +1,36 @@
 <mat-toolbar color="primary" class="position-sticky fixed-top">
   <mat-toolbar-row *ngIf="state == 'logged'">
-    <span class="mr-2 pt-1 mt-1">
+    <span class="mr-2 pt-1">
       <button mat-icon-button (click)="toggleSideBar(true)">
         <mat-icon>menu</mat-icon>
       </button>
     </span>
-    <h2 class="mr-2 pt-1 mt-1 font-weight-light">
+    <h4 class="mr-2 pt-1 mt-1 font-weight-light open-sans">
       {{toolTitle}}
-    </h2>
+    </h4>
     <mat-menu #appMenu="matMenu">
-      <button mat-menu-item routerLink="home/about">
-        <mat-icon>help</mat-icon>Ayuda
-      </button>
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="logout()">
         <mat-icon>power_settings_new</mat-icon>Cerrar Sesión
       </button>
     </mat-menu>
-    <button mat-icon-button [matMenuTriggerFor]="appMenu" class="ml-auto">
+    <button mat-icon-button [matMenuTriggerFor]="appMenu" class="ml-auto mt-1">
       <mat-icon>more_vert</mat-icon>
     </button>
   </mat-toolbar-row>
 
-  <mat-toolbar-row *ngIf="state == 'unlogged'">
-    <span class="font-weight-light">
-      {{toolTitle}}
+  <mat-toolbar-row *ngIf="state == 'unlogged'" class="pr-0 pl-2 pt-1">
+    <span class="mr-3 pt-1 mb-1">
+      <button mat-icon-button [routerLink]="['/auth/welcome']">
+        <img src=" ../../../assets/imagenes/pNo-bg.png" class="logo-icon">
+      </button>
     </span>
-  </mat-toolbar-row>
-
-  <mat-toolbar-row *ngIf="state == '' ">
+    <button mat-button [routerLink]="['auth/register']" routerLinkActive="white"
+      class="font-weight-light login-btn px-2 ml-auto desc">
+      Registrarse</button>
+    <button mat-button [routerLink]="['auth/login']" routerLinkActive="white"
+      class="desc font-weight-light login-btn px-2">Iniciar
+      sesión</button>
   </mat-toolbar-row>
 
   <mat-toolbar-row *ngIf="state == 'detail'">
@@ -37,5 +39,7 @@
     </button>
   </mat-toolbar-row>
 
+  <mat-toolbar-row *ngIf="state == '' ">
+  </mat-toolbar-row>
 
 </mat-toolbar>
