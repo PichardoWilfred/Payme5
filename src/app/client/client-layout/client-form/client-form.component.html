@@ -1,6 +1,6 @@
 <div class="row px-4 pt-4">
-    <div class="col-12 mb-5 ">
-        <form [formGroup]="clientForm" autocomplete="off" (ngSubmit)="submit()">
+    <div class="col-12 mb-3 ">
+        <form [class.mb-2]="marginB" [formGroup]="clientForm" autocomplete="off" (ngSubmit)="submit()">
             <mat-form-field class="col-12 col-md-6">
                 <mat-label>Nombre completo</mat-label>
                 <input matInput formControlName="name">
@@ -76,8 +76,8 @@
             </mat-form-field>
 
             <mat-divider class="pb-3 "></mat-divider>
-            <button type="submit" [disabled]="clientForm.invalid" mat-flat-button color="primary"
-                class="col-12 col-md-12 mb-5">
+            <button [class.mb-5]="marginB" type="submit" [disabled]="clientForm.invalid" mat-flat-button color="primary"
+                class="col-12 col-md-12">
                 <ng-content select=".save">
                 </ng-content>
             </button>

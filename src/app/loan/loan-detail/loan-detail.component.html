@@ -76,7 +76,7 @@
             </mat-form-field>
             <mat-nav-list>
                 <p class="ml-2 pl-1 p-1 input-label desc mb-0">Garante</p>
-                <mat-list-item class="pt-0">
+                <mat-list-item class="pt-0" [routerLink]="['/loan', loan.guarantor_id,'guarantor']">
                     <mat-icon matListIcon class="icon-2 pt-0 pl-1 pb-0">
                         face</mat-icon>
                     <p matLine class="font-weight-bold"> {{loan.guarantor_name}}</p>

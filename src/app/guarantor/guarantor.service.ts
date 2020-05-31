@@ -13,6 +13,10 @@ export class GuarantorService {
       .valueChanges({ idField: "guarantor_id" });
   }
 
+  getGuarantor(id) {
+    return this.firestore.collection("guarantors").doc(id).valueChanges();
+  }
+
   addGuarantor(guarantor) {
     this.firestore
       .collection("guarantors")

@@ -11,8 +11,9 @@ import { LayoutModule } from "../layout/layout.module";
 import { ListComponent } from "./client-list/list-c/list.component";
 import { ClientFormComponent } from "./client-layout/client-form/client-form.component";
 
+import { GuarantorModule } from "../guarantor/guarantor.module";
+
 import { FormsModule, ReactiveFormsModule } from "@angular/forms"; //Forms
-import { AuthGuardGuard } from "../auth/auth-guard.guard";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AuthGuardGuard } from "../auth/auth-guard.guard";
     ClientFormComponent,
   ],
   imports: [
+    GuarantorModule,
     CommonModule,
     ClientRoutingModule,
     LayoutModule,

@@ -9,6 +9,7 @@ import { Observable } from "rxjs";
 })
 export class ClientFormComponent implements OnInit {
   @Input() initialFormValue: Observable<Object>;
+  @Input() marginB: boolean;
   @Output() formValue = new EventEmitter<Object>();
   constructor(private fb: FormBuilder) {}
   ngOnInit() {
