@@ -11,7 +11,7 @@
                     </mat-select>
                 </mat-form-field>
                 <div class="col-12 col-md-6" *ngIf="clientNotSelected">
-                    <p class="font-weight-light date gray">Solo puedes crear
+                    <p class="font-weight-light date gray mb-1">Solo puedes crear
                         prestamos a clientes que no tengan
                         ninguno activo</p>
                 </div>
@@ -46,7 +46,7 @@
                 </div>
             </form>
         </mat-step>
-        <mat-step label="Seleccionar garante" class="pb-0">
+        <mat-step label="Seleccionar garante" class="pb-0 p-1">
             <div *ngIf="theresGuarantors">
                 <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="guarantorEmailHint">
                     <mat-label>Garante</mat-label>
@@ -56,18 +56,31 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <button (click)="move(2)" [disabled]="!guarantor_id" mat-flat-button color="primary"
+                <button (click)="guarantorSelectedBtn()" [disabled]="!guarantor_id" mat-flat-button color="primary"
                     class="col-12 col-md-12">
                     Siguiente
                 </button>
+                <div>
+                    <button (click)="newGuarantorbtn()" mat-stroked-button color="primary" class="col-12 col-md-12 mt-2">
+                        También se puede añadir un nuevo garante
+                    </button>
+                </div>
             </div>
             <div *ngIf="!theresGuarantors">
-                <button (click)="move(2)" mat-button color="primary" class="col-12 col-md-12">
-                    Añadir Garante
-                </button>
+                <div class="row mt-2 text-center">
+                    <div class="col-12 pr-2">
+                        <mat-icon class="icon-2 gray">face</mat-icon>
+                        <p class="font-weight-light px-3 gray">
+                            Este cliente no posee ningún garante.
+                        </p>
+                        <button (click)="newGuarantorbtn()" mat-stroked-button color="primary" class="col-12 col-md-12">
+                            Añadir garante
+                        </button>
+                    </div>
+                </div>
             </div>
         </mat-step>
-        <mat-step *ngIf="!theresGuarantors" label="Añadir garante" class="pb-0">
+        <mat-step *ngIf="newGuarantor" label="Añadir garante" class="pb-0">
             <guarantor-form (newGuarantor)="addGuarantor($event)"></guarantor-form>
         </mat-step>
         <mat-step label="Crear préstamo" class="pb-0">

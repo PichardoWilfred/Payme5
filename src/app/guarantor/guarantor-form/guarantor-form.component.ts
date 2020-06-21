@@ -31,5 +31,6 @@ export class GuarantorFormComponent implements OnInit {
       ...this.guarantorForm.value,
       guarantor_id: guarantor_id,
     });
+    this.guarantorForm.reset();
   }
 }

@@ -64,6 +64,7 @@ export class LoanFormComponent implements OnInit {
   guarantor_cellphone: string;
 
   theresGuarantors: boolean = false;
+  newGuarantor: boolean = false;
   selectedGuarantor: boolean = false;
 
   amount: number = null;
@@ -112,10 +113,14 @@ export class LoanFormComponent implements OnInit {
     this.guarantorEmailHint = email;
     this.guarantor_cellphone = cellphone;
     this.guarantor_id = guarantor_id;
-
     this.stepper.next();
   }
 
+  setGuarantorHint(guarantor) {
+    const { email, name } = guarantor;
+    this.guarantorEmailHint = email;
+    this.guarantor_name = name;
+  }
   setClientHint(client) {
     const { email, name } = client;
     if (!client["active_loan"]) {
@@ -127,10 +132,13 @@ export class LoanFormComponent implements OnInit {
     }
   }
 
-  setGuarantorHint(guarantor) {
-    const { email, name } = guarantor;
-    this.guarantorEmailHint = email;
-    this.guarantor_name = name;
+  newGuarantorbtn() {
+    this.newGuarantor = true;
+    this.move(2);
+  }
+  guarantorSelectedBtn() {
+    this.newGuarantor = false;
+    this.move(2);
   }
 
   setPaymentDates(payment_period: string, cuotes: number) {

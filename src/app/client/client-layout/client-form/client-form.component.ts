@@ -15,9 +15,6 @@ export class ClientFormComponent implements OnInit {
   ngOnInit() {
     this.clientForm.patchValue(this.initialFormValue);
   }
-
-  employ: Boolean = true;
-
   clientForm: FormGroup = this.fb.group({
     name: [
       "",
