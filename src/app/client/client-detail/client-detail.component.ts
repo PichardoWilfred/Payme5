@@ -21,6 +21,8 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
   showSpinner: boolean = true;
   hasLoan: boolean;
 
+  client_id: string;
+  
   ngOnInit() {
     this.layout.toggleAuth("detail");
     this.client_id = this.route.snapshot.paramMap.get("id");
@@ -34,7 +36,6 @@ export class ClientDetailComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.layout.toggleAuth("logged");
   }
-  client_id: string;
 
   updateClient(clientData: Object) {
     this.db.updateClient(this.client_id, clientData);

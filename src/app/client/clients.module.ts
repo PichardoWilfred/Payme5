@@ -13,7 +13,8 @@ import { ClientFormComponent } from "./client-layout/client-form/client-form.com
 
 import { GuarantorModule } from "../guarantor/guarantor.module";
 
-import { FormsModule, ReactiveFormsModule } from "@angular/forms"; //Forms
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NewGuarantorComponent } from './new-guarantor/new-guarantor.component'; //Forms
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"; //Forms
     ClientLayoutComponent,
     ListComponent,
     ClientFormComponent,
+    NewGuarantorComponent,
   ],
   imports: [
     GuarantorModule,

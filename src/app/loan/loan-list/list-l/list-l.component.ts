@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { LoanService } from "../../loan.service";
-import { Subscription, Observable } from "rxjs";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-list-l",

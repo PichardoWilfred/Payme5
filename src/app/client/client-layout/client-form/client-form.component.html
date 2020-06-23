@@ -74,8 +74,9 @@
                 <input matInput formControlName="relative_bond">
                 <mat-icon matSuffix>favorite</mat-icon>
             </mat-form-field>
-
-            <mat-divider class="pb-3 "></mat-divider>
+            <ng-content select=".guarantor-list">
+            </ng-content>
+            <mat-divider class="pb-3"></mat-divider>
             <button [class.mb-5]="marginB" type="submit" [disabled]="clientForm.invalid" mat-flat-button color="primary"
                 class="col-12 col-md-12">
                 <ng-content select=".save">

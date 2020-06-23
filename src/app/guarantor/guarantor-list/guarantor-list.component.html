@@ -1,1 +1,36 @@
-<p>guarantor-list works!</p>
+<div class="row" *ngIf="!noGuarantors">
+    <mat-divider class="pb-3"></mat-divider>
+    <h3 class="font-weight-light pl-4 ml-1">Garantes</h3>
+    <div class="col-12">
+        <cdk-virtual-scroll-viewport itemSize="50" class="list-xs w-100">
+            <mat-nav-list>
+                <mat-list-item *cdkVirtualFor="let guarantor of guarantors"
+                    [routerLink]="['/loan', guarantor.guarantor_id, 'guarantor']">
+                    <mat-icon mat-list-icon class="icon-2" color="primary">face</mat-icon>
+                    <p matLine>
+                        {{ guarantor.name }}</p>
+                    <p matLine class="font-weight-light mb-0">{{guarantor.email}}
+                    </p>
+                    <mat-divider></mat-divider>
+                </mat-list-item>
+                <mat-list-item [routerLink]="['new-guarantor']">
+                    <mat-icon mat-list-icon class="icon-1 active">face</mat-icon>
+                    <p matLine class="active">
+                        <b>Añadir garante</b>
+                    </p>
+                </mat-list-item>
+            </mat-nav-list>
+        </cdk-virtual-scroll-viewport>
+    </div>
+</div>
+<div *ngIf="noGuarantors" class="row text-center">
+    <div class="col-12">
+        <mat-icon class="icon-2 gray mt-4">face</mat-icon>
+        <p class="font-weight-light px-3 gray">
+            Este cliente no posee ningún garante.
+        </p>
+        <button mat-stroked-button color="primary" class="col-12 col-md-12 mb-3">
+            Añadir garante
+        </button>
+    </div>
+</div>

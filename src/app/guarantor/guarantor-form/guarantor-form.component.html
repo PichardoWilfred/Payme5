@@ -1,20 +1,25 @@
-<form [formGroup]="guarantorForm" autocomplete="off">
+<form [formGroup]="guarantorForm" autocomplete="off" [class.p-4]="!inNewLoan">
     <mat-form-field class="col-12 col-md-6">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="name">
+        <mat-icon matSuffix color="primary">face</mat-icon>
     </mat-form-field>
     <mat-form-field class="col-12 col-md-6">
         <mat-label>Correo electrónico</mat-label>
         <input matInput formControlName="email">
-        <mat-icon matSuffix>mail</mat-icon>
+        <mat-icon matSuffix color="primary">mail</mat-icon>
     </mat-form-field>
     <mat-form-field class="col-12 col-md-6">
         <mat-label>Teléfono</mat-label>
         <input matInput formControlName="cellphone" type="number">
-        <mat-icon matSuffix>phone</mat-icon>
+        <mat-icon matSuffix color="primary">phone</mat-icon>
     </mat-form-field>
     <div class="col-12 col-md-6 p-2">
-        <button (click)="submit()" [disabled]="guarantorForm.invalid" mat-flat-button color="primary"
+        <button *ngIf="!inNewLoan" (click)="goBack()" [disabled]="guarantorForm.invalid" mat-flat-button color="primary"
+            class="col-12 col-md-12">
+            Añadir Garante
+        </button>
+        <button *ngIf="inNewLoan" (click)="submit()" [disabled]="guarantorForm.invalid" mat-flat-button color="primary"
             class="col-12 col-md-12" matStepperNext>
             Añadir Garante
         </button>

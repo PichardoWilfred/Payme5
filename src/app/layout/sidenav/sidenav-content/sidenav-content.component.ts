@@ -29,7 +29,7 @@ export class SidenavContentComponent implements OnInit {
     // { icon: "home", path: "/home/about", name: "Inicio" },
     { icon: "work", path: "/loan/loan-list", name: "Préstamos" },
     { icon: "people_alt", path: "/client", name: "Clientes" },
-    { icon: "attach_money", path: "/payment/payment-list", name: "Pagos" },
+    { icon: "attach_money", path: "/payment/payment-list", name: "Pagos realizados" },
   ];
 
   navigateTo(route: String, routeRoot: String) {

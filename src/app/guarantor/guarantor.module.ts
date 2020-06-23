@@ -22,6 +22,6 @@ import { RouterModule } from "@angular/router";
     ReactiveFormsModule,
     LayoutModule,
   ],
-  exports: [GuarantorFormComponent],
+  exports: [GuarantorFormComponent, GuarantorListComponent],
 })
 export class GuarantorModule {}
