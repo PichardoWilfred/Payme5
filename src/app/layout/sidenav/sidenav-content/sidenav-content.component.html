@@ -10,9 +10,20 @@
         </div>
     </mat-toolbar-row>
 </mat-toolbar>
-<mat-nav-list class="pt-1">
-    <mat-list-item *ngFor="let route of routes" (click)="navigateTo(route.path, route.name)" class="menu-color">
-        <mat-icon>{{route.icon}}</mat-icon>
-        <a class="px-3 font-weight-light">{{route.name}}</a>
-    </mat-list-item>
-</mat-nav-list>
+<div class="row" style="height: 80%;">
+    <div class="col-12">
+        <mat-nav-list class="pt-1">
+            <mat-list-item *ngFor="let route of routes" (click)="navigateTo(route.path, route.name)" class="menu-color">
+                <mat-icon>{{route.icon}}</mat-icon>
+                <a class="px-3 font-weight-light">{{route.name}}</a>
+            </mat-list-item>
+        </mat-nav-list>
+    </div>
+    <div class="col-12 mt-auto">
+        <mat-nav-list class="pt-1 red">
+            <mat-list-item [style.color]="'#F44336'" (click)="logout()">
+                <mat-icon>login</mat-icon> <a class="px-3 font-weight-light">Cerrar sesión</a>
+            </mat-list-item>
+        </mat-nav-list>
+    </div>
+</div>

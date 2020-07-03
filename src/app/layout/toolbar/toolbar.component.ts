@@ -1,6 +1,4 @@
 import { Component, OnInit, EventEmitter, Output } from "@angular/core";
-import { AuthService } from "../../auth/auth.service";
-import { Router } from "@angular/router";
 import { Location } from "@angular/common";
 import { LayoutService } from "../layout.service";
 @Component({
@@ -16,18 +14,8 @@ export class ToolbarComponent implements OnInit {
   toggleSideBar(toggle: boolean) {
     this.toggleEvent.emit(toggle);
   }
-  constructor(
-    private auth: AuthService,
-    private router: Router,
-    private layout: LayoutService,
-    private location: Location
-  ) {}
+  constructor(private layout: LayoutService, private location: Location) {}
 
-  async logout() {
-    this.layout.changeTitle("");
-    await this.auth.logout();
-    this.router.navigate(["auth/login"]);
-  }
   ngOnInit() {
     this.layout.toolbarContent.subscribe((state) => {
       this.state = state;

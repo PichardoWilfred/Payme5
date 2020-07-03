@@ -8,15 +8,6 @@
     <h4 class="mr-2 pt-1 mt-1 font-weight-light open-sans">
       {{toolTitle}}
     </h4>
-    <mat-menu #appMenu="matMenu">
-      <mat-divider></mat-divider>
-      <button mat-menu-item (click)="logout()">
-        <mat-icon>power_settings_new</mat-icon>Cerrar Sesión
-      </button>
-    </mat-menu>
-    <button mat-icon-button [matMenuTriggerFor]="appMenu" class="ml-auto mt-1">
-      <mat-icon>more_vert</mat-icon>
-    </button>
   </mat-toolbar-row>
 
   <mat-toolbar-row *ngIf="state == 'unlogged'" class="pr-0 pl-2 pt-1">

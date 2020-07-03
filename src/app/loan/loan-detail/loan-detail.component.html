@@ -1,9 +1,10 @@
 <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
 <div *ngIf="loan$ | async as loan">
     <div class="row mb-0 pb-0">
-        <div *ngIf="loan.active" class="col-12 pt-3 mx-3">
-            <button mat-flat-button disabled class="col-11">Si desea realizar un pago, presione <mat-icon>today
-                </mat-icon></button>
+        <div *ngIf="loan.active" class="col-12 pt-3">
+            <p class="font-weight-thin gray text-center">Para realizar un pago, presione <mat-icon>today
+                </mat-icon>
+            </p>
         </div>
         <div class="col-5 mr-auto pt-3 pb-0 mb-0 ml-4 gray">
             <button mat-flat-button *ngIf="loan.state == 'completed' " color="primary">Completo</button>
