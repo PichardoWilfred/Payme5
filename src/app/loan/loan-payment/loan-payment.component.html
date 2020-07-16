@@ -19,7 +19,7 @@
                             <p class="pr-1">{{ payment.date.toDate() | date: 'shortDate' }}</p>
                         </mat-panel-title>
                         <mat-panel-description>
-                            <p>{{ payment.payment_amount_paid | currency: 'RD$'}}</p>
+                            <p>{{ payment.payment_deposit | currency: 'RD$'}}</p>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <cdk-virtual-scroll-viewport itemSize="50" class="list-s w-100">

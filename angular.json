@@ -133,5 +133,8 @@
       }
     }
   },
-  "defaultProject": "Payme5"
+  "defaultProject": "Payme5",
+  "cli": {
+    "analytics": false
+  }
 }

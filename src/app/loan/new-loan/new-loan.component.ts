@@ -25,6 +25,7 @@ export class NewLoanComponent implements OnInit {
     });
   }
 
+  
   addLoan(loanForm: Object) {
     loanForm["user_id"] = this.uid;
     this.database.addLoan(loanForm);

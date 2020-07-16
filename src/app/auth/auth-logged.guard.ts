@@ -15,7 +15,7 @@ import { Location } from "@angular/common";
   providedIn: "root",
 })
 export class AuthLoggedGuard implements CanActivate {
-  constructor(private auth: AngularFireAuth, private location: Location) {}
+  constructor(private auth: AngularFireAuth, private route: Router) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -27,7 +27,7 @@ export class AuthLoggedGuard implements CanActivate {
     return this.auth.authState.pipe(
       map((user) => {
         if (user) {
-          this.location.back();
+          this.route.navigate(['/client']);
           return false;
         }
         return true;

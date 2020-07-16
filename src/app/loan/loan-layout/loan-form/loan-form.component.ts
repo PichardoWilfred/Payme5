@@ -23,12 +23,14 @@ import { MatStepper } from "@angular/material";
 export class LoanFormComponent implements OnInit {
   @Input() initialFormValue: Observable<Object>;
   @Output() formValue = new EventEmitter<Object>();
+  @ViewChild("stepper", { static: false }) stepper: MatStepper;
+
   constructor(
     private fb: FormBuilder,
     private af: AngularFireAuth,
     private db: ClientService,
     private guarantor: GuarantorService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.stateSubscription = this.af.authState.subscribe((auth) => {
@@ -49,7 +51,6 @@ export class LoanFormComponent implements OnInit {
     fees_amount: ["", Validators.required],
   });
 
-  @ViewChild("stepper", { static: false }) stepper: MatStepper;
 
   client$: Observable<Object[]>;
   clientEmailHint: string = "";
@@ -75,7 +76,7 @@ export class LoanFormComponent implements OnInit {
 
   full_interest: number;
   fee_payment: number = null;
-  total_payment: number = null;
+  total_amount: number = null;
 
   move(index: number) {
     this.stepper.selectedIndex = index;
@@ -83,9 +84,9 @@ export class LoanFormComponent implements OnInit {
 
   getResults() {
     this.full_interest = this.amount * (this.interest_rate * 0.01) || null;
-    this.total_payment = this.amount + this.full_interest || null;
-    if (this.total_payment && this.fees_amount) {
-      this.fee_payment = Math.ceil(this.total_payment / this.fees_amount);
+    this.total_amount = this.amount + this.full_interest || null;
+    if (this.total_amount && this.fees_amount) {
+      this.fee_payment = Math.ceil(this.total_amount / this.fees_amount);
     }
     this.setPaymentDates(this.payment_period, this.fees_amount);
 
@@ -141,6 +142,9 @@ export class LoanFormComponent implements OnInit {
     this.move(2);
   }
 
+
+
+
   setPaymentDates(payment_period: string, cuotes: number) {
     switch (payment_period) {
       case "mensual": {
@@ -169,7 +173,7 @@ export class LoanFormComponent implements OnInit {
         index: i,
         date: new Date(today.add(1, time_period).format(format)),
         paid: false,
-        payment_amount_paid: 0,
+        payment_deposit: 0,
         late: false,
       };
       dates.push(payment);
@@ -184,14 +188,14 @@ export class LoanFormComponent implements OnInit {
       client_email: this.clientEmailHint,
       client_name: this.client_name,
       full_interest: this.full_interest,
-      total_payment: this.total_payment,
+      total_amount: this.total_amount,
       fee_payment: this.fee_payment,
       active: true,
       state: "pending",
       created_at: new Date(),
       payment_dates: this.paymentDates,
-      missing_amount: this.total_payment,
-      total_amount_paid: 0,
+      missing_amount: this.total_amount,
+      amount_paid: 0,
       extra_amount: 0,
       firstCheck: true,
       cancel_reason: "",
