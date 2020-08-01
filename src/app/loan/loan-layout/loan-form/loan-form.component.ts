@@ -46,18 +46,19 @@ export class LoanFormComponent implements OnInit {
   loanForm: FormGroup = this.fb.group({
     client_id: ["", Validators.required],
     amount: ["", Validators.required],
-    payment_period: ["", Validators.required],
+    term: ["", Validators.required],
     interest_rate: ["", Validators.required],
     fees_amount: ["", Validators.required],
   });
 
-
+  //Client related
   client$: Observable<Object[]>;
   clientEmailHint: string = "";
   clientNotSelected: boolean = true;
   client_name: string;
   client_id: string = null;
 
+  //Guarantor form related
   guarantor$: Observable<Object[]>;
   guarantorEmailHint: string = "";
   guarantor_name: string;
@@ -68,8 +69,9 @@ export class LoanFormComponent implements OnInit {
   newGuarantor: boolean = false;
   selectedGuarantor: boolean = false;
 
+  //Loan related
   amount: number = null;
-  payment_period: string = null;
+  term: string = null;
   interest_rate: number = null;
   fees_amount: number = null;
   paymentDates: string[] = null;
@@ -77,26 +79,25 @@ export class LoanFormComponent implements OnInit {
   full_interest: number;
   fee_payment: number = null;
   total_amount: number = null;
+  monthly_interest: number = null;
 
-  move(index: number) {
+  move(index: number) { //for Jumping stepper steps
     this.stepper.selectedIndex = index;
   }
 
   getResults() {
-    this.full_interest = this.amount * (this.interest_rate * 0.01) || null;
+    this.monthly_interest = this.amount * (this.interest_rate * 0.01) || null;
+    this.full_interest = this.monthly_interest * this.fees_amount;
     this.total_amount = this.amount + this.full_interest || null;
+
     if (this.total_amount && this.fees_amount) {
       this.fee_payment = Math.ceil(this.total_amount / this.fees_amount);
     }
-    this.setPaymentDates(this.payment_period, this.fees_amount);
+    this.paymentDates = this.setPaymentDates(this.term, this.fees_amount);
 
     this.guarantor$ = this.guarantor.getGuarantors(this.client_id);
     this.guarantor$.subscribe((guarantor) => {
-      if (guarantor.length) {
-        this.theresGuarantors = true;
-      } else {
-        this.theresGuarantors = false;
-      }
+      this.theresGuarantors = guarantor.length ? true : false;
     });
   }
 
@@ -133,30 +134,23 @@ export class LoanFormComponent implements OnInit {
     }
   }
 
-  newGuarantorbtn() {
-    this.newGuarantor = true;
-    this.move(2);
+  private nextFromGuarantor(value: boolean): void {
+    this.newGuarantor = value
+    this.move(2)
   }
-  guarantorSelectedBtn() {
-    this.newGuarantor = false;
-    this.move(2);
-  }
-
-
-
 
   setPaymentDates(payment_period: string, cuotes: number) {
     switch (payment_period) {
       case "mensual": {
-        this.paymentDates = this.createDates(cuotes, "months");
+        return this.createDates(cuotes, "months", 1);
         break;
       }
       case "semanal": {
-        this.paymentDates = this.createDates(cuotes, "weeks");
+        return this.createDates(cuotes, "weeks", 1);
         break;
       }
-      case "anual": {
-        this.paymentDates = this.createDates(cuotes, "years");
+      case "quincenal": {
+        return this.createDates(cuotes, "weeks", 2);
         break;
       }
       default:
@@ -164,21 +158,24 @@ export class LoanFormComponent implements OnInit {
         break;
     }
   }
-  createDates(cuotes: number, time_period: string) {
+  createDates(cuotes: number, time_period: string, jump_lap: number) {
+
     let format: string = "MM/DD/YYYY";
     let today: any = moment();
     let dates = [];
+
     for (let i = 0; i < cuotes; i++) {
       let payment = {
         index: i,
-        date: new Date(today.add(1, time_period).format(format)),
+        date: new Date(today.add(jump_lap, time_period).format(format)),
         paid: false,
         payment_deposit: 0,
         late: false,
       };
       dates.push(payment);
-    }
+    } //forloop
     return dates;
+
   }
 
   submit() {

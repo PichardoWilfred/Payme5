@@ -1,10 +1,20 @@
+<!-- <mat-form-field appearance="fill">
+    <mat-label>Mostrar</mat-label>
+    <mat-select [(ngModel)]="current_filter" (selectionChange)="filterExact('active_loan',current_filter)">
+        <mat-option>Todos</mat-option>
+        <mat-option *ngFor="let filter of filter_options" [value]="filter.active_loan">
+            {{filter.label}}
+        </mat-option>
+    </mat-select>
+</mat-form-field> -->
 <div class="row mb-5">
+
     <div class="col-12">
         <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner">
         </mat-spinner>
         <cdk-virtual-scroll-viewport itemSize="50" class="list-1" *ngIf="!theresNotClients">
             <mat-nav-list>
-                <mat-list-item *ngFor="let client of client$ | async" [routerLink]="['/client',client.client_id]">
+                <mat-list-item *ngFor="let client of f_clients" [routerLink]="['/client',client.client_id]">
                     <mat-icon matListIcon *ngIf="!client.active_loan" class="icon-1 active">person_outline
                     </mat-icon>
                     <mat-icon matListIcon *ngIf="client.active_loan" class="icon-1 active">person</mat-icon>
@@ -18,8 +28,8 @@
         </cdk-virtual-scroll-viewport>
     </div>
 </div>
-<div class="row align-items-center">
-    <div class="col-12 col-md-6 text-center not-found my-5 my-4" *ngIf="theresNotClients">
+<div class="row align-items-center" *ngIf="theresNotClients">
+    <div class="col-12 col-md-6 text-center not-found my-5 my-4">
         <mat-icon class="icon-b mb-5 mt-5">supervised_user_circle</mat-icon>
         <p class="font-weight-light px-3">
             No hay clientes registrados

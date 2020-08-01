@@ -3,7 +3,7 @@
     <div class="row p-4">
         <div class="col-12 ">
             <mat-form-field class="col-12 col-md-6">
-                <mat-label>Monto por cuota</mat-label>
+                <mat-label>Monto por cuota ({{loan.fees_amount}})</mat-label>
                 <input matInput [value]="loan.fee_payment | currency:'RD$'" readonly>
             </mat-form-field>
             <mat-form-field *ngIf="loan.extra_amount" class="col-12 col-md-6">
@@ -29,6 +29,7 @@
                                 <mat-icon mat-list-icon>payment</mat-icon>
                                 <p matLine>
                                     {{ payment_made.created_at.toDate() | date: 'longDate' }}</p>
+
                                 <p matLine class="font-weight-light mb-0">{{payment_made.amount_paid | currency: 'RD$'}}
                                 </p>
                                 <mat-divider></mat-divider>

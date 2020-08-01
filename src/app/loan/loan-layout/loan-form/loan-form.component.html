@@ -12,7 +12,7 @@
                 </mat-form-field>
                 <div class="col-12 col-md-6" *ngIf="clientNotSelected">
                     <p class="font-weight-light date gray mb-1">Solo puedes crear
-                        prestamos a clientes que no tengan
+                        préstamos a los clientes que no tengan
                         ninguno activo</p>
                 </div>
                 <mat-form-field class="col-12 col-md-6">
@@ -22,10 +22,10 @@
                 </mat-form-field>
                 <mat-form-field class="col-12 col-md-6">
                     <mat-label>Período de pagos</mat-label>
-                    <mat-select formControlName="payment_period" [(ngModel)]="payment_period">
+                    <mat-select formControlName="term" [(ngModel)]="term">
                         <mat-option value="mensual">Mensual</mat-option>
                         <mat-option value="semanal">Semanal</mat-option>
-                        <mat-option value="anual">Anual</mat-option>
+                        <mat-option value="quincenal">Quincenal</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field class="col-12 col-md-6">
@@ -56,12 +56,12 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <button (click)="guarantorSelectedBtn()" [disabled]="!guarantor_id" mat-flat-button color="primary"
+                <button (click)="nextFromGuarantor(false)" [disabled]="!guarantor_id" mat-flat-button color="primary"
                     class="col-12 col-md-12">
                     Siguiente
                 </button>
                 <div>
-                    <button (click)="newGuarantorbtn()" mat-stroked-button color="primary"
+                    <button (click)="nextFromGuarantor(true)" mat-stroked-button color="primary"
                         class="col-12 col-md-12 mt-2">
                         También se puede añadir un nuevo garante
                     </button>
@@ -74,7 +74,8 @@
                         <p class="font-weight-light px-3 gray">
                             Este cliente no posee ningún garante.
                         </p>
-                        <button (click)="newGuarantorbtn()" mat-stroked-button color="primary" class="col-12 col-md-12">
+                        <button (click)="nextFromGuarantor(true)" mat-stroked-button color="primary"
+                            class="col-12 col-md-12">
                             Añadir garante
                         </button>
                     </div>

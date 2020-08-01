@@ -18,7 +18,7 @@ export class ClientService {
   //Get all UserClients
   getClients(uid: string) {
     return this.firestore
-      .collection("clients", (ref) => ref.where("uid", "==", uid))
+      .collection("clients", (ref) => ref.where("uid", "==", uid).orderBy("name"))
       .valueChanges({ idField: "client_id" });
   }
 
