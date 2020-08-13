@@ -41,7 +41,6 @@ export class LoanService {
   getLoan(loan_id: string) {
     return this.firestore.collection("loans").doc(loan_id).valueChanges();
   }
-
   disableLoan(
     client_id: string,
     loan_id: string,
@@ -51,14 +50,11 @@ export class LoanService {
     if (completed) {
       this.firestore.collection("loans").doc(loan_id).update({ active: false });
     } else {
-      this.firestore
-        .collection("loans")
-        .doc(loan_id)
-        .update({
-          active: false,
-          state: "canceled",
-          cancel_reason: cancel_reason,
-        });
+      this.firestore.collection("loans").doc(loan_id).update({
+        active: false,
+        state: "canceled",
+        cancel_reason: cancel_reason,
+      });
     }
 
     this.firestore

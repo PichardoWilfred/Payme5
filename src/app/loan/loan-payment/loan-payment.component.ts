@@ -26,7 +26,7 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
     private modalService: BsModalService,
     private layout: LayoutService,
     private snack: SnackbarService
-  ) { }
+  ) {}
   paymentForm: FormGroup = this.fb.group({
     amount_paid: [null, [Validators.required]],
   });
@@ -81,11 +81,8 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
         let extra = payment_deposit;
         let payment_over;
 
-        if (
-          this.loan$["amount_paid"] >= total_amount
-        ) {
-          this.loan$["extra_amount"] =
-            this.loan$["amount_paid"] - total_amount;
+        if (this.loan$["amount_paid"] >= total_amount) {
+          this.loan$["extra_amount"] = this.loan$["amount_paid"] - total_amount;
           this.loan$["payment_dates"].forEach((payment) => {
             payment["payment_deposit"] = fee_payment;
             payment["paid"] = true;

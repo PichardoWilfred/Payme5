@@ -1,122 +1,203 @@
 <div class="row mb-5 p-3">
-    <mat-vertical-stepper linear (selectionChange)="getResults()" #stepper>
-        <mat-step [stepControl]="loanForm" label="Ingrese la información del préstamo">
-            <form [formGroup]="loanForm" autocomplete="off">
-                <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="clientEmailHint">
-                    <mat-label>Cliente</mat-label>
-                    <mat-select formControlName="client_id" [(ngModel)]="client_id">
-                        <mat-option [disabled]="client.active_loan" *ngFor=" let client of client$ | async"
-                            [value]="client.client_id" (click)="setClientHint(client)">{{client.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <div class="col-12 col-md-6" *ngIf="clientNotSelected">
-                    <p class="font-weight-light date gray mb-1">Solo puedes crear
-                        préstamos a los clientes que no tengan
-                        ninguno activo</p>
-                </div>
-                <mat-form-field class="col-12 col-md-6">
-                    <mat-label>Monto</mat-label>
-                    <input matInput formControlName="amount" type="number" [(ngModel)]="amount">
-                    <mat-icon matSuffix>monetization_on</mat-icon>
-                </mat-form-field>
-                <mat-form-field class="col-12 col-md-6">
-                    <mat-label>Período de pagos</mat-label>
-                    <mat-select formControlName="term" [(ngModel)]="term">
-                        <mat-option value="mensual">Mensual</mat-option>
-                        <mat-option value="semanal">Semanal</mat-option>
-                        <mat-option value="quincenal">Quincenal</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field class="col-12 col-md-6">
-                    <mat-label>Tasa de interés</mat-label>
-                    <input matInput formControlName="interest_rate" type="number" [(ngModel)]="interest_rate">
-                    <mat-icon matSuffix>&#37;</mat-icon>
-                </mat-form-field>
-                <mat-form-field class="col-12 col-md-6">
-                    <mat-label>Cantidad de cuotas</mat-label>
-                    <input matInput formControlName="fees_amount" type="number" [(ngModel)]="fees_amount">
-                    <mat-icon matSuffix>payment</mat-icon>
-                </mat-form-field>
-                <div class="col-12 col-md-6 p-2">
-                    <button [disabled]="loanForm.invalid" mat-flat-button color="primary" class="col-12 col-md-12"
-                        matStepperNext (click)="getResults()">
-                        Siguiente
-                    </button>
-                </div>
-            </form>
-        </mat-step>
-        <mat-step label="Seleccionar garante" class="pb-0 p-1">
-            <div *ngIf="theresGuarantors">
-                <mat-form-field class="col-12 col-md-6 pb-2" [hintLabel]="guarantorEmailHint">
-                    <mat-label>Garante</mat-label>
-                    <mat-select [(ngModel)]="guarantor_id">
-                        <mat-option *ngFor=" let guarantor of guarantor$ | async" [value]="guarantor.guarantor_id"
-                            (click)="setGuarantorHint(guarantor)">{{guarantor.name}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <button (click)="nextFromGuarantor(false)" [disabled]="!guarantor_id" mat-flat-button color="primary"
-                    class="col-12 col-md-12">
-                    Siguiente
-                </button>
-                <div>
-                    <button (click)="nextFromGuarantor(true)" mat-stroked-button color="primary"
-                        class="col-12 col-md-12 mt-2">
-                        También se puede añadir un nuevo garante
-                    </button>
-                </div>
-            </div>
-            <div *ngIf="!theresGuarantors">
-                <div class="row mt-2 text-center">
-                    <div class="col-12 pr-2">
-                        <mat-icon class="icon-2 gray">face</mat-icon>
-                        <p class="font-weight-light px-3 gray">
-                            Este cliente no posee ningún garante.
-                        </p>
-                        <button (click)="nextFromGuarantor(true)" mat-stroked-button color="primary"
-                            class="col-12 col-md-12">
-                            Añadir garante
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </mat-step>
-        <mat-step *ngIf="newGuarantor" label="Añadir garante" class="pb-0">
-            <guarantor-form [inNewLoan]="true" (newGuarantor)="addGuarantor($event)"></guarantor-form>
-        </mat-step>
-        <mat-step label="Crear préstamo" class="pb-0">
-            <div class="row p-2 pb-0">
-                <div class="col-12 col-md-10">
-                    <p class="font-weight-light"><b>Pagos por cuota:</b>
-                        {{fee_payment || null | currency: 'RD$'}}
-                    </p>
-                    <p class="font-weight-light"><b>Interés total:</b>
-                        {{full_interest || null | currency: 'RD$'}}
-                    </p>
-                    <p class="font-weight-light"><b>Pago total:</b>
-                        {{total_amount || null  | currency: 'RD$'}}
-                    </p>
-                    <cdk-virtual-scroll-viewport itemSize="50" class="list-s w-100">
-                        <mat-list>
-                            <mat-list-item *cdkVirtualFor="let payment of paymentDates">
-                                <mat-icon mat-list-icon class="icon-1" color="primary">today</mat-icon>
-                                <p matLine>
-                                    {{ payment.date | date: 'fullDate' }}</p>
-                                <p matLine class="font-weight-light mb-0 mt-2">{{fee_payment | currency: 'RD$'}}
-                                </p>
-                                <mat-divider></mat-divider>
-                            </mat-list-item>
-                        </mat-list>
-                    </cdk-virtual-scroll-viewport>
-                    <div class="col-12 col-md-6 p-2 mt-2">
-                        <button (click)="submit()" [disabled]="loanForm.invalid || !guarantor_id" mat-flat-button
-                            color="primary" matStepperNext class="col-12 col-md-12">
-                            Crear préstamo
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </mat-step>
-    </mat-vertical-stepper>
+  <mat-vertical-stepper linear (selectionChange)="getResults()" #stepper>
+    <mat-step
+      [stepControl]="loanForm"
+      label="Ingrese la información del préstamo"
+    >
+      <form [formGroup]="loanForm" autocomplete="off">
+        <mat-form-field
+          class="col-12 col-md-6 pb-2"
+          [hintLabel]="clientEmailHint"
+        >
+          <mat-label>Cliente</mat-label>
+          <mat-select formControlName="client_id" [(ngModel)]="client_id">
+            <mat-option
+              [disabled]="client.active_loan"
+              *ngFor="let client of client$ | async"
+              [value]="client.client_id"
+              (click)="setClientHint(client)"
+              >{{ client.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div class="col-12 col-md-6" *ngIf="clientNotSelected">
+          <p class="font-weight-light date gray mb-1">
+            Solo puedes crear préstamos a los clientes que no tengan ninguno
+            activo
+          </p>
+        </div>
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Monto</mat-label>
+          <input
+            matInput
+            formControlName="amount"
+            type="number"
+            [(ngModel)]="amount"
+          />
+          <mat-icon matSuffix>monetization_on</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Período de pagos</mat-label>
+          <mat-select formControlName="term" [(ngModel)]="term">
+            <mat-option value="mensual">Mensual</mat-option>
+            <mat-option value="semanal">Semanal</mat-option>
+            <mat-option value="quincenal">Quincenal</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Tasa de interés</mat-label>
+          <input
+            matInput
+            formControlName="interest_rate"
+            type="number"
+            [(ngModel)]="interest_rate"
+          />
+          <mat-icon matSuffix>&#37;</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Cantidad de cuotas</mat-label>
+          <input
+            matInput
+            formControlName="fees_amount"
+            type="number"
+            [(ngModel)]="fees_amount"
+          />
+          <mat-icon matSuffix>payment</mat-icon>
+        </mat-form-field>
+        <div class="col-12 col-md-6 p-2">
+          <button
+            [disabled]="loanForm.invalid"
+            mat-flat-button
+            color="primary"
+            class="col-12 col-md-12"
+            matStepperNext
+          >
+            Siguiente
+          </button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step label="Seleccionar garante" class="pb-0 p-1">
+      <div *ngIf="theresGuarantors">
+        <mat-form-field
+          class="col-12 col-md-6 pb-2"
+          [hintLabel]="guarantorEmailHint"
+        >
+          <mat-label>Garante</mat-label>
+          <mat-select [(ngModel)]="guarantor_id">
+            <mat-option
+              *ngFor="let guarantor of guarantor$ | async"
+              [value]="guarantor.guarantor_id"
+              (click)="setGuarantorHint(guarantor)"
+              >{{ guarantor.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button
+          (click)="nextFromGuarantor(false)"
+          [disabled]="!guarantor_id"
+          mat-flat-button
+          color="primary"
+          class="col-12 col-md-12"
+        >
+          Siguiente
+        </button>
+        <div>
+          <button
+            (click)="nextFromGuarantor(true)"
+            mat-stroked-button
+            color="primary"
+            class="col-12 col-md-12 mt-2"
+          >
+            También se puede añadir un nuevo garante
+          </button>
+        </div>
+      </div>
+      <!--Si no hay ningún garante de dicho cliente-->
+      <div *ngIf="!theresGuarantors">
+        <div class="row mt-2 text-center">
+          <div class="col-12 pr-2">
+            <mat-icon class="icon-2 gray">face</mat-icon>
+            <p class="font-weight-light px-3 gray">
+              Este cliente no posee ningún garante.
+            </p>
+            <button
+              (click)="nextFromGuarantor(true)"
+              mat-stroked-button
+              color="primary"
+              class="col-12 col-md-12"
+            >
+              Añadir garante
+            </button>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!neededGuarantor">
+        <button
+          mat-flat-button
+          color="accent"
+          class="col-12 col-md-12 my-1 mt-4"
+          (click)="setNoGuarantor()"
+        >
+          Continuar sin asignar un garante
+        </button>
+        <p class="font-weight-light date gray mb-1 text-center">
+          El monto ingresado <b>({{ amount | currency: "RD$" }})</b> no es lo
+          suficientemente elevado como para necesitar un garante
+        </p>
+      </div>
+    </mat-step>
+    <mat-step *ngIf="newGuarantor" label="Añadir garante" class="pb-0">
+      <guarantor-form
+        [inNewLoan]="true"
+        (newGuarantor)="addGuarantor($event)"
+      ></guarantor-form>
+    </mat-step>
+    <mat-step label="Crear préstamo" class="pb-0">
+      <div class="row p-2 pb-0">
+        <div class="col-12 col-md-10">
+          <p class="font-weight-light">
+            <b>Pagos por cuota:</b>
+            {{ fee_payment || null | currency: "RD$" }}
+          </p>
+          <p class="font-weight-light">
+            <b>Interés total:</b>
+            {{ full_interest || null | currency: "RD$" }}
+          </p>
+          <p class="font-weight-light">
+            <b>Pago total:</b>
+            {{ total_amount || null | currency: "RD$" }}
+          </p>
+          <cdk-virtual-scroll-viewport itemSize="50" class="list-s w-100">
+            <mat-list>
+              <mat-list-item *cdkVirtualFor="let payment of paymentDates">
+                <mat-icon mat-list-icon class="icon-1" color="primary"
+                  >today</mat-icon
+                >
+                <p matLine>
+                  {{ payment.date | date: "fullDate" }}
+                </p>
+                <p matLine class="font-weight-light mb-0 mt-2">
+                  {{ fee_payment | currency: "RD$" }}
+                </p>
+                <mat-divider></mat-divider>
+              </mat-list-item>
+            </mat-list>
+          </cdk-virtual-scroll-viewport>
+          <div class="col-12 col-md-6 p-2 mt-2">
+            <button
+              (click)="submit()"
+              [disabled]="loanForm.invalid || !guarantorModule_completed"
+              mat-flat-button
+              color="primary"
+              matStepperNext
+              class="col-12 col-md-12"
+            >
+              Crear préstamo
+            </button>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
 </div>

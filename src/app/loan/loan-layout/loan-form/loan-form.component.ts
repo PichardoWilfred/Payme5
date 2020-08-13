@@ -30,7 +30,7 @@ export class LoanFormComponent implements OnInit {
     private af: AngularFireAuth,
     private db: ClientService,
     private guarantor: GuarantorService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.stateSubscription = this.af.authState.subscribe((auth) => {
@@ -67,7 +67,9 @@ export class LoanFormComponent implements OnInit {
 
   theresGuarantors: boolean = false;
   newGuarantor: boolean = false;
-  selectedGuarantor: boolean = false;
+  neededGuarantor: boolean = false;
+  guarantorModule_completed: boolean = false;
+  gnmamount: number = 1000; //guarantor needed minimum amount
 
   //Loan related
   amount: number = null;
@@ -81,7 +83,8 @@ export class LoanFormComponent implements OnInit {
   total_amount: number = null;
   monthly_interest: number = null;
 
-  move(index: number) { //for Jumping stepper steps
+  move(index: number) {
+    //for Jumping stepper steps
     this.stepper.selectedIndex = index;
   }
 
@@ -99,6 +102,28 @@ export class LoanFormComponent implements OnInit {
     this.guarantor$.subscribe((guarantor) => {
       this.theresGuarantors = guarantor.length ? true : false;
     });
+    //Que determine si el monto mínimo está disponible
+    this.neededGuarantor = this.amount > this.gnmamount ? true : false;
+    if (this.guarantor_id)
+      console.log("hay un guanrantor id y es:", this.guarantor_id);
+
+    if (this.guarantor_id) {
+      if (this.guarantor_id == "No seleccionado" && this.neededGuarantor) {
+        this.guarantorModule_completed = false;
+      } else {
+        this.guarantorModule_completed = true;
+      }
+    } else {
+      this.guarantorModule_completed = false;
+    }
+
+    console.log(
+      "ModuloDeGarantes.completed es: ",
+      this.guarantorModule_completed
+    );
+
+    //Desactívalo si se necesita un garante y no hay ninguno seleccionado
+    //Se usará la variable de guarantorModule_completed
   }
 
   addGuarantor(guarantor) {
@@ -123,6 +148,15 @@ export class LoanFormComponent implements OnInit {
     this.guarantorEmailHint = email;
     this.guarantor_name = name;
   }
+  setNoGuarantor() {
+    //Here we will see a default value for the minimum amount for not having a guarantor
+    //Cause small loans do not need a guarantor
+    console.log("No seleccionaste ningún garante");
+    this.guarantor_id = "No seleccionado";
+    this.guarantor_name = "No seleccionado";
+    this.guarantorEmailHint = "No seleccionado";
+    this.move(2);
+  }
   setClientHint(client) {
     const { email, name } = client;
     if (!client["active_loan"]) {
@@ -135,8 +169,8 @@ export class LoanFormComponent implements OnInit {
   }
 
   private nextFromGuarantor(value: boolean): void {
-    this.newGuarantor = value
-    this.move(2)
+    this.newGuarantor = value;
+    this.move(2);
   }
 
   setPaymentDates(payment_period: string, cuotes: number) {
@@ -159,7 +193,6 @@ export class LoanFormComponent implements OnInit {
     }
   }
   createDates(cuotes: number, time_period: string, jump_lap: number) {
-
     let format: string = "MM/DD/YYYY";
     let today: any = moment();
     let dates = [];
@@ -175,7 +208,6 @@ export class LoanFormComponent implements OnInit {
       dates.push(payment);
     } //forloop
     return dates;
-
   }
 
   submit() {
@@ -195,7 +227,7 @@ export class LoanFormComponent implements OnInit {
       amount_paid: 0,
       extra_amount: 0,
       firstCheck: true,
-      cancel_reason: "",
+      cancel_reason: "", //Parameters below are related to the guarantor only
       guarantor_id: this.guarantor_id,
       guarantor_name: this.guarantor_name,
       guarantor_email: this.guarantorEmailHint,

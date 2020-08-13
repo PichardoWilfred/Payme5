@@ -5,10 +5,10 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./loan-list.component.scss"],
 })
 export class LoanListComponent implements OnInit {
-  constructor() {}
-  ngOnInit() {}
   loansLength: number;
   showSpinner: boolean = true;
+  constructor() {}
+  ngOnInit() {}
 
   setLoans(length: number) {
     this.loansLength = length;

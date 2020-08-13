@@ -52,7 +52,6 @@ export class ListComponent implements OnInit, OnDestroy {
   f_clients: any;
   filters: Object = {};
 
-
   private applyFilters() {
     this.f_clients = _.filter(this.listed_clients, _.conforms(this.filters));
   }

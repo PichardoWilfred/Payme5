@@ -14,11 +14,13 @@ export class ClientService {
   ) {
     this.ClientsCollection = this.firestore.collection("clients");
   }
-  ClientsCollection: AngularFirestoreCollection<Object>;
-  //Get all UserClients
+  ClientsCollection: AngularFirestoreCollection<object>;
+  //Get all Userclients
   getClients(uid: string) {
     return this.firestore
-      .collection("clients", (ref) => ref.where("uid", "==", uid).orderBy("name"))
+      .collection("clients", (ref) =>
+        ref.where("uid", "==", uid).orderBy("name")
+      )
       .valueChanges({ idField: "client_id" });
   }
 
@@ -33,12 +35,12 @@ export class ClientService {
     return this.ClientsCollection.doc(client_id).valueChanges();
   }
 
-  updateClient(client_id: string, data: Object) {
+  updateClient(client_id: string, data: object) {
     this.snack.bar("Cliente actualizado exitosamente", "OK");
     this.ClientsCollection.doc(client_id).update(data);
   }
 
-  addClient(client: Object) {
+  addClient(client: object) {
     this.snack.bar("Cliente agregado exitosamente", "OK");
     this.ClientsCollection.add(client);
   }

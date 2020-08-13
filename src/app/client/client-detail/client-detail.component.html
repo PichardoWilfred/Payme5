@@ -1,18 +1,21 @@
 <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
 <div *ngIf="client$ | async as client">
-    <client-form [initialFormValue]="client" (formValue)="updateClient($event)">
-        <span class="save">Guardar Cambios</span>
-        <span class="checkLoan">
-            <div class="fab-container">
-                <button mat-fab [disabled]="!client.active_loan" [routerLink]="['/loan', client.loan_id]"
-                    color="primary">
-                    <mat-icon>work</mat-icon>
-                </button>
-            </div>
-        </span>
-        <span class="guarantor-list">
-            <guarantor-list [client_id]="client_id"></guarantor-list>
-        </span>
-    </client-form>
-
+  <client-form [initialFormValue]="client" (formValue)="updateClient($event)">
+    <span class="save">Guardar Cambios</span>
+    <span class="checkLoan">
+      <div class="fab-container">
+        <button
+          mat-fab
+          [disabled]="!client.active_loan"
+          [routerLink]="['/loan', client.loan_id]"
+          color="primary"
+        >
+          <mat-icon>work</mat-icon>
+        </button>
+      </div>
+    </span>
+    <span class="guarantor-list">
+      <guarantor-list [client_id]="client_id"></guarantor-list>
+    </span>
+  </client-form>
 </div>

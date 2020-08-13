@@ -6,7 +6,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 @Component({
   selector: "app-new-client",
   templateUrl: "./new-client.component.html",
-  styleUrls: ["./new-client.component.scss"],
+  styleUrls: ["./new-client.component.scss"]
 })
 export class NewClientComponent implements OnInit {
   constructor(
@@ -15,7 +15,7 @@ export class NewClientComponent implements OnInit {
     private fireAuth: AngularFireAuth
   ) {}
   ngOnInit() {
-    this.fireAuth.authState.subscribe((user) => {
+    this.fireAuth.authState.subscribe(user => {
       if (user) {
         this.uid = user.uid;
       }

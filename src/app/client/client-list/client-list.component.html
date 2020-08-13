@@ -1,13 +1,18 @@
 <div class="row text-center">
-    <div class="col-12 justify-content-center pt-2">
-        <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner" [diameter]="50"></mat-spinner>
-        <div class="mr-5 active" *ngIf="clientsLength > 0">
-            <h1 class="font-weight-light active">{{clientsLength}}
-                <span>
-                    <mat-icon class="icon-2 ml-1 active">people_alt</mat-icon>
-                </span>
-            </h1>
-        </div>
+  <div class="col-12 justify-content-center pt-2">
+    <mat-spinner
+      class="mx-auto mt-5 pt-5"
+      *ngIf="showSpinner"
+      [diameter]="50"
+    ></mat-spinner>
+    <div class="mr-5 active" *ngIf="clientsLength > 0">
+      <h1 class="font-weight-light active">
+        {{ clientsLength }}
+        <span>
+          <mat-icon class="icon-2 ml-1 active">people_alt</mat-icon>
+        </span>
+      </h1>
     </div>
+  </div>
 </div>
 <list (clients)="setLength($event)"></list>
