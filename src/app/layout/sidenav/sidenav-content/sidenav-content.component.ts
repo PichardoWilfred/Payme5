@@ -29,7 +29,6 @@ export class SidenavContentComponent implements OnInit {
 
   routes: Object[] = [
     // { icon: "home", path: "/home/about", name: "Inicio" },
-    { icon: "person", path: "/client", name: "Perfil" },
     { icon: "work", path: "/loan/loan-list", name: "Préstamos" },
     { icon: "people_alt", path: "/client", name: "Clientes" },
     {
@@ -37,6 +36,7 @@ export class SidenavContentComponent implements OnInit {
       path: "/payment/payment-list",
       name: "Pagos realizados",
     },
+    { icon: "person", path: "/client", name: "Perfil" },
   ];
 
   navigateTo(route: String, routeRoot: String) {

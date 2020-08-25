@@ -34,7 +34,9 @@ export class LoanService {
 
   getLoans(user_id: string) {
     return this.firestore
-      .collection("loans", (ref) => ref.where("user_id", "==", user_id))
+      .collection("loans", (ref) =>
+        ref.where("user_id", "==", user_id).orderBy("active", "desc")
+      )
       .valueChanges({ idField: "loan_id" });
   }
 

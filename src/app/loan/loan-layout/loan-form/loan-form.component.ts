@@ -102,10 +102,6 @@ export class LoanFormComponent implements OnInit {
     this.guarantor$.subscribe((guarantor) => {
       this.theresGuarantors = guarantor.length ? true : false;
     });
-    //Que determine si el monto mínimo está disponible
-    this.neededGuarantor = this.amount > this.gnmamount ? true : false;
-    if (this.guarantor_id)
-      console.log("hay un guanrantor id y es:", this.guarantor_id);
 
     if (this.guarantor_id) {
       if (this.guarantor_id == "No seleccionado" && this.neededGuarantor) {
@@ -116,14 +112,6 @@ export class LoanFormComponent implements OnInit {
     } else {
       this.guarantorModule_completed = false;
     }
-
-    console.log(
-      "ModuloDeGarantes.completed es: ",
-      this.guarantorModule_completed
-    );
-
-    //Desactívalo si se necesita un garante y no hay ninguno seleccionado
-    //Se usará la variable de guarantorModule_completed
   }
 
   addGuarantor(guarantor) {
@@ -194,13 +182,13 @@ export class LoanFormComponent implements OnInit {
   }
   createDates(cuotes: number, time_period: string, jump_lap: number) {
     let format: string = "MM/DD/YYYY";
-    let today: any = moment();
+    let today: any = moment({ hours: 23, minute: 59, seconds: 59 });
     let dates = [];
 
     for (let i = 0; i < cuotes; i++) {
       let payment = {
         index: i,
-        date: new Date(today.add(jump_lap, time_period).format(format)),
+        date: new Date(today.add(jump_lap, time_period)),
         paid: false,
         payment_deposit: 0,
         late: false,
@@ -232,6 +220,7 @@ export class LoanFormComponent implements OnInit {
       guarantor_name: this.guarantor_name,
       guarantor_email: this.guarantorEmailHint,
     };
+    //console.log(loanFormValue); // debugging purposes uwu
     this.formValue.emit(loanFormValue);
   }
 }
