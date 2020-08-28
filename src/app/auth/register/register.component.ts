@@ -35,12 +35,29 @@ export class RegisterComponent implements OnInit, OnDestroy {
     ],
     password: [
       "",
-      [Validators.required, Validators.minLength(6), Validators.maxLength(30)],
+      [Validators.required, Validators.minLength(8), Validators.maxLength(30)],
     ],
     cellphone: [null, [Validators.required, Validators.minLength(10)]],
     phone: [null, [Validators.minLength(10)]],
   });
 
+  //Getters
+  get name() {
+    return this.registerForm.get("name");
+  }
+  get email() {
+    return this.registerForm.get("email");
+  }
+  get username() {
+    return this.registerForm.get("username");
+  }
+  get password() {
+    return this.registerForm.get("password");
+  }
+  get cellphone() {
+    return this.registerForm.get("cellphone");
+  }
+  //Fin de los getters
   goLogin() {
     this.router.navigate(["/auth/login"]);
   }
