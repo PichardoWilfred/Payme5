@@ -103,6 +103,14 @@ export class LoanFormComponent implements OnInit {
       this.theresGuarantors = guarantor.length ? true : false;
     });
 
+    //if (this.amount > this.gnmamount) {
+    //this.neededGuarantor = true;
+    //} else {
+    //this.neededGuarantor = false;
+    //}
+
+    this.neededGuarantor = this.amount > this.gnmamount ? true : false;
+
     if (this.guarantor_id) {
       if (this.guarantor_id == "No seleccionado" && this.neededGuarantor) {
         this.guarantorModule_completed = false;
