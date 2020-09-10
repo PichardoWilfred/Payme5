@@ -1,138 +1,217 @@
 <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
 <div *ngIf="loan$ | async as loan">
-    <div class="row mb-0 pb-0">
-        <div *ngIf="loan.active" class="col-12 pt-3">
-            <p class="font-weight-thin gray text-center">Para realizar un pago, presione <mat-icon>today
-                </mat-icon>
-            </p>
-        </div>
-        <div class="col-5 mr-auto pt-3 pb-0 mb-0 ml-4 gray">
-            <button mat-flat-button *ngIf="loan.state == 'completed' " color="primary">Completo</button>
-            <button mat-flat-button *ngIf="loan.state == 'pending' " color="accent">Activo</button>
-            <button mat-flat-button *ngIf="loan.state == 'canceled' " color="warn">Cancelado</button>
-        </div>
-        <div class="col-5 ml-auto">
-            <p class="font-weight_light pt-3 pb-0 mb-0 ml-5 gray">{{loan.created_at.toDate() | date: 'shortDate' }}
-            </p>
-        </div>
-
+  <div class="row mb-0 pb-0">
+    <div *ngIf="loan.active" class="col-12 pt-3">
+      <p class="font-weight-thin gray text-center">
+        Para realizar un pago, presione <mat-icon>today </mat-icon>
+      </p>
     </div>
-    <div class="row px-4 pb-4">
-        <div class="col-12">
-            <mat-nav-list>
-                <mat-list-item *ngIf="loan.active" [routerLink]="['/client', loan.client_id]">
-                    <mat-icon matListIcon class="icon-2">
-                        account_circle</mat-icon>
-                    <p matLine class="font-weight-bold"> {{loan.client_name}} </p>
-                    <p matLine class="font-weight-thin">
-                        {{loan.client_email}}
-                    </p>
-                </mat-list-item>
-                <mat-list-item [style.color]="canceled ? '#ef9a9a':'#9fa8da'" *ngIf="!loan.active"
-                    [routerLink]="['/client', loan.client_id]">
-                    <mat-icon matListIcon class="icon-2">
-                        account_circle</mat-icon>
-                    <p matLine class="font-weight-bold"> {{loan.client_name}} </p>
-                    <p matLine class="font-weight-thin">
-                        {{loan.client_email}}
-                    </p>
-                </mat-list-item>
-                <mat-divider class="mb-3 w-100"></mat-divider>
-            </mat-nav-list>
-
-            <mat-form-field class="col-12 col-md-6">
-                <mat-label>Monto por cuota</mat-label>
-                <input matInput [value]="loan.fee_payment | currency:'RD$'" readonly>
-            </mat-form-field>
-            <mat-form-field class="col-12 col-md-6 pb-2">
-                <mat-label>Período de pago</mat-label>
-                <input matInput [value]="loan.term" readonly>
-                <mat-icon matSuffix>today</mat-icon>
-            </mat-form-field>
-            <mat-form-field class="col-12 col-md-6">
-                <mat-label>Monto</mat-label>
-                <input matInput [value]="loan.amount | currency:'RD$'" readonly>
-                <mat-icon matSuffix>work</mat-icon>
-            </mat-form-field>
-            <mat-form-field class="col-12 col-md-6">
-                <mat-label>Interés total</mat-label>
-                <input matInput [value]="loan.full_interest | currency:'RD$'" readonly>
-            </mat-form-field>
-            <mat-form-field class="col-12 col-md-6">
-                <mat-label>Pago total</mat-label>
-                <input matInput [value]="loan.total_amount| currency:'RD$'" readonly>
-            </mat-form-field>
-            <mat-divider class="mb-3 w-100"></mat-divider>
-            <mat-form-field class="col-12 col-md-6">
-                <mat-label>Monto acumulado</mat-label>
-                <input matInput [value]="loan.amount_paid | currency:'RD$'" readonly>
-            </mat-form-field>
-            <mat-form-field class="col-12 col-md-6">
-                <mat-label>Monto faltante</mat-label>
-                <input matInput [value]="loan.missing_amount | currency:'RD$'" readonly>
-            </mat-form-field>
-            <mat-form-field *ngIf="loan.extra_amount" class="col-12 col-md-6">
-                <mat-label>Monto sobrante</mat-label>
-                <input matInput [value]="loan.extra_amount | currency:'RD$'" readonly>
-            </mat-form-field>
-            <mat-nav-list>
-                <p class="ml-2 pl-1 p-1 input-label desc mb-0">Garante</p>
-                <mat-list-item class="pt-0" [routerLink]="['/loan', loan.guarantor_id,'guarantor']">
-                    <mat-icon matListIcon class="icon-2 pt-0 pl-1 pb-0">
-                        face</mat-icon>
-                    <p matLine class="font-weight-bold"> {{loan.guarantor_name}}</p>
-                    <p matLine class="font-weight-thin pb-1">
-                        {{loan.guarantor_email}}
-                    </p>
-                </mat-list-item>
-            </mat-nav-list>
-            <mat-divider class="col-12 ml-auto mb-2"></mat-divider>
-
-            <div class="fab-container">
-                <button mat-fab [routerLink]="['/loan',loan_id,'payments']" [color]="fabColor">
-                    <mat-icon>today</mat-icon>
-                </button>
-            </div>
-            <div class="col-12 mt-2" *ngIf="!loan_completed">
-                <button type="submit" [disabled]="!loan.active" (click)="openModal(template)" mat-stroked-button
-                    color="warn" class="col-12 col-md-12 p-2">
-                    <mat-icon>not_interested</mat-icon>
-                    Cancelar préstamo
-                </button>
-            </div>
-            <div class="col-12 mt-2" *ngIf="loan_completed">
-                <button type="submit" [disabled]="completed" mat-stroked-button color="primary" (click)="completeLoan()"
-                    class="col-12 col-md-12 p-2">
-                    <mat-icon>check_circle_outline</mat-icon>
-                    Finalizar préstamo
-                </button>
-            </div>
-
-        </div>
-        <div class="row">
-            <ng-template #template>
-                <div class="modal-body px-4 pt-4 pb-2">
-                    <p class="text-center font-weight-light">¿Por qué quieres cancelar este préstamo?</p>
-                    <form [formGroup]="cancelForm" autocomplete="off" class="m-0 p-0">
-                        <div class="row justify-content-end">
-                            <div class="col-12">
-                                <mat-form-field class="col-12">
-                                    <textarea matInput formControlName="cancel_reason" placeholder="Explica el motivo"
-                                        [(ngModel)]="cancel_reason"></textarea>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-3">
-                                <button type="button" mat-button (click)="decline()" color="primary"><b>VOLVER</b>
-                                </button>
-                            </div>
-                            <div class="col-3 mr-4">
-                                <button type="button" [disabled]="cancelForm.invalid" mat-button color="primary"
-                                    (click)="confirm()"><b>ACEPTAR</b></button>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </ng-template>
-        </div>
+    <div class="col-5 mr-auto pt-3 pb-0 mb-0 ml-4 gray">
+      <button mat-flat-button *ngIf="loan.state == 'completed'" color="primary">
+        Completo
+      </button>
+      <button mat-flat-button *ngIf="loan.state == 'pending'" color="accent">
+        Activo
+      </button>
+      <button mat-flat-button *ngIf="loan.state == 'canceled'" color="warn">
+        Cancelado
+      </button>
     </div>
+    <div class="col-5 ml-auto">
+      <p class="font-weight_light pt-3 pb-0 mb-0 ml-5 gray">
+        {{ loan.created_at.toDate() | date: "shortDate" }}
+      </p>
+    </div>
+  </div>
+  <div class="row px-4 pb-4">
+    <div class="col-12">
+      <mat-nav-list>
+        <mat-list-item
+          *ngIf="loan.active"
+          [routerLink]="['/client', loan.client_id]"
+        >
+          <mat-icon matListIcon class="icon-2"> account_circle</mat-icon>
+          <p matLine class="font-weight-bold">{{ loan.client_name }}</p>
+          <p matLine class="font-weight-thin">
+            {{ loan.client_email }}
+          </p>
+        </mat-list-item>
+        <mat-list-item
+          [style.color]="canceled ? '#ef9a9a' : '#9fa8da'"
+          *ngIf="!loan.active"
+          [routerLink]="['/client', loan.client_id]"
+        >
+          <mat-icon matListIcon class="icon-2"> account_circle</mat-icon>
+          <p matLine class="font-weight-bold">{{ loan.client_name }}</p>
+          <p matLine class="font-weight-thin">
+            {{ loan.client_email }}
+          </p>
+        </mat-list-item>
+        <mat-divider class="mb-3 w-100"></mat-divider>
+      </mat-nav-list>
+
+      <mat-form-field class="col-13 col-md-6">
+        <mat-label>Monto</mat-label>
+        <input matInput [value]="loan.amount | currency: 'RD$'" readonly />
+        <mat-icon matSuffix>work</mat-icon>
+      </mat-form-field>
+
+      <!--Aquí debe ir el interés-->
+
+      <mat-form-field class="col-12 col-md-6">
+        <mat-label>Tasa de interés</mat-label>
+        <input matInput [value]="loan.interest_rate + '%'" readonly />
+      </mat-form-field>
+
+      <mat-form-field class="col-12 col-md-6 pb-2">
+        <mat-label
+          >Período de pago ({{ completed_payments }}/{{
+            loan.fees_amount
+          }})</mat-label
+        >
+        <input matInput [value]="loan.term" readonly />
+        <mat-icon matSuffix>today</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="col-12 col-md-6">
+        <mat-label>Monto por cuota</mat-label>
+        <input matInput [value]="loan.fee_payment | currency: 'RD$'" readonly />
+      </mat-form-field>
+
+      <!--<mat-form-field class="col-12 col-md-6">-->
+      <!--<mat-label>Interés total</mat-label>-->
+      <!--<input-->
+      <!--matInput-->
+      <!--[value]="loan.full_interest | currency: 'RD$'"-->
+      <!--readonly-->
+      <!--/>-->
+      <!--</mat-form-field>-->
+
+      <!--<mat-form-field class="col-12 col-md-6">-->
+      <!--<mat-label>Pago total</mat-label>-->
+      <!--<input-->
+      <!--matInput-->
+      <!--[value]="loan.total_amount | currency: 'RD$'"-->
+      <!--readonly-->
+      <!--/>-->
+      <!--</mat-form-field>-->
+
+      <!--<mat-divider class="mb-3 w-100"></mat-divider>-->
+      <!--<mat-form-field class="col-12 col-md-6">-->
+      <!--<mat-label>Monto acumulado</mat-label>-->
+      <!--<input matInput [value]="loan.amount_paid | currency: 'RD$'" readonly />-->
+      <!--</mat-form-field>-->
+      <!--<mat-form-field class="col-12 col-md-6">-->
+      <!--<mat-label>Monto faltante</mat-label>-->
+      <!--<input-->
+      <!--matInput-->
+      <!--[value]="loan.missing_amount | currency: 'RD$'"-->
+      <!--readonly-->
+      <!--/>-->
+      <!--</mat-form-field>-->
+      <!--<mat-form-field *ngIf="loan.extra_amount" class="col-12 col-md-6">-->
+      <!--<mat-label>Monto sobrante</mat-label>-->
+      <!--<input-->
+      <!--matInput-->
+      <!--[value]="loan.extra_amount | currency: 'RD$'"-->
+      <!--readonly-->
+      <!--/>-->
+      <!--</mat-form-field>-->
+
+      <mat-nav-list>
+        <p class="ml-2 pl-1 p-1 input-label desc mb-0">Garante</p>
+        <mat-list-item
+          class="pt-0"
+          [routerLink]="['/loan', loan.guarantor_id, 'guarantor']"
+        >
+          <mat-icon matListIcon class="icon-2 pt-0 pl-1 pb-0"> face</mat-icon>
+          <p matLine class="font-weight-bold">{{ loan.guarantor_name }}</p>
+          <p matLine class="font-weight-thin pb-1">
+            {{ loan.guarantor_email }}
+          </p>
+        </mat-list-item>
+      </mat-nav-list>
+      <mat-divider class="col-12 ml-auto mb-2"></mat-divider>
+
+      <div class="fab-container">
+        <button
+          mat-fab
+          [routerLink]="['/loan', loan_id, 'payments']"
+          [color]="fabColor"
+        >
+          <mat-icon>today</mat-icon>
+        </button>
+      </div>
+      <div class="col-12 mt-2" *ngIf="!loan_completed">
+        <button
+          type="submit"
+          [disabled]="!loan.active"
+          (click)="openModal(template)"
+          mat-stroked-button
+          color="warn"
+          class="col-12 col-md-12 p-2"
+        >
+          <mat-icon>not_interested</mat-icon>
+          Cancelar préstamo
+        </button>
+      </div>
+      <div class="col-12 mt-2" *ngIf="loan_completed">
+        <button
+          type="submit"
+          [disabled]="completed"
+          mat-stroked-button
+          color="primary"
+          (click)="completeLoan()"
+          class="col-12 col-md-12 p-2"
+        >
+          <mat-icon>check_circle_outline</mat-icon>
+          Finalizar préstamo
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <ng-template #template>
+        <div class="modal-body px-4 pt-4 pb-2">
+          <p class="text-center font-weight-light">
+            ¿Por qué quieres cancelar este préstamo?
+          </p>
+          <form [formGroup]="cancelForm" autocomplete="off" class="m-0 p-0">
+            <div class="row justify-content-end">
+              <div class="col-12">
+                <mat-form-field class="col-12">
+                  <textarea
+                    matInput
+                    formControlName="cancel_reason"
+                    placeholder="Explica el motivo"
+                    [(ngModel)]="cancel_reason"
+                  ></textarea>
+                </mat-form-field>
+              </div>
+              <div class="col-3">
+                <button
+                  type="button"
+                  mat-button
+                  (click)="decline()"
+                  color="primary"
+                >
+                  <b>VOLVER</b>
+                </button>
+              </div>
+              <div class="col-3 mr-4">
+                <button
+                  type="button"
+                  [disabled]="cancelForm.invalid"
+                  mat-button
+                  color="primary"
+                  (click)="confirm()"
+                >
+                  <b>ACEPTAR</b>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
