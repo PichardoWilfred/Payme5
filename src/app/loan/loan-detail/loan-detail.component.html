@@ -78,45 +78,55 @@
         <input matInput [value]="loan.fee_payment | currency: 'RD$'" readonly />
       </mat-form-field>
 
-      <!--<mat-form-field class="col-12 col-md-6">-->
-      <!--<mat-label>Interés total</mat-label>-->
-      <!--<input-->
-      <!--matInput-->
-      <!--[value]="loan.full_interest | currency: 'RD$'"-->
-      <!--readonly-->
-      <!--/>-->
-      <!--</mat-form-field>-->
+      <mat-expansion-panel>
+        <!-- Ver más -->
+        <mat-expansion-panel-header>
+          <mat-panel-title class="indigo"> Ver más </mat-panel-title>
+        </mat-expansion-panel-header>
 
-      <!--<mat-form-field class="col-12 col-md-6">-->
-      <!--<mat-label>Pago total</mat-label>-->
-      <!--<input-->
-      <!--matInput-->
-      <!--[value]="loan.total_amount | currency: 'RD$'"-->
-      <!--readonly-->
-      <!--/>-->
-      <!--</mat-form-field>-->
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Interés total</mat-label>
+          <input
+            matInput
+            [value]="loan.full_interest | currency: 'RD$'"
+            readonly
+          />
+        </mat-form-field>
 
-      <!--<mat-divider class="mb-3 w-100"></mat-divider>-->
-      <!--<mat-form-field class="col-12 col-md-6">-->
-      <!--<mat-label>Monto acumulado</mat-label>-->
-      <!--<input matInput [value]="loan.amount_paid | currency: 'RD$'" readonly />-->
-      <!--</mat-form-field>-->
-      <!--<mat-form-field class="col-12 col-md-6">-->
-      <!--<mat-label>Monto faltante</mat-label>-->
-      <!--<input-->
-      <!--matInput-->
-      <!--[value]="loan.missing_amount | currency: 'RD$'"-->
-      <!--readonly-->
-      <!--/>-->
-      <!--</mat-form-field>-->
-      <!--<mat-form-field *ngIf="loan.extra_amount" class="col-12 col-md-6">-->
-      <!--<mat-label>Monto sobrante</mat-label>-->
-      <!--<input-->
-      <!--matInput-->
-      <!--[value]="loan.extra_amount | currency: 'RD$'"-->
-      <!--readonly-->
-      <!--/>-->
-      <!--</mat-form-field>-->
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Pago total</mat-label>
+          <input
+            matInput
+            [value]="loan.total_amount | currency: 'RD$'"
+            readonly
+          />
+        </mat-form-field>
+
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Monto acumulado</mat-label>
+          <input
+            matInput
+            [value]="loan.amount_paid | currency: 'RD$'"
+            readonly
+          />
+        </mat-form-field>
+        <mat-form-field class="col-12 col-md-6">
+          <mat-label>Monto faltante</mat-label>
+          <input
+            matInput
+            [value]="loan.missing_amount | currency: 'RD$'"
+            readonly
+          />
+        </mat-form-field>
+        <mat-form-field *ngIf="loan.extra_amount" class="col-12 col-md-6">
+          <mat-label>Monto sobrante</mat-label>
+          <input
+            matInput
+            [value]="loan.extra_amount | currency: 'RD$'"
+            readonly
+          />
+        </mat-form-field> </mat-expansion-panel
+      ><!-- Ver más -->
 
       <mat-nav-list>
         <p class="ml-2 pl-1 p-1 input-label desc mb-0">Garante</p>
