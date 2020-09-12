@@ -1,29 +1,38 @@
-<mat-toolbar color="primary">
+<div class="row">
+  <mat-toolbar color="primary" class="w-100">
     <mat-toolbar-row *ngIf="user | async as user" class="row py-4 pl-3">
-        <div class="col-12 pt-1">
-            <mat-icon class="icon-3 ml-2 pl-1">store_front
-            </mat-icon>
-        </div>
-        <div class="col-12 pt-2">
-            <p matLine class="font-weight-thin mb-0 date pl-1 name">{{user.name}}</p>
-            <p matLine class="font-weight-thin pl-1 number">{{user.email}}</p>
-        </div>
+      <div class="col-12 pt-1">
+        <mat-icon class="icon-3 ml-2 pl-1">store_front </mat-icon>
+      </div>
+      <div class="col-12 pt-2">
+        <p matLine class="font-weight-thin mb-0 date pl-1 name">
+          {{ user.name }}
+        </p>
+        <p matLine class="font-weight-thin pl-1 number">{{ user.email }}</p>
+      </div>
     </mat-toolbar-row>
-</mat-toolbar>
-<div class="row" style="height: 80%;">
-    <div class="col-12">
-        <mat-nav-list class="pt-1">
-            <mat-list-item *ngFor="let route of routes" (click)="navigateTo(route.path, route.name)" class="menu-color">
-                <mat-icon>{{route.icon}}</mat-icon>
-                <a class="px-3 font-weight-light">{{route.name}}</a>
-            </mat-list-item>
-        </mat-nav-list>
-    </div>
-    <div class="col-12 mt-auto">
-        <mat-nav-list class="pt-1 red">
-            <mat-list-item [style.color]="'#F44336'" (click)="logout()">
-                <mat-icon>login</mat-icon> <a class="px-3 font-weight-light">Cerrar sesión</a>
-            </mat-list-item>
-        </mat-nav-list>
-    </div>
+  </mat-toolbar>
+</div>
+
+<div class="row" style="height: 80%">
+  <div class="col-12">
+    <mat-nav-list class="pt-1">
+      <mat-list-item
+        *ngFor="let route of routes"
+        (click)="navigateTo(route.path, route.name)"
+        class="menu-color"
+      >
+        <mat-icon>{{ route.icon }}</mat-icon>
+        <a class="px-3 font-weight-light">{{ route.name }}</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
+  <div class="col-12 mt-auto">
+    <mat-nav-list class="pt-1 red">
+      <mat-list-item [style.color]="'#F44336'" (click)="logout()">
+        <mat-icon>login</mat-icon>
+        <a class="px-3 font-weight-light">Cerrar sesión</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </div>
 </div>

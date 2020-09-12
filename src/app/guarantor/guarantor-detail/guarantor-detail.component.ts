@@ -20,7 +20,7 @@ export class GuarantorDetailComponent implements OnInit {
   guarantor$: Observable<Object>;
   showSpinner: boolean = true;
   ngOnInit() {
-    this.layout.toggleAuth("detail");
+    this.layout.toggleAuth(["detail"]);
     this.guarantor_id = this.route.snapshot.paramMap.get("id");
     this.guarantor$ = this.guarantor.getGuarantor(this.guarantor_id);
     this.guarantor$.subscribe((guarantor) => {

@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ) {}
   ngOnInit() {
     this.layout.changeTitle("Crear usuario");
-    this.layout.toggleAuth("unlogged");
+    this.layout.toggleAuth(["unlogged"]);
   }
   ngOnDestroy() {
     this.layout.changeTitle("");

@@ -31,7 +31,7 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
     amount_paid: [null, [Validators.required]],
   });
   ngOnInit() {
-    this.layout.toggleAuth("detail");
+    this.layout.toggleAuth(["detail"]);
     this.loan_id = this.route.snapshot.paramMap.get("id");
     this.Ogloan = this.loan.getLoan(this.loan_id);
     this.Ogloan.subscribe((loan) => {
@@ -43,7 +43,7 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.layout.toggleAuth("logged");
+    this.layout.toggleAuth(["logged"]);
   }
   showThesePayments: boolean = false;
   payments_made: Observable<Object[]>;

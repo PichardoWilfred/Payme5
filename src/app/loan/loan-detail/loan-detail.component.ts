@@ -6,7 +6,6 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 import { SnackbarService } from "src/app/layout/snackbar.service";
 import { LayoutService } from "src/app/layout/layout.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { element } from "protractor";
 
 @Component({
   selector: "app-loan-detail",
@@ -40,7 +39,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   completed_payments: Number;
 
   ngOnInit() {
-    this.layout.toggleAuth("detail");
+    this.layout.toggleAuth(["detail", "work", "loan/loan-list"]);
     this.loan_id = this.route.snapshot.paramMap.get("id");
     this.loan$ = this.db.getLoan(this.loan_id);
     this.loan$.subscribe((loan) => {
@@ -65,7 +64,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   });
 
   ngOnDestroy() {
-    this.layout.toggleAuth("logged");
+    this.layout.toggleAuth(["logged"]);
   }
 
   openModal(template: TemplateRef<any>) {

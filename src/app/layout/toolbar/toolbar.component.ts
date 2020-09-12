@@ -9,6 +9,8 @@ import { LayoutService } from "../layout.service";
 export class ToolbarComponent implements OnInit {
   @Output() toggleEvent = new EventEmitter<boolean>();
   state: string;
+  icon_state: string;
+  route_state: string;
   toolTitle: string;
   welcomeView: boolean;
   toggleSideBar(toggle: boolean) {
@@ -18,10 +20,9 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit() {
     this.layout.toolbarContent.subscribe((state) => {
-      this.state = state;
-      if (state == "welcome") {
-        this.welcomeView = true;
-      }
+      this.state = state[0];
+      this.icon_state = state[1];
+      this.route_state = state[2];
     });
     this.layout.actualTitle.subscribe((title) => {
       this.toolTitle = title;

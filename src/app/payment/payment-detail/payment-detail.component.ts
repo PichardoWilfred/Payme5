@@ -20,7 +20,7 @@ export class PaymentDetailComponent implements OnInit, OnDestroy {
   payment$: Observable<Object>;
 
   ngOnInit() {
-    this.layout.toggleAuth("detail");
+    this.layout.toggleAuth(["detail", "attach_money", "payment"]);
     this.payment_id = this.route.snapshot.paramMap.get("id");
     this.payment$ = this.payment.getPayment(this.payment_id);
     this.payment$.subscribe((payment) => {
@@ -28,6 +28,6 @@ export class PaymentDetailComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.layout.toggleAuth("logged");
+    this.layout.toggleAuth(["logged"]);
   }
 }

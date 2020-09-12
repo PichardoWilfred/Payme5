@@ -6,31 +6,42 @@
       </button>
     </span>
     <h4 class="mr-2 pt-1 mt-1 font-weight-light open-sans">
-      {{toolTitle}}
+      {{ toolTitle }}
     </h4>
   </mat-toolbar-row>
 
   <mat-toolbar-row *ngIf="state == 'unlogged'" class="pr-0 pl-2 pt-1">
     <span class="mr-3 pt-1 mb-1">
       <button mat-icon-button [routerLink]="['/auth/welcome']">
-        <img src=" ../../../assets/imagenes/pNo-bg.png" class="logo-icon">
+        <img src=" ../../../assets/imagenes/pNo-bg.png" class="logo-icon" />
       </button>
     </span>
-    <button mat-button [routerLink]="['auth/register']" routerLinkActive="white"
-      class="font-weight-light login-btn px-2 ml-auto desc">
-      Registrarse</button>
-    <button mat-button [routerLink]="['auth/login']" routerLinkActive="white"
-      class="desc font-weight-light login-btn px-2">Iniciar
-      sesión</button>
+    <button
+      mat-button
+      [routerLink]="['auth/register']"
+      routerLinkActive="white"
+      class="font-weight-light login-btn px-2 ml-auto desc"
+    >
+      Registrarse
+    </button>
+    <button
+      mat-button
+      [routerLink]="['auth/login']"
+      routerLinkActive="white"
+      class="desc font-weight-light login-btn px-2"
+    >
+      Iniciar sesión
+    </button>
   </mat-toolbar-row>
 
   <mat-toolbar-row *ngIf="state == 'detail'">
     <button mat-icon-button (click)="back()">
       <mat-icon>arrow_back</mat-icon>
     </button>
+    <button mat-icon-button class="ml-auto" [routerLink]="route_state">
+      <mat-icon>{{ icon_state }} </mat-icon>
+    </button>
   </mat-toolbar-row>
 
-  <mat-toolbar-row *ngIf="state == '' ">
-  </mat-toolbar-row>
-
+  <mat-toolbar-row *ngIf="state == ''"> </mat-toolbar-row>
 </mat-toolbar>

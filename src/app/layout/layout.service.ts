@@ -16,10 +16,10 @@ export class LayoutService {
   }
 
   // //Toolbar content
-  private toolbarAuth = new BehaviorSubject("");
+  private toolbarAuth = new BehaviorSubject([]);
   toolbarContent = this.toolbarAuth.asObservable();
 
-  toggleAuth(state: string) {
+  toggleAuth(state: Array<string>) {
     this.toolbarAuth.next(state);
   }
 

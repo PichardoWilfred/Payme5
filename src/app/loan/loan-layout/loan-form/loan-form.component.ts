@@ -103,20 +103,13 @@ export class LoanFormComponent implements OnInit {
       this.theresGuarantors = guarantor.length ? true : false;
     });
 
-    //if (this.amount > this.gnmamount) {
-    //this.neededGuarantor = true;
-    //} else {
-    //this.neededGuarantor = false;
-    //}
-
     this.neededGuarantor = this.amount > this.gnmamount ? true : false;
 
     if (this.guarantor_id) {
-      if (this.guarantor_id == "No seleccionado" && this.neededGuarantor) {
-        this.guarantorModule_completed = false;
-      } else {
-        this.guarantorModule_completed = true;
-      }
+      this.guarantorModule_completed =
+        this.guarantor_id == "No seleccionado" && this.neededGuarantor
+          ? false
+          : true;
     } else {
       this.guarantorModule_completed = false;
     }
@@ -147,7 +140,7 @@ export class LoanFormComponent implements OnInit {
   setNoGuarantor() {
     //Here we will see a default value for the minimum amount for not having a guarantor
     //Cause small loans do not need a guarantor
-    console.log("No seleccionaste ningún garante");
+    //console.log("No seleccionaste ningún garante");
     this.guarantor_id = "No seleccionado";
     this.guarantor_name = "No seleccionado";
     this.guarantorEmailHint = "No seleccionado";
@@ -212,6 +205,7 @@ export class LoanFormComponent implements OnInit {
       client_id: this.client_id,
       client_email: this.clientEmailHint,
       client_name: this.client_name,
+      monthly_interest: this.monthly_interest,
       full_interest: this.full_interest,
       total_amount: this.total_amount,
       fee_payment: this.fee_payment,
@@ -223,12 +217,12 @@ export class LoanFormComponent implements OnInit {
       amount_paid: 0,
       extra_amount: 0,
       firstCheck: true,
-      cancel_reason: "", //Parameters below are related to the guarantor only
+      cancel_reason: "", //Parameters below are only related to the guarantor
       guarantor_id: this.guarantor_id,
       guarantor_name: this.guarantor_name,
       guarantor_email: this.guarantorEmailHint,
     };
-    //console.log(loanFormValue); // debugging purposes uwu
+    //console.log(loanFormValue); // debugging purposes
     this.formValue.emit(loanFormValue);
   }
 }

@@ -12,7 +12,7 @@ export class BottomNavComponent implements OnInit {
   constructor(private layout: LayoutService) {}
   ngOnInit() {
     this.layout.toolbarContent.subscribe((state) => {
-      this.state = state;
+      this.state = state[0];
     });
   }
 }

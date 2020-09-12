@@ -15,11 +15,10 @@ import { ModalModule } from "ngx-bootstrap/modal";
 
 import { registerLocaleData } from "@angular/common";
 import localeEs from "@angular/common/locales/es-DO";
-import { ProfileComponent } from './profile/profile.component';
-registerLocaleData(localeEs, "es-DO");
+ registerLocaleData(localeEs, "es-DO");
 
 @NgModule({
-  declarations: [AppComponent, ProfileComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

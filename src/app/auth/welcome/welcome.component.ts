@@ -9,10 +9,10 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   constructor(private layout: LayoutService) {}
 
   ngOnInit() {
-    this.layout.toggleAuth("unlogged");
+    this.layout.toggleAuth(["unlogged"]);
   }
   ngOnDestroy() {
-    this.layout.toggleAuth("");
+    this.layout.toggleAuth([""]);
     this.layout.changeTitle("");
   }
 }

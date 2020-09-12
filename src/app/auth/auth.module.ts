@@ -9,7 +9,7 @@ import { LayoutModule } from "../layout/layout.module";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthToolbarComponent } from "./auth-layout/auth-toolbar/auth-toolbar.component";
-import { WelcomeComponent } from './welcome/welcome.component'; //Forms
+import { WelcomeComponent } from "./welcome/welcome.component";
 
 @NgModule({
   declarations: [

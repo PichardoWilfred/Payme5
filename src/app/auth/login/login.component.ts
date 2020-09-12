@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
   ngOnInit() {
     this.layout.changeTitle("Iniciar Sesión");
-    this.layout.toggleAuth("unlogged");
+    this.layout.toggleAuth(["unlogged"]);
   }
   ngOnDestroy() {
     this.layout.changeTitle("");

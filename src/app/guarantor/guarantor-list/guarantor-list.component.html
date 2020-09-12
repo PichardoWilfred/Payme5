@@ -31,9 +31,13 @@
     <p class="font-weight-light px-3 gray">
       Este cliente no posee ningún garante.
     </p>
-    <button mat-stroked-button color="primary" class="col-12 col-md-12 mb-3">
+    <button
+      mat-stroked-button
+      color="primary"
+      class="col-12 col-md-12 mb-3"
+      [routerLink]="['new-guarantor']"
+    >
       Añadir garante
     </button>
   </div>
 </div>
-

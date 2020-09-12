@@ -3,7 +3,7 @@ import { GuarantorService } from "src/app/guarantor/guarantor.service";
 import { ActivatedRoute } from "@angular/router";
 import { Observable } from "rxjs";
 import { ClientService } from "../client.service";
-import { LayoutService } from 'src/app/layout/layout.service';
+import { LayoutService } from "src/app/layout/layout.service";
 
 @Component({
   selector: "app-new-guarantor",
@@ -16,11 +16,11 @@ export class NewGuarantorComponent implements OnInit {
     private route: ActivatedRoute,
     private clientS: ClientService,
     private layout: LayoutService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.client_id = this.route.snapshot.paramMap.get("id");
-    this.layout.toggleAuth("detail");
+    this.layout.toggleAuth(["detail"]);
 
     this.clientS.getClient(this.client_id).subscribe((client) => {
       this.client_email = client["email"];
