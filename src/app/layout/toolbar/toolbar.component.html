@@ -3,15 +3,16 @@
   class="position-sticky fixed-top"
   *ngIf="state != 'hidden'"
 >
-  <mat-toolbar-row *ngIf="state == 'logged'">
+  <mat-toolbar-row *ngIf="state == 'logged'" class="pl-1">
     <span class="mr-2 pt-1">
-      <button mat-icon-button (click)="toggleSideBar(true)">
+      <button class="ml-0" mat-icon-button (click)="toggleSideBar(true)">
         <mat-icon>menu</mat-icon>
       </button>
     </span>
-    <h4 class="mr-2 pt-1 mt-1 font-weight-light open-sans">
+
+    <h3 class="mr-2 pt-1 pr-5 mt-1 font-weight-light open-sans">
       {{ toolTitle }}
-    </h4>
+    </h3>
   </mat-toolbar-row>
 
   <mat-toolbar-row *ngIf="state == 'unlogged'" class="pr-0 pl-2 pt-1">
