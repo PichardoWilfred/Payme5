@@ -2,47 +2,47 @@
 <!--<div class="container">-->
 <!--account_circle-->
 
-<div class="row align-items-end blue-bg text-center white">
-  <div class="col-12">
-    <mat-icon class="icon-b pt-2"> account_circle </mat-icon>
+<div *ngIf="user$ | async as user">
+  <div class="row align-items-end blue-bg text-center white">
+    <div class="col-12">
+      <mat-icon class="icon-b pt-2"> account_circle </mat-icon>
+    </div>
+    <div class="col-12">
+      <p class="h4">{{ user.name }}</p>
+      <p class="font-weight-light" style="font-size: 0.8em; margin-top: -1vh">
+        {{ user.email }}
+      </p>
+    </div>
   </div>
-  <div class="col-12">
-    <p class="h4">John Doe</p>
-    <p class="font-weight-light" style="font-size: 0.8em; margin-top: -1vh">
-      jonhDoeFoo@gmail.com
-    </p>
+  <div class="row p-4 mt-3 align-items-center">
+    <div class="col-12 col-md-12 mt-3">
+      <form autocomplete="off">
+        <mat-form-field class="col-12 col-md-6 pb-2">
+          <mat-label>Nombre completo</mat-label>
+          <input matInput [value]="user.name" />
+          <mat-icon color="primary" matSuffix>person</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="col-12 col-md-12 pb-2">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput [value]="user.email" />
+          <mat-icon color="primary" matSuffix>email</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="col-12 col-md-6 pb-2">
+          <mat-label>Nombre de usuario</mat-label>
+          <input matInput [value]="user.username" />
+          <mat-icon color="primary" matSuffix>account_circle</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="col-12 col-md-6 pb-2">
+          <mat-label>Celular</mat-label>
+          <input matInput type="number" [value]="user.cellphone" />
+          <mat-icon color="primary" matSuffix>smartphone</mat-icon>
+        </mat-form-field>
+        <mat-form-field class="col-12 col-md-6 pb-2">
+          <mat-label>Teléfono</mat-label>
+          <input matInput type="number" [value]="user.phone" />
+          <mat-icon color="primary" matSuffix>phone</mat-icon>
+        </mat-form-field>
+      </form>
+    </div>
   </div>
 </div>
-
-<div class="row p-4 mt-3 align-items-center">
-  <div class="col-12 col-md-12 mt-3">
-    <form autocomplete="off">
-      <mat-form-field class="col-12 col-md-6 pb-2">
-        <mat-label>Nombre completo</mat-label>
-        <input matInput />
-        <mat-icon color="primary" matSuffix>person</mat-icon>
-      </mat-form-field>
-      <mat-form-field class="col-12 col-md-12 pb-2">
-        <mat-label>Correo electrónico</mat-label>
-        <input matInput />
-        <mat-icon color="primary" matSuffix>email</mat-icon>
-      </mat-form-field>
-      <mat-form-field class="col-12 col-md-6 pb-2">
-        <mat-label>Nombre de usuario</mat-label>
-        <input matInput />
-        <mat-icon color="primary" matSuffix>account_circle</mat-icon>
-      </mat-form-field>
-      <mat-form-field class="col-12 col-md-6 pb-2">
-        <mat-label>Celular</mat-label>
-        <input matInput type="number" />
-        <mat-icon color="primary" matSuffix>smartphone</mat-icon>
-      </mat-form-field>
-      <mat-form-field class="col-12 col-md-6 pb-2">
-        <mat-label>Teléfono</mat-label>
-        <input matInput type="number" />
-        <mat-icon color="primary" matSuffix>phone</mat-icon>
-      </mat-form-field>
-    </form>
-  </div>
-</div>
-<!--</div>-->
