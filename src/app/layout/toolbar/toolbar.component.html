@@ -1,4 +1,8 @@
-<mat-toolbar color="primary" class="position-sticky fixed-top">
+<mat-toolbar
+  color="primary"
+  class="position-sticky fixed-top"
+  *ngIf="state != 'hidden'"
+>
   <mat-toolbar-row *ngIf="state == 'logged'">
     <span class="mr-2 pt-1">
       <button mat-icon-button (click)="toggleSideBar(true)">
@@ -40,6 +44,12 @@
     </button>
     <button mat-icon-button class="ml-auto" [routerLink]="route_state">
       <mat-icon>{{ icon_state }} </mat-icon>
+    </button>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row *ngIf="state == 'back'">
+    <button mat-icon-button (click)="back()">
+      <mat-icon>arrow_back</mat-icon>
     </button>
   </mat-toolbar-row>
 

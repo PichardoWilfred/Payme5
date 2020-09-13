@@ -1,5 +1,6 @@
 <mat-sidenav-container class="h-100">
   <mat-sidenav mode="over" #sideNav class="w-75">
+    <!--This prevents the sidenav in mobile version to spawn a scrollbar-->
     <div class="nh">
       <app-sidenav-content (toggleNavigate)="navigate(sideNav)">
       </app-sidenav-content>

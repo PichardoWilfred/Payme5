@@ -8,9 +8,11 @@ import { HomeLayoutComponent } from "./home-layout/home-layout.component";
 
 //Layout
 import { LayoutModule } from "../layout/layout.module";
+import { ProfileComponent } from './profile/profile.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
-  declarations: [DashboardComponent, AboutComponent, HomeLayoutComponent],
+  declarations: [DashboardComponent, AboutComponent, HomeLayoutComponent, ProfileComponent, SettingsComponent],
   imports: [CommonModule, HomeRoutingModule, LayoutModule],
 })
 export class HomeModule {}
