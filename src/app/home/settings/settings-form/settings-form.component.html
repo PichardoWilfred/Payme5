@@ -1,0 +1,27 @@
+<div class="row px-4 pt-4">
+  <div class="col-12 mb-3">
+    <form [formGroup]="settingsForm" autocomplete="off" (ngSubmit)="submit()">
+      <mat-form-field
+        class="col-12 col-md-6"
+        hintLabel="Monto mínimo necesario para un requerir un garante"
+      >
+        <mat-label>MMPG</mat-label>
+        <input
+          matInput
+          formControlName="guarantor_minimal_amount"
+          type="number"
+        />
+        <!--<mat-icon matSuffix>account_box</mat-icon>-->
+      </mat-form-field>
+      <button
+        type="submit"
+        [disabled]="settingsForm.invalid"
+        mat-flat-button
+        color="primary"
+        class="col-12 col-md-12 mt-2 mb-2"
+      >
+        Guardar cambios
+      </button>
+    </form>
+  </div>
+</div>

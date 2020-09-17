@@ -39,7 +39,7 @@
     </button>
   </mat-toolbar-row>
 
-  <mat-toolbar-row *ngIf="state == 'detail'">
+  <mat-toolbar-row *ngIf="state == 'detail'" class="pl-1">
     <button mat-icon-button (click)="back()">
       <mat-icon>arrow_back</mat-icon>
     </button>
@@ -48,7 +48,7 @@
     </button>
   </mat-toolbar-row>
 
-  <mat-toolbar-row *ngIf="state == 'back'">
+  <mat-toolbar-row *ngIf="state == 'back'" class="pl-1">
     <button mat-icon-button (click)="back()">
       <mat-icon>arrow_back</mat-icon>
     </button>

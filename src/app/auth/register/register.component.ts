@@ -64,6 +64,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   async register() {
     this.registerForm.value["created_at"] = new Date();
+    this.registerForm.value["settings"] = {
+      guarantor_minimal_amount: 20000,
+    };
     await this.auth.register(this.registerForm.value);
   }
 }

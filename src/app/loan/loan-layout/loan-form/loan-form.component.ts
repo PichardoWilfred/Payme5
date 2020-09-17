@@ -14,6 +14,8 @@ import * as moment from "moment";
 import "moment/locale/es";
 import { GuarantorService } from "src/app/guarantor/guarantor.service";
 import { MatStepper } from "@angular/material";
+import { AuthService } from "src/app/auth/auth.service";
+import { HomeService } from "src/app/home/home.service";
 
 @Component({
   selector: "loan-form",
@@ -29,13 +31,24 @@ export class LoanFormComponent implements OnInit {
     private fb: FormBuilder,
     private af: AngularFireAuth,
     private db: ClientService,
-    private guarantor: GuarantorService
+    private guarantor: GuarantorService,
+    private auth: AuthService,
+    private home: HomeService
   ) {}
 
   ngOnInit() {
     this.stateSubscription = this.af.authState.subscribe((auth) => {
       this.client$ = this.db.getClients(auth.uid);
       this.user_id = auth.uid;
+      //this.user$ = this.auth.getUser(auth.uid);
+    });
+
+    this.af.authState.subscribe((auth) => {
+      this.user$ = this.home.getUser(auth.uid);
+
+      this.user$.subscribe((user) => {
+        this.gnmamount = user["settings"]["guarantor_minimal_amount"];
+      });
     });
   }
   ngOnDestroy() {
@@ -43,6 +56,7 @@ export class LoanFormComponent implements OnInit {
   }
   stateSubscription: Subscription;
   user_id: string;
+  user$: Observable<Object>;
   loanForm: FormGroup = this.fb.group({
     client_id: ["", Validators.required],
     amount: ["", Validators.required],
@@ -69,7 +83,7 @@ export class LoanFormComponent implements OnInit {
   newGuarantor: boolean = false;
   neededGuarantor: boolean = false;
   guarantorModule_completed: boolean = false;
-  gnmamount: number = 1000; //guarantor needed minimum amount
+  gnmamount: number; //guarantor needed minimum amount
 
   //Loan related
   amount: number = null;
@@ -103,7 +117,7 @@ export class LoanFormComponent implements OnInit {
       this.theresGuarantors = guarantor.length ? true : false;
     });
 
-    this.neededGuarantor = this.amount > this.gnmamount ? true : false;
+    this.neededGuarantor = this.amount >= this.gnmamount ? true : false;
 
     if (this.guarantor_id) {
       this.guarantorModule_completed =

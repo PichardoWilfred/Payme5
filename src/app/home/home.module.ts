@@ -8,11 +8,26 @@ import { HomeLayoutComponent } from "./home-layout/home-layout.component";
 
 //Layout
 import { LayoutModule } from "../layout/layout.module";
-import { ProfileComponent } from './profile/profile.component';
-import { SettingsComponent } from './settings/settings.component';
-
+import { ProfileComponent } from "./profile/profile.component";
+import { SettingsComponent } from "./settings/settings.component";
+import { SettingsFormComponent } from "./settings/settings-form/settings-form.component";
+//Forms
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 @NgModule({
-  declarations: [DashboardComponent, AboutComponent, HomeLayoutComponent, ProfileComponent, SettingsComponent],
-  imports: [CommonModule, HomeRoutingModule, LayoutModule],
+  declarations: [
+    DashboardComponent,
+    AboutComponent,
+    HomeLayoutComponent,
+    ProfileComponent,
+    SettingsComponent,
+    SettingsFormComponent,
+  ],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    LayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 export class HomeModule {}

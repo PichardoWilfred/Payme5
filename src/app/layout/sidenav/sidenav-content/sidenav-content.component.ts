@@ -37,6 +37,7 @@ export class SidenavContentComponent implements OnInit {
       name: "Pagos realizados",
     },
     { icon: "person", path: "/home/profile", name: "Perfil" },
+    { icon: "settings", path: "/home/settings", name: "Configuración" },
   ];
 
   navigateTo(route: String, routeRoot: String) {

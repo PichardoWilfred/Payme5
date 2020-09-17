@@ -142,8 +142,13 @@
           Continuar sin asignar un garante
         </button>
         <p class="font-weight-light date gray mb-1 text-center">
-          El monto ingresado <b>({{ amount | currency: "RD$" }})</b> no es lo
-          suficientemente elevado como para necesitar un garante
+          El monto ingresado
+          <b class="font-weight-bold">{{ amount | currency: "RD$" }}</b>
+          no es lo suficientemente elevado como para necesitar un garante, el
+          monto mínimo para que el préstamo lo requiera es de
+          <b class="font-weight-bold blue" style="opacity: 0.6">{{
+            gnmamount | currency: "RD$"
+          }}</b>
         </p>
       </div>
     </mat-step>

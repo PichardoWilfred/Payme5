@@ -45,6 +45,4 @@ export class AuthService {
     await this.auth.signOut();
     this.router.navigate(["auth/login"]);
   }
-
-  
 }

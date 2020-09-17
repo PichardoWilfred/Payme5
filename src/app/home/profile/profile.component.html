@@ -19,27 +19,27 @@
       <form autocomplete="off">
         <mat-form-field class="col-12 col-md-6 pb-2">
           <mat-label>Nombre completo</mat-label>
-          <input matInput [value]="user.name" />
+          <input matInput [value]="user.name" readonly />
           <mat-icon color="primary" matSuffix>person</mat-icon>
         </mat-form-field>
         <mat-form-field class="col-12 col-md-12 pb-2">
           <mat-label>Correo electrónico</mat-label>
-          <input matInput [value]="user.email" />
+          <input matInput [value]="user.email" readonly />
           <mat-icon color="primary" matSuffix>email</mat-icon>
         </mat-form-field>
         <mat-form-field class="col-12 col-md-6 pb-2">
           <mat-label>Nombre de usuario</mat-label>
-          <input matInput [value]="user.username" />
+          <input matInput [value]="user.username" readonly />
           <mat-icon color="primary" matSuffix>account_circle</mat-icon>
         </mat-form-field>
         <mat-form-field class="col-12 col-md-6 pb-2">
           <mat-label>Celular</mat-label>
-          <input matInput type="number" [value]="user.cellphone" />
+          <input matInput type="number" [value]="user.cellphone" readonly />
           <mat-icon color="primary" matSuffix>smartphone</mat-icon>
         </mat-form-field>
         <mat-form-field class="col-12 col-md-6 pb-2">
           <mat-label>Teléfono</mat-label>
-          <input matInput type="number" [value]="user.phone" />
+          <input matInput type="number" [value]="user.phone" readonly />
           <mat-icon color="primary" matSuffix>phone</mat-icon>
         </mat-form-field>
       </form>

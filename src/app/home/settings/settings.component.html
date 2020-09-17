@@ -1,1 +1,7 @@
-<p>settings works! manito!</p>
+<div *ngIf="user$ | async as user">
+  <settings-form
+    [initialFormValue]="user.settings"
+    (formValue)="saveSettings($event)"
+  >
+  </settings-form>
+</div>

@@ -23,4 +23,7 @@ export class GuarantorService {
       .doc(guarantor["guarantor_id"])
       .set(guarantor);
   }
+  updateGuarantor(guarantor_id: string, data: object) {
+    this.firestore.collection("guarantors").doc(guarantor_id).update(data);
+  }
 }

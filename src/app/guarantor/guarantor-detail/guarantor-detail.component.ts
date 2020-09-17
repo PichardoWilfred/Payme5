@@ -3,6 +3,7 @@ import { LayoutService } from "src/app/layout/layout.service";
 import { GuarantorService } from "../guarantor.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
+import { AngularFirestore } from "@angular/fire/firestore/firestore";
 @Component({
   selector: "app-guarantor-detail",
   templateUrl: "./guarantor-detail.component.html",
@@ -26,5 +27,8 @@ export class GuarantorDetailComponent implements OnInit {
     this.guarantor$.subscribe((guarantor) => {
       this.showSpinner = false;
     });
+  }
+  updateGuarantor(guarantor) {
+    this.guarantor.updateGuarantor(this.guarantor_id, guarantor);
   }
 }
