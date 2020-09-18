@@ -12,6 +12,7 @@ import { LoanFormComponent } from "./loan-layout/loan-form/loan-form.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ListLComponent } from "./loan-list/list-l/list-l.component"; //Forms
 import { GuarantorModule } from "../guarantor/guarantor.module";
+import { NgxMaskModule } from "ngx-mask";
 @NgModule({
   declarations: [
     NewLoanComponent,
@@ -29,6 +30,7 @@ import { GuarantorModule } from "../guarantor/guarantor.module";
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
   ],
 })
 export class LoanModule {}

@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LayoutModule } from "../layout/layout.module";
 import { RouterModule } from "@angular/router";
 
+import { NgxMaskModule } from "ngx-mask";
 @NgModule({
   declarations: [
     GuarantorFormComponent,
@@ -21,6 +22,7 @@ import { RouterModule } from "@angular/router";
     FormsModule,
     ReactiveFormsModule,
     LayoutModule,
+    NgxMaskModule.forRoot(),
   ],
   exports: [GuarantorFormComponent, GuarantorListComponent],
 })

@@ -13,6 +13,7 @@ import { SettingsComponent } from "./settings/settings.component";
 import { SettingsFormComponent } from "./settings/settings-form/settings-form.component";
 //Forms
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { NgxMaskModule } from "ngx-mask";
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -28,6 +29,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
   ],
 })
 export class HomeModule {}

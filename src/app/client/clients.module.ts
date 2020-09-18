@@ -14,7 +14,8 @@ import { ClientFormComponent } from "./client-layout/client-form/client-form.com
 import { GuarantorModule } from "../guarantor/guarantor.module";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { NewGuarantorComponent } from './new-guarantor/new-guarantor.component'; //Forms
+import { NgxMaskModule } from "ngx-mask";
+import { NewGuarantorComponent } from "./new-guarantor/new-guarantor.component"; //Forms
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { NewGuarantorComponent } from './new-guarantor/new-guarantor.component';
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxMaskModule.forRoot(),
   ],
   entryComponents: [ClientListComponent],
 })

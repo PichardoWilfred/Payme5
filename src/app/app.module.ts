@@ -12,10 +12,11 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AuthGuardGuard } from "./auth/auth-guard.guard";
 import { ModalModule } from "ngx-bootstrap/modal";
+import { NgxMaskModule } from "ngx-mask";
 
 import { registerLocaleData } from "@angular/common";
 import localeEs from "@angular/common/locales/es-DO";
- registerLocaleData(localeEs, "es-DO");
+registerLocaleData(localeEs, "es-DO");
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,6 +29,7 @@ import localeEs from "@angular/common/locales/es-DO";
     AngularFireAuthModule,
     AppRoutingModule,
     ModalModule.forRoot(),
+    NgxMaskModule.forRoot(),
   ],
   providers: [AuthGuardGuard, { provide: LOCALE_ID, useValue: "es-DO" }],
   bootstrap: [AppComponent],

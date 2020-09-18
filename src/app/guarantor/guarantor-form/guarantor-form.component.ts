@@ -29,7 +29,7 @@ export class GuarantorFormComponent implements OnInit {
       ],
     ],
     email: ["", [Validators.required, Validators.email]],
-    ssn: ["", [Validators.required, Validators.minLength(13)]],
+    ssn: ["", [Validators.required, Validators.minLength(10)]],
     address: [
       "",
       [Validators.required, Validators.minLength(10), Validators.maxLength(70)],

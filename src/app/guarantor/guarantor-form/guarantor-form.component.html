@@ -12,7 +12,7 @@
   <!--Cédula-->
   <mat-form-field class="col-12 col-md-6">
     <mat-label>Cédula</mat-label>
-    <input matInput formControlName="ssn" />
+    <input matInput formControlName="ssn" type="text" mask="000-0000000-0" />
     <mat-icon matSuffix>account_box</mat-icon>
   </mat-form-field>
   <!--Dirección-->
@@ -24,12 +24,22 @@
   <!--Celular-->
   <mat-form-field class="col-12 col-md-6">
     <mat-label>Celular</mat-label>
-    <input matInput formControlName="cellphone" type="number" />
+    <input
+      matInput
+      formControlName="cellphone"
+      type="text"
+      mask="(000) 000 0000"
+    />
     <mat-icon matSuffix>smartphone</mat-icon>
   </mat-form-field>
   <mat-form-field class="col-12 col-md-6">
     <mat-label>Teléfono </mat-label>
-    <input matInput formControlName="cellphone" type="number" />
+    <input
+      matInput
+      formControlName="cellphone"
+      type="text"
+      mask="(000) 000 0000"
+    />
     <mat-icon matSuffix>phone</mat-icon>
   </mat-form-field>
   <!--Estado Civil-->
@@ -52,7 +62,13 @@
   <mat-form-field class="col-12 col-md-6">
     <mat-label>Salario</mat-label>
     <!--| currency: 'RD$'-->
-    <input matInput formControlName="salary" type="number" />
+    <input
+      matInput
+      formControlName="salary"
+      type="text"
+      mask="separator.0"
+      thousandSeparator=","
+    />
   </mat-form-field>
   <div class="col-12 col-md-6 p-2">
     <button
