@@ -2,6 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Observable } from "rxjs";
 
+import { Location } from "@angular/common";
+import { NumeralPipe } from "ngx-numeral";
 @Component({
   selector: "settings-form",
   templateUrl: "./settings-form.component.html",
@@ -10,7 +12,7 @@ import { Observable } from "rxjs";
 export class SettingsFormComponent implements OnInit {
   @Input() initialFormValue: Observable<Object>;
   @Output() formValue = new EventEmitter<Object>();
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private location: Location) {}
 
   ngOnInit() {
     this.settingsForm.patchValue(this.initialFormValue);
@@ -24,5 +26,6 @@ export class SettingsFormComponent implements OnInit {
   });
   submit() {
     this.formValue.emit(this.settingsForm.value);
+    this.location.back();
   }
 }

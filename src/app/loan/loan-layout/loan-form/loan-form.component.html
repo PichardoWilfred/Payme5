@@ -31,8 +31,10 @@
           <input
             matInput
             formControlName="amount"
-            type="number"
-            [(ngModel)]="amount"
+            type="text"
+            mask="separator.0"
+            thousandSeparator=","
+            [(ngModel)]="sAmount"
           />
           <mat-icon matSuffix>monetization_on</mat-icon>
         </mat-form-field>

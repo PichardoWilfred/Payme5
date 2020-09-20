@@ -59,16 +59,52 @@
           <mat-option value="Soltero/a">Soltero ó Soltera</mat-option>
         </mat-select>
       </mat-form-field>
+
       <mat-form-field class="col-12 col-md-6">
         <mat-label>Estado Laboral</mat-label>
         <mat-select formControlName="work_status">
-          <mat-option value="Empleado">Empleado</mat-option>
-          <mat-option value="Desempleado">Desempleado</mat-option>
+          <mat-option value="Empleado" (click)="toggleshowJobInputs(true)"
+            >Empleado</mat-option
+          >
+          <mat-option value="Desempleado" (click)="toggleshowJobInputs(false)"
+            >Desempleado</mat-option
+          >
+          <mat-option
+            value="Independiente"
+            (click)="toggleshowJobInputs(false)"
+          >
+            Independiente</mat-option
+          >
         </mat-select>
       </mat-form-field>
-      <mat-form-field class="col-12 col-md-6">
+      <!--From now on, the field until parent related will depend on work_status boolean -->
+      <mat-form-field class="col-12 col-md-6" *ngIf="showJInput">
+        <mat-label>Nombre de la Empresa</mat-label>
+        <input matInput formControlName="bussiness_name" />
+        <mat-icon matSuffix>store_front</mat-icon>
+      </mat-form-field>
+      <mat-form-field class="col-12 col-md-6" *ngIf="showJInput">
+        <mat-label>Dirección de la Empresa</mat-label>
+        <input matInput formControlName="business_address" />
+        <mat-icon matSuffix>location_on</mat-icon>
+      </mat-form-field>
+      <mat-form-field class="col-12 col-md-6" *ngIf="showJInput">
+        <mat-label>Contacto de la Empresa</mat-label>
+        <input
+          matInput
+          formControlName="bussiness_phone"
+          type="text"
+          mask="(000) 000 0000"
+        />
+        <mat-icon matSuffix>smartphone</mat-icon>
+      </mat-form-field>
+      <mat-form-field class="col-12 col-md-6" *ngIf="showJInput">
+        <mat-label>Puesto de trabajo</mat-label>
+        <input matInput formControlName="job_title" />
+        <mat-icon matSuffix>assignment_ind</mat-icon>
+      </mat-form-field>
+      <mat-form-field class="col-12 col-md-6" *ngIf="showJInput">
         <mat-label>Salario</mat-label>
-        <!--| currency: 'RD$'-->
         <input
           matInput
           formControlName="salary"
@@ -76,8 +112,9 @@
           mask="separator.0"
           thousandSeparator=","
         />
+        <mat-icon matSuffix>monetization_on</mat-icon>
       </mat-form-field>
-
+      <!--Parent related-->
       <mat-divider class="pb-3"></mat-divider>
       <h3 class="font-weight-light pl-2 ml-1">Pariente</h3>
 
@@ -116,6 +153,8 @@
         color="primary"
         class="col-12 col-md-12"
       >
+        <!--clientForm.invalid-->
+
         <ng-content select=".save"> </ng-content>
       </button>
     </form>

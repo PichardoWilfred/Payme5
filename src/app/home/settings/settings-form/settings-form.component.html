@@ -9,7 +9,9 @@
         <input
           matInput
           formControlName="guarantor_minimal_amount"
-          type="number"
+          type="text"
+          mask="separator.0"
+          thousandSeparator=","
         />
         <!--<mat-icon matSuffix>account_box</mat-icon>-->
       </mat-form-field>
@@ -18,7 +20,7 @@
         [disabled]="settingsForm.invalid"
         mat-flat-button
         color="primary"
-        class="col-12 col-md-12 mt-2 mb-2"
+        class="col-12 col-md-12 mt-3 mb-2"
       >
         Guardar cambios
       </button>

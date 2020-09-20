@@ -16,6 +16,7 @@ import { GuarantorService } from "src/app/guarantor/guarantor.service";
 import { MatStepper } from "@angular/material";
 import { AuthService } from "src/app/auth/auth.service";
 import { HomeService } from "src/app/home/home.service";
+import { NumeralPipe } from "ngx-numeral";
 
 @Component({
   selector: "loan-form",
@@ -32,10 +33,9 @@ export class LoanFormComponent implements OnInit {
     private af: AngularFireAuth,
     private db: ClientService,
     private guarantor: GuarantorService,
-    private auth: AuthService,
-    private home: HomeService
+    //private auth: AuthService,
+    private home: HomeService //private numeral: NumeralPipe
   ) {}
-
   ngOnInit() {
     this.stateSubscription = this.af.authState.subscribe((auth) => {
       this.client$ = this.db.getClients(auth.uid);
@@ -47,7 +47,11 @@ export class LoanFormComponent implements OnInit {
       this.user$ = this.home.getUser(auth.uid);
 
       this.user$.subscribe((user) => {
-        this.gnmamount = user["settings"]["guarantor_minimal_amount"];
+        //this.gnmamount = user["settings"]["guarantor_minimal_amount"];
+        let numeral = new NumeralPipe(
+          user["settings"]["guarantor_minimal_amount"]
+        );
+        this.gnmamount = numeral.value();
       });
     });
   }
@@ -87,6 +91,7 @@ export class LoanFormComponent implements OnInit {
 
   //Loan related
   amount: number = null;
+  sAmount: string = null; //for later conversion
   term: string = null;
   interest_rate: number = null;
   fees_amount: number = null;
@@ -103,6 +108,9 @@ export class LoanFormComponent implements OnInit {
   }
 
   getResults() {
+    let numeral = new NumeralPipe(this.sAmount);
+    this.amount = numeral.value();
+
     this.monthly_interest = this.amount * (this.interest_rate * 0.01) || null;
     this.full_interest = this.monthly_interest * this.fees_amount;
     this.total_amount = this.amount + this.full_interest || null;

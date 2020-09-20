@@ -1,0 +1,90 @@
+<form [formGroup]="registerForm" autocomplete="off" (ngSubmit)="submit()">
+  <mat-form-field class="col-12 col-md-6 pb-2">
+    <mat-label>Nombre completo</mat-label>
+    <input matInput formControlName="name" [readonly]="!showPass" />
+    <mat-icon color="primary" matSuffix>person</mat-icon>
+    <mat-error *ngIf="name.errors?.minlength && name.touched"
+      >Este nombre es muy corto</mat-error
+    >
+    <mat-error *ngIf="name.errors?.maxlength && name.touched"
+      >Este nombre es muy largo</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field class="col-12 col-md-12 pb-2">
+    <mat-label>Correo electrónico</mat-label>
+    <input matInput formControlName="email" [readonly]="!showPass" />
+    <mat-error *ngIf="email.invalid && email.touched"
+      >Este correo electrónico no es válido</mat-error
+    >
+    <mat-icon color="primary" matSuffix>email</mat-icon>
+  </mat-form-field>
+  <mat-form-field class="col-12 col-md-6 pb-2">
+    <mat-label>Nombre de usuario</mat-label>
+    <input matInput formControlName="username" [readonly]="!showPass" />
+    <mat-icon color="primary" matSuffix>account_circle</mat-icon>
+  </mat-form-field>
+  <mat-form-field *ngIf="showPass" class="col-12 col-md-12 pb-2">
+    <mat-label>Contraseña</mat-label>
+    <input
+      [readonly]="!showPass"
+      matInput
+      [type]="hidepassword ? 'password' : 'text'"
+      formControlName="password"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hidepassword = !hidepassword"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hidepassword"
+    >
+      <mat-icon color="primary">{{
+        hidepassword ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </button>
+    <mat-error *ngIf="password.errors?.minlength && password.touched">
+      Esta contraseña es demasiado corta
+    </mat-error>
+
+    <mat-error *ngIf="password.errors?.maxlength && password.touched">
+      Esta contraseña es demasiado larga
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="col-12 col-md-6 pb-2">
+    <mat-label>Celular</mat-label>
+    <input
+      [readonly]="!showPass"
+      matInput
+      type="text"
+      formControlName="cellphone"
+      type="text"
+      mask="(000) 000 0000"
+    />
+    <mat-icon color="primary" matSuffix>smartphone</mat-icon>
+    <mat-error *ngIf="cellphone.errors?.minlength && cellphone.touched">
+      Este número de teléfono no es válido
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="col-12 col-md-6 mb-3" hintLabel="No obligatorio">
+    <mat-label>Teléfono</mat-label>
+    <input
+      [readonly]="!showPass"
+      matInput
+      type="number"
+      formControlName="phone"
+      type="text"
+      mask="(000) 000 0000"
+    />
+    <mat-icon color="primary" matSuffix>phone</mat-icon>
+  </mat-form-field>
+  <button
+    *ngIf="showPass"
+    type="submit"
+    [disabled]="registerForm.invalid"
+    mat-flat-button
+    color="primary"
+    class="col-12 col-md-12"
+  >
+    Crear cuenta
+  </button>
+</form>

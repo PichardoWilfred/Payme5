@@ -11,9 +11,11 @@ import { LayoutModule } from "../layout/layout.module";
 import { ProfileComponent } from "./profile/profile.component";
 import { SettingsComponent } from "./settings/settings.component";
 import { SettingsFormComponent } from "./settings/settings-form/settings-form.component";
+import { NumeralModule } from "ngx-numeral";
 //Forms
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgxMaskModule } from "ngx-mask";
+import { AuthModule } from "../auth/auth.module";
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -29,6 +31,8 @@ import { NgxMaskModule } from "ngx-mask";
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
+    AuthModule,
+    NumeralModule.forRoot(),
     NgxMaskModule.forRoot(),
   ],
 })

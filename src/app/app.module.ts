@@ -13,6 +13,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AuthGuardGuard } from "./auth/auth-guard.guard";
 import { ModalModule } from "ngx-bootstrap/modal";
 import { NgxMaskModule } from "ngx-mask";
+import { NgxMaterialToolsModule } from "ngx-material-tools";
 
 import { registerLocaleData } from "@angular/common";
 import localeEs from "@angular/common/locales/es-DO";
@@ -28,6 +29,7 @@ registerLocaleData(localeEs, "es-DO");
     AngularFirestoreModule,
     AngularFireAuthModule,
     AppRoutingModule,
+    NgxMaterialToolsModule,
     ModalModule.forRoot(),
     NgxMaskModule.forRoot(),
   ],

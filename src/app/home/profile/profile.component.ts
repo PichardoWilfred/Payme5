@@ -25,4 +25,5 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.layout.toggleAuth(["logged"]);
   }
   user$: Observable<Object>;
+  default: Object = {};
 }
