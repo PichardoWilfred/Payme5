@@ -45,7 +45,7 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.layout.toggleAuth(["logged"]);
   }
-  showThesePayments: boolean = false;
+  //showThesePayments: boolean = false;
   payments_made: Observable<Object[]>;
   showSpinner: boolean = true;
   loan_completed: boolean;
@@ -62,6 +62,7 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
     //Saca el del index menor, sin pagar
     let payment = this.setPayment();
     let inTime = moment().isSameOrBefore(moment(payment.date.toDate()));
+    //No se puede poner en Or creo que lo recuerdo...
     if (!inTime) if (payment["late"] == false) payment["late"] = true;
     //Todo lo que se ha depositado en total de ESE pago
     let payment_deposit = //Esto se llamaba 'payment_amount_paid'
@@ -79,15 +80,18 @@ export class LoanPaymentComponent implements OnInit, OnDestroy {
 
       case payment_deposit > fee_payment:
         let extra = payment_deposit;
-        let payment_over;
+        let payment_over; //'payment over' porque puede ser el pago que sobrepasa el fee_payment
 
         if (this.loan$["amount_paid"] >= total_amount) {
+          //Si lo que se ha pagado(préstamo) es mayor a lo que se tenía que pagar en todo el préstamo
           this.loan$["extra_amount"] = this.loan$["amount_paid"] - total_amount;
+          //Se saca el extra
           this.loan$["payment_dates"].forEach((payment) => {
             payment["payment_deposit"] = fee_payment;
             payment["paid"] = true;
           });
           this.loan$["state"] = "completed";
+          //Se paga todo y se completa el pago
           break;
         }
         while (extra >= fee_payment) {

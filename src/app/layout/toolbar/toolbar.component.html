@@ -14,6 +14,14 @@
       {{ toolTitle }}
     </h3>
   </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="state == 'verify-email'" class="pl-1">
+    <h3 class="ml-2 pt-1 pr-5 mt-1 font-weight-light open-sans">
+      {{ toolTitle }}
+    </h3>
+    <button mat-icon-button class="ml-auto" [routerLink]="route_state">
+      <mat-icon (click)="logout()">login</mat-icon>
+    </button>
+  </mat-toolbar-row>
 
   <mat-toolbar-row *ngIf="state == 'unlogged'" class="pr-0 pl-2 pt-1">
     <span class="mr-3 pt-1 mb-1">

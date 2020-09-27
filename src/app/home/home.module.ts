@@ -16,6 +16,7 @@ import { NumeralModule } from "ngx-numeral";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgxMaskModule } from "ngx-mask";
 import { AuthModule } from "../auth/auth.module";
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -24,6 +25,7 @@ import { AuthModule } from "../auth/auth.module";
     ProfileComponent,
     SettingsComponent,
     SettingsFormComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     CommonModule,

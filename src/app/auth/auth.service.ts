@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+
 import { Router } from "@angular/router";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
@@ -26,19 +27,32 @@ export class AuthService {
       );
       this.snack.bar("Usuario registrado", "OK");
       this.router.navigate(["client/client-list"]);
+      await this.sendVerifcationEmail();
       this.db.collection("users").doc(res.user.uid).set(user);
     } catch (err) {
       this.err.registerHandler(err);
     }
   }
 
-  async login(user: any) {
+  async login({ email, password }) {
     try {
-      await this.auth.signInWithEmailAndPassword(user.email, user.password);
-      this.router.navigate(["client/client-list"]);
+      const { user } = await this.auth.signInWithEmailAndPassword(
+        email,
+        password
+      );
+      return user;
     } catch (err) {
       this.err.loginHandler(err);
     }
+  }
+
+  isEmailVerified(user: any) {
+    return user.emailVerified === true ? true : false;
+  }
+  async sendVerifcationEmail(): Promise<void> {
+    try {
+      return (await this.auth.currentUser).sendEmailVerification();
+    } catch (error) {}
   }
 
   async logout() {
