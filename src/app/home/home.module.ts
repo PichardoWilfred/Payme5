@@ -5,7 +5,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
 import { HomeRoutingModule } from "./home-routing.module";
 import { AboutComponent } from "./about/about.component";
 import { HomeLayoutComponent } from "./home-layout/home-layout.component";
-
+import { AuthModule } from "../auth/auth.module";
 //Layout
 import { LayoutModule } from "../layout/layout.module";
 import { ProfileComponent } from "./profile/profile.component";
@@ -15,8 +15,6 @@ import { NumeralModule } from "ngx-numeral";
 //Forms
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgxMaskModule } from "ngx-mask";
-import { AuthModule } from "../auth/auth.module";
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -25,15 +23,14 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     ProfileComponent,
     SettingsComponent,
     SettingsFormComponent,
-    VerifyEmailComponent,
   ],
   imports: [
     CommonModule,
+    AuthModule,
     HomeRoutingModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
-    AuthModule,
     NumeralModule.forRoot(),
     NgxMaskModule.forRoot(),
   ],

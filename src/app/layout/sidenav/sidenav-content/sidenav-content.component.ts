@@ -28,7 +28,6 @@ export class SidenavContentComponent implements OnInit {
   user: Observable<Object>;
 
   routes: Object[] = [
-    // { icon: "home", path: "/home/about", name: "Inicio" },
     { icon: "work", path: "/loan/loan-list", name: "Préstamos" },
     { icon: "people_alt", path: "/client", name: "Clientes" },
     {

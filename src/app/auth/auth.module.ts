@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthToolbarComponent } from "./auth-layout/auth-toolbar/auth-toolbar.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
 import { RegisterFormComponent } from "./register/register-form/register-form.component";
-
+import { VerifyEmailComponent } from "./verify-email/verify-email.component";
 @NgModule({
   declarations: [
     LoginComponent,
@@ -21,6 +21,7 @@ import { RegisterFormComponent } from "./register/register-form/register-form.co
     AuthToolbarComponent,
     WelcomeComponent,
     RegisterFormComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     CommonModule,

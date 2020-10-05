@@ -10,12 +10,12 @@ import { ClientLayoutComponent } from "./client-layout/client-layout.component";
 import { LayoutModule } from "../layout/layout.module";
 import { ListComponent } from "./client-list/list-c/list.component";
 import { ClientFormComponent } from "./client-layout/client-form/client-form.component";
+import { NewGuarantorComponent } from "./new-guarantor/new-guarantor.component"; //Forms
 
 import { GuarantorModule } from "../guarantor/guarantor.module";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgxMaskModule } from "ngx-mask";
-import { NewGuarantorComponent } from "./new-guarantor/new-guarantor.component"; //Forms
 
 @NgModule({
   declarations: [

@@ -33,7 +33,7 @@ const AppRoutes: Routes = [
   },
   {
     path: "auth",
-    canActivate: [AuthLoggedGuard, VerifyEmailGuard],
+    canActivate: [AuthLoggedGuard],
     loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
   },
   { path: "", redirectTo: "/auth/welcome", pathMatch: "full" },

@@ -15,7 +15,7 @@ import { Location } from "@angular/common";
   providedIn: "root",
 })
 export class AuthLoggedGuard implements CanActivate {
-  constructor(private auth: AngularFireAuth, private route: Router) { }
+  constructor(private auth: AngularFireAuth, private route: Router) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -26,8 +26,9 @@ export class AuthLoggedGuard implements CanActivate {
     | UrlTree {
     return this.auth.authState.pipe(
       map((user) => {
-        if (user) {
-          this.route.navigate(['/client']);
+        if (user && user.emailVerified) {
+          console.log("from auth logged guard");
+          this.route.navigate(["/client"]);
           return false;
         }
         return true;

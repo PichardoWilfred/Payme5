@@ -12,8 +12,12 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.auth.authState.subscribe((user) => {
       if (user) {
-        this.layout.toggleAuth(["logged"]);
-      } else {
+        if (!user.emailVerified) {
+          this.layout.toggleAuth(["verify-email"]);
+        } else {
+          this.layout.toggleAuth(["logged"]);
+        }
+      } else if (!user) {
         this.layout.toggleAuth(["unlogged"]);
       }
     });

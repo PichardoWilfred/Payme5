@@ -5,6 +5,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { AuthHandlerService } from "./auth-layout/err-handler/auth-handler.service";
 import { SnackbarService } from "../layout/snackbar.service";
+import { LayoutService } from "src/app/layout/layout.service";
 import { BehaviorSubject } from "rxjs";
 import { switchMap, map } from "rxjs/operators";
 
@@ -13,6 +14,7 @@ import { switchMap, map } from "rxjs/operators";
 })
 export class AuthService {
   constructor(
+    private layout: LayoutService,
     private auth: AngularFireAuth,
     public router: Router,
     private db: AngularFirestore,
@@ -26,8 +28,10 @@ export class AuthService {
         user.password
       );
       this.snack.bar("Usuario registrado", "OK");
-      this.router.navigate(["client/client-list"]);
-      await this.sendVerifcationEmail();
+      this.router.navigate(["auth/verify-email"]);
+      // Here goes the verify module or whatever idunno
+      this.layout.toggleAuth(["verify-email"]);
+      await this.sendVerificationEmail();
       this.db.collection("users").doc(res.user.uid).set(user);
     } catch (err) {
       this.err.registerHandler(err);
@@ -49,7 +53,7 @@ export class AuthService {
   isEmailVerified(user: any) {
     return user.emailVerified === true ? true : false;
   }
-  async sendVerifcationEmail(): Promise<void> {
+  async sendVerificationEmail(): Promise<void> {
     try {
       return (await this.auth.currentUser).sendEmailVerification();
     } catch (error) {}

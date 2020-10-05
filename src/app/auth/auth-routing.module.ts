@@ -4,6 +4,7 @@ import { AuthLayoutComponent } from "./auth-layout/auth-layout.component";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { WelcomeComponent } from "./welcome/welcome.component";
+import { VerifyEmailComponent } from "./verify-email/verify-email.component";
 const routes: Routes = [
   {
     path: "",
@@ -16,6 +17,7 @@ const routes: Routes = [
       },
       { path: "welcome", component: WelcomeComponent },
 
+      { path: "verify-email", component: VerifyEmailComponent },
       { path: "", redirectTo: "/auth/login" },
       { path: "**", redirectTo: "/auth" },
     ],

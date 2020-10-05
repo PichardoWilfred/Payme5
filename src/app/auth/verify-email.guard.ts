@@ -25,18 +25,15 @@ export class VerifyEmailGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return true;
     return this.auth.authState.pipe(
       map((user) => {
         if (user) {
           if (!user.emailVerified) {
-            this.route.navigate(["home/verify-email"]);
+            this.route.navigate(["auth/verify-email"]);
             return false;
           } else {
             return true;
           }
-        } else {
-          return true;
         }
       })
     );
