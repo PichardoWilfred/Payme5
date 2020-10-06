@@ -3,18 +3,19 @@ import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  UrlTree,
   Router,
+  UrlTree,
 } from "@angular/router";
-import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { AuthService } from "../auth/auth.service";
+import { SnackbarService } from "../layout/snackbar.service";
+import { map } from "rxjs/operators";
 import { AngularFireAuth } from "@angular/fire/auth";
-import { Location } from "@angular/common";
 
 @Injectable({
   providedIn: "root",
 })
-export class AuthLoggedGuard implements CanActivate {
+export class VerifyEmailGuard implements CanActivate {
   constructor(private auth: AngularFireAuth, private route: Router) {}
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -26,18 +27,22 @@ export class AuthLoggedGuard implements CanActivate {
     | UrlTree {
     return this.auth.authState.pipe(
       map((user) => {
-        console.log("AuthLoggedGuard");
-        if (user) {
-          if (user.emailVerified) {
-            console.log("denied");
-            return false;
-          }
-          console.log("You can enter, you email is not verified");
-          return true;
-        }
-        console.log("You're not verified");
+        console.log("Verify Email guard");
+        console.log("aprooved");
         return true;
+        //if (user) {
+        //if (!user.emailVerified) {
+        //console.log("denied");
+        //this.route.navigate(["auth/verify-email"]);
+        //return false;
+        //} else {
+        //return true;
+        //}
+        //} else {
+        //return false;
+        //}
       })
     );
+    //
   }
 }

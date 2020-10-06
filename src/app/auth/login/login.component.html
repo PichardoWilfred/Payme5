@@ -1,25 +1,49 @@
 <div class="row align-items-center justify-content-center p-4 fullscreen">
-    <div class="col-12 col-md-12 text-center mt-0">
-        <img class="home-image" src="../../../assets/imagenes/logo.png" [routerLink]="['/auth/welcome']">
-        <h4 class="font-weight-light text-center mb-0">Payme</h4>
-        <p class="font-weight-light text-center mb-0 not-so-gray mb-2">no pierdas ni un detalle</p>
-        <form class="login-form mt-0" [formGroup]="loginForm" autocomplete="off" (ngSubmit)="login()">
-            <mat-form-field class="col-12 col-md-12">
-                <mat-label>Correo electrónico</mat-label>
-                <input matInput formControlName="email">
-                <mat-icon matSuffix color="primary">email</mat-icon>
-            </mat-form-field>
-            <mat-form-field class="col-12 col-md-12">
-                <mat-label>Contraseña</mat-label>
-                <input formControlName="password" matInput [type]="hidepassword ? 'password' : 'text'">
-                <button mat-icon-button matSuffix (click)="hidepassword = !hidepassword"
-                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidepassword">
-                    <mat-icon color="primary">{{hidepassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-            <button type="submit" [disabled]="loginForm.invalid" mat-flat-button color="primary"
-                class="col-12 col-md-12 mb-2 mb-5"> Iniciar sesión
-            </button>
-        </form>
-    </div>
+  <div class="col-12 col-md-12 text-center mt-0">
+    <img
+      class="home-image"
+      src="../../../assets/imagenes/logo.png"
+      [routerLink]="['/auth/welcome']"
+    />
+    <h4 class="font-weight-light text-center mb-0">Payme</h4>
+    <p class="font-weight-light text-center mb-0 not-so-gray mb-2">
+      no pierdas ni un detalle
+    </p>
+    <form class="login-form mt-0" [formGroup]="loginForm" autocomplete="off">
+      <mat-form-field class="col-12 col-md-12">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput formControlName="email" />
+        <mat-icon matSuffix color="primary">email</mat-icon>
+      </mat-form-field>
+      <mat-form-field class="col-12 col-md-12">
+        <mat-label>Contraseña</mat-label>
+        <input
+          formControlName="password"
+          matInput
+          [type]="hidepassword ? 'password' : 'text'"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hidepassword = !hidepassword"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidepassword"
+        >
+          <mat-icon color="primary">{{
+            hidepassword ? "visibility_off" : "visibility"
+          }}</mat-icon>
+        </button>
+      </mat-form-field>
+      <button
+        [disabled]="loginForm.invalid"
+        mat-flat-button
+        color="primary"
+        class="col-12 col-md-12 mb-2 mb-5"
+        (click)="login()"
+      >
+        Iniciar sesión
+      </button>
+    </form>
+  </div>
 </div>
+

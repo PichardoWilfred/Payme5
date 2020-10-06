@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, AfterViewInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from "../auth.service";
 import { LayoutService } from "src/app/layout/layout.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -12,7 +13,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private authS: AuthService,
-    private layout: LayoutService
+    private layout: LayoutService,
+    private router: Router
   ) {}
   ngOnInit() {
     this.layout.changeTitle("Iniciar Sesión");

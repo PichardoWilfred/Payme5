@@ -15,7 +15,7 @@ export class LayoutService {
     this.title.next(message);
   }
 
-  // //Toolbar content
+  //Toolbar content
   private toolbarAuth = new BehaviorSubject([]);
   toolbarContent = this.toolbarAuth.asObservable();
 

@@ -31,7 +31,17 @@ export class AuthGuardGuard implements CanActivate {
     | UrlTree {
     return this.auth.authState.pipe(
       map((user) => {
-        if (!user) {
+        console.log("authGuard");
+        if (user) {
+          if (user.emailVerified) {
+            console.log("Congrats! you can now enter owo");
+            return true;
+          } else {
+            this.route.navigate(["auth/verify-email"]);
+            console.log("YOU NEED TO VERIFWY !! >//<");
+            return false;
+          }
+        } else {
           this.snack.bar(
             "Necesita iniciar sesión para acceder a esta ruta",
             "OK"
@@ -39,7 +49,6 @@ export class AuthGuardGuard implements CanActivate {
           this.route.navigate(["auth/login"]);
           return false;
         }
-        return true;
       })
     );
   }

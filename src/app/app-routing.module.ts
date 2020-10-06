@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AuthGuardGuard } from "./auth/auth-guard.guard";
 import { AuthLoggedGuard } from "./auth/auth-logged.guard";
-
+import { VerifyEmailGuard } from "./auth/verify-email.guard";
 const AppRoutes: Routes = [
   {
     path: "notes",
@@ -37,7 +37,7 @@ const AppRoutes: Routes = [
     loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
   },
   { path: "", redirectTo: "/auth/welcome", pathMatch: "full" },
-  { path: "**", redirectTo: "/client" },
+  { path: "**", redirectTo: "/auth/welcome" },
 ];
 
 @NgModule({

@@ -52,13 +52,6 @@ export class RegisterFormComponent implements OnInit, OnDestroy {
     cellphone: [null, [Validators.required, Validators.minLength(10)]],
     phone: [null, [Validators.minLength(10)]],
   });
-  //async register() {
-  //this.registerForm.value["created_at"] = new Date();
-  //this.registerForm.value["settings"] = {
-  //guarantor_minimal_amount: 20000,
-  //};
-  //await this.auth.register(this.registerForm.value);
-  //}
 
   submit() {
     this.formValue.emit(this.registerForm.value);

@@ -162,7 +162,6 @@ export class LoanFormComponent implements OnInit {
   setNoGuarantor() {
     //Here we will see a default value for the minimum amount for not having a guarantor
     //Cause small loans do not need a guarantor
-    //console.log("No seleccionaste ningún garante");
     this.guarantor_id = "No seleccionado";
     this.guarantor_name = "No seleccionado";
     this.guarantorEmailHint = "No seleccionado";
