@@ -51,7 +51,13 @@ export class AuthService {
       return (await this.auth.currentUser).sendEmailVerification();
     } catch (error) {}
   }
-
+  async resetPassword(email: string) {
+    try {
+      return this.auth.sendPasswordResetEmail(email);
+    } catch (error) {
+      console.log("Error->", error);
+    }
+  }
   async logout() {
     await this.auth.signOut();
     this.router.navigate(["auth/login"]);

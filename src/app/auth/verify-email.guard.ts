@@ -27,20 +27,8 @@ export class VerifyEmailGuard implements CanActivate {
     | UrlTree {
     return this.auth.authState.pipe(
       map((user) => {
-        console.log("Verify Email guard");
         console.log("aprooved");
         return true;
-        //if (user) {
-        //if (!user.emailVerified) {
-        //console.log("denied");
-        //this.route.navigate(["auth/verify-email"]);
-        //return false;
-        //} else {
-        //return true;
-        //}
-        //} else {
-        //return false;
-        //}
       })
     );
     //

@@ -31,14 +31,11 @@ export class AuthGuardGuard implements CanActivate {
     | UrlTree {
     return this.auth.authState.pipe(
       map((user) => {
-        console.log("authGuard");
         if (user) {
           if (user.emailVerified) {
-            console.log("Congrats! you can now enter owo");
             return true;
           } else {
             this.route.navigate(["auth/verify-email"]);
-            console.log("YOU NEED TO VERIFWY !! >//<");
             return false;
           }
         } else {

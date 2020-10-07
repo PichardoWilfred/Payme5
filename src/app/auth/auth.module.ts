@@ -11,7 +11,8 @@ import { NgxMaskModule } from "ngx-mask";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { WelcomeComponent } from "./welcome/welcome.component";
 import { RegisterFormComponent } from "./register/register-form/register-form.component";
-import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { VerifyEmailComponent } from "./verify-email/verify-email.component";
+import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     WelcomeComponent,
     RegisterFormComponent,
     VerifyEmailComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     CommonModule,

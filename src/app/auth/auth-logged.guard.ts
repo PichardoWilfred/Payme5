@@ -26,16 +26,12 @@ export class AuthLoggedGuard implements CanActivate {
     | UrlTree {
     return this.auth.authState.pipe(
       map((user) => {
-        console.log("AuthLoggedGuard");
         if (user) {
           if (user.emailVerified) {
-            console.log("denied");
             return false;
           }
-          console.log("You can enter, you email is not verified");
           return true;
         }
-        console.log("You're not verified");
         return true;
       })
     );
