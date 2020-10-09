@@ -1,6 +1,6 @@
 <mat-spinner class="mx-auto mt-5 pt-5" *ngIf="showSpinner"></mat-spinner>
 <div *ngIf="loan$ | async as loan">
-  <div class="row mb-0 pb-0">
+  <div class="row">
     <div *ngIf="loan.active" class="col-12 pt-3">
       <p class="font-weight-thin gray text-center">
         Para realizar un pago, presione <mat-icon>today </mat-icon>
@@ -139,10 +139,11 @@
           />
         </mat-form-field> </mat-expansion-panel
       ><!-- Ver más END -->
-
-      <mat-nav-list>
+      <!--Here we disable or enable the guarantor related link-->
+      <mat-nav-list *ngIf="!noGuarantor">
         <p class="ml-2 pl-1 p-1 input-label desc mb-0">Garante</p>
         <mat-list-item
+          disabled="true"
           class="pt-0"
           [routerLink]="['/loan', loan.guarantor_id, 'guarantor']"
         >
@@ -153,6 +154,20 @@
           </p>
         </mat-list-item>
       </mat-nav-list>
+
+      <mat-list *ngIf="noGuarantor">
+        <p class="ml-2 pl-1 p-1 input-label desc mb-0">Garante</p>
+        <mat-list-item class="pt-0">
+          <mat-icon matListIcon class="icon-2 pt-0 pl-1 pb-0 gray">
+            face</mat-icon
+          >
+          <p matLine class="font-weight-bold gray">{{ loan.guarantor_name }}</p>
+          <p matLine class="font-weight-thin pb-1 gray">
+            {{ loan.guarantor_email }}
+          </p>
+        </mat-list-item>
+      </mat-list>
+      <!--END-->
       <mat-divider class="col-12 ml-auto mb-2"></mat-divider>
 
       <div class="fab-container">

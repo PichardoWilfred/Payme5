@@ -25,15 +25,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
   hidepassword = true;
   loginForm: FormGroup = this.fb.group({
-    email: [
-      "",
-      [Validators.required, Validators.minLength(5), Validators.maxLength(70)],
-    ],
+    email: ["", [Validators.required, Validators.email]],
     password: [
       "",
       [Validators.required, Validators.minLength(5), Validators.maxLength(70)],
     ],
   });
+  //Validator for email
+  get email() {
+    return this.loginForm.get("email");
+  }
   async login() {
     await this.authS.login(this.loginForm.value);
   }

@@ -27,6 +27,7 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
   showSpinner: boolean = true;
   modalRef: BsModalRef;
   loan$: Observable<Object>;
+  noGuarantor: boolean;
   loan_id: string;
   client_id: string;
 
@@ -56,6 +57,9 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
       }
       this.showSnack(this.loan_id, loan);
       this.fabColor = this.setFabColor(loan);
+      this.noGuarantor =
+        loan["guarantor_name"] == "No seleccionado" ? true : false;
+      console.log(this.noGuarantor);
     });
   }
 
