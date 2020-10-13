@@ -36,8 +36,8 @@ const AppRoutes: Routes = [
     canActivate: [AuthLoggedGuard],
     loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
   },
-  { path: "", redirectTo: "/auth/welcome", pathMatch: "full" },
-  { path: "**", redirectTo: "/auth/welcome" },
+  { path: "", redirectTo: "/client/client-list", pathMatch: "full" },
+  { path: "**", redirectTo: "/client/client-list" },
 ];
 
 @NgModule({

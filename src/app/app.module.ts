@@ -10,6 +10,7 @@ import { environment } from "../environments/environment"; //FirebaseModules
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireStorageModule } from "@angular/fire/storage";
 import { AuthGuardGuard } from "./auth/auth-guard.guard";
 import { ModalModule } from "ngx-bootstrap/modal";
 import { NgxMaskModule } from "ngx-mask";

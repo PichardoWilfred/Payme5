@@ -28,6 +28,7 @@ export class AuthService {
       this.snack.bar("Usuario registrado", "OK");
       this.router.navigate(["client/client-list"]);
       await this.sendVerifcationEmail();
+      delete user["password"];
       this.db.collection("users").doc(res.user.uid).set(user);
     } catch (err) {
       this.err.registerHandler(err);
