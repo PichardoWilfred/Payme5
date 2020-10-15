@@ -29,12 +29,17 @@ registerLocaleData(localeEs, "es-DO");
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     AppRoutingModule,
     NgxMaterialToolsModule,
     ModalModule.forRoot(),
     NgxMaskModule.forRoot(),
   ],
-  providers: [AuthGuardGuard, { provide: LOCALE_ID, useValue: "es-DO" }],
+  providers: [
+    AngularFireStorageModule,
+    AuthGuardGuard,
+    { provide: LOCALE_ID, useValue: "es-DO" },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

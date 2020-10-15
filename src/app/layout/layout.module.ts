@@ -21,12 +21,18 @@ import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatStepperModule } from "@angular/material/stepper";
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { MatExpansionModule } from "@angular/material/expansion";
+import { ImgUploaderComponent } from "./img-uploader/img-uploader.component";
+import { UploadTaskComponent } from "./img-uploader/upload-task/upload-task.component";
+import { ImgDropDirective } from "./img-drop.directive";
 @NgModule({
   declarations: [
+    ImgDropDirective,
     SidenavComponent,
     ToolbarComponent,
     SidenavContentComponent,
     BottomNavComponent,
+    ImgUploaderComponent,
+    UploadTaskComponent,
   ],
   imports: [
     MatExpansionModule,
@@ -49,6 +55,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
   ],
   exports: [
     MatStepperModule,
+    UploadTaskComponent,
     ScrollingModule,
     SidenavComponent,
     MatProgressBarModule,
@@ -65,6 +72,8 @@ import { MatExpansionModule } from "@angular/material/expansion";
     MatTooltipModule,
     MatSnackBarModule,
     MatExpansionModule,
+    ImgUploaderComponent,
+    ImgDropDirective,
   ],
 })
 export class LayoutModule {}

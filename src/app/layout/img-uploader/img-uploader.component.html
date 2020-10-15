@@ -1,0 +1,13 @@
+<div
+  img-drop
+  class="dropzone"
+  (hovered)="toggleHover($event)"
+  (dropped)="onDrop($event)"
+  [class.hovering]="isHovering"
+>
+  <input type="file" multiple (change)="onDrop($event.target.files)" />
+  <h3>drop boys</h3>
+  <div *ngFor="let file of files">
+    <upload-task [file]="file"></upload-task>
+  </div>
+</div>
