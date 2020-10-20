@@ -33,21 +33,18 @@ export class LoanFormComponent implements OnInit {
     private af: AngularFireAuth,
     private db: ClientService,
     private guarantor: GuarantorService,
-    //private auth: AuthService,
     private home: HomeService //private numeral: NumeralPipe
   ) {}
   ngOnInit() {
     this.stateSubscription = this.af.authState.subscribe((auth) => {
       this.client$ = this.db.getClients(auth.uid);
       this.user_id = auth.uid;
-      //this.user$ = this.auth.getUser(auth.uid);
     });
 
     this.af.authState.subscribe((auth) => {
       this.user$ = this.home.getUser(auth.uid);
 
       this.user$.subscribe((user) => {
-        //this.gnmamount = user["settings"]["guarantor_minimal_amount"];
         let numeral = new NumeralPipe(
           user["settings"]["guarantor_minimal_amount"]
         );
@@ -76,13 +73,14 @@ export class LoanFormComponent implements OnInit {
   client_name: string;
   client_id: string = null;
 
-  //Guarantor form related
+  //Guarantor data
   guarantor$: Observable<Object[]>;
   guarantorEmailHint: string = "";
   guarantor_name: string;
   guarantor_id: string = null;
   guarantor_cellphone: string;
 
+  //Guarantor form related
   theresGuarantors: boolean = false;
   newGuarantor: boolean = false;
   neededGuarantor: boolean = false;
@@ -102,8 +100,10 @@ export class LoanFormComponent implements OnInit {
   total_amount: number = null;
   monthly_interest: number = null;
 
+  //File Upload related
+  files: FileList;
+
   move(index: number) {
-    //for Jumping stepper steps
     this.stepper.selectedIndex = index;
   }
 
@@ -216,10 +216,13 @@ export class LoanFormComponent implements OnInit {
         late: false,
       };
       dates.push(payment);
-    } //forloop
+    }
     return dates;
   }
 
+  setFiles(files: FileList) {
+    this.files = files;
+  }
   submit() {
     let loanFormValue = {
       ...this.loanForm.value,
@@ -242,6 +245,7 @@ export class LoanFormComponent implements OnInit {
       guarantor_id: this.guarantor_id,
       guarantor_name: this.guarantor_name,
       guarantor_email: this.guarantorEmailHint,
+      files: this.files,
     };
     //console.log(loanFormValue); // debugging purposes
     this.formValue.emit(loanFormValue);

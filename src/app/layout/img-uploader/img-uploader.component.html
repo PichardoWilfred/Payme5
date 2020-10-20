@@ -4,10 +4,17 @@
   (hovered)="toggleHover($event)"
   (dropped)="onDrop($event)"
   [class.hovering]="isHovering"
+  (click)="fileInput.click()"
 >
-  <input type="file" multiple (change)="onDrop($event.target.files)" />
-  <h3>drop boys</h3>
-  <div *ngFor="let file of files">
-    <upload-task [file]="file"></upload-task>
-  </div>
+  <input
+    type="file"
+    multiple
+    (change)="onDrop($event.target.files)"
+    style="display: none"
+    #fileInput
+  />
+</div>
+<div *ngFor="let url of loaded_urls; let i = index">
+  <img [src]="url" style="width: 4em; height: 4em" />
+  <button mat-flat-button color="warn" (click)="deleteImg(index)">X</button>
 </div>

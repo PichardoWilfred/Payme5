@@ -59,7 +59,6 @@ export class LoanDetailComponent implements OnInit, OnDestroy {
       this.fabColor = this.setFabColor(loan);
       this.noGuarantor =
         loan["guarantor_name"] == "No seleccionado" ? true : false;
-      console.log(this.noGuarantor);
     });
   }
 

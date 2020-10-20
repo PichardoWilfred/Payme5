@@ -79,6 +79,7 @@
         </div>
       </form>
     </mat-step>
+    <!--Paso N2-->
     <mat-step label="Seleccionar garante" class="pb-0 p-1">
       <div *ngIf="theresGuarantors">
         <mat-form-field
@@ -159,6 +160,17 @@
         [inNewLoan]="true"
         (newGuarantor)="addGuarantor($event)"
       ></guarantor-form>
+    </mat-step>
+    <mat-step label="Adjuntar pagaré" class="pb-0">
+      <img-uploader (loan_files)="setFiles($event)"> </img-uploader>
+      <button
+        mat-flat-button
+        color="primary"
+        class="col-12 col-md-12"
+        matStepperNext
+      >
+        Siguiente
+      </button>
     </mat-step>
     <mat-step label="Crear préstamo" class="pb-0">
       <div class="row p-2 pb-0">

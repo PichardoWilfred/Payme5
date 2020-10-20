@@ -137,7 +137,12 @@
             [value]="loan.extra_amount | currency: 'RD$'"
             readonly
           />
-        </mat-form-field> </mat-expansion-panel
+        </mat-form-field>
+        <img
+          *ngFor="let url of loan.files"
+          [src]="url"
+          alt=""
+        /> </mat-expansion-panel
       ><!-- Ver más END -->
       <!--Here we disable or enable the guarantor related link-->
       <mat-nav-list *ngIf="!noGuarantor">

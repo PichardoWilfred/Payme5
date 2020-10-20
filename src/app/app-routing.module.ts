@@ -4,11 +4,11 @@ import { AuthGuardGuard } from "./auth/auth-guard.guard";
 import { AuthLoggedGuard } from "./auth/auth-logged.guard";
 import { VerifyEmailGuard } from "./auth/verify-email.guard";
 const AppRoutes: Routes = [
-  {
-    path: "notes",
-    loadChildren: () =>
-      import("./notes/notes.module").then((m) => m.NotesModule),
-  },
+  //{
+  //path: "notes",
+  //loadChildren: () =>
+  //import("./notes/notes.module").then((m) => m.NotesModule),
+  //},
   {
     path: "home",
     canActivate: [AuthGuardGuard],

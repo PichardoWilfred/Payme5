@@ -22,8 +22,8 @@ import { MatStepperModule } from "@angular/material/stepper";
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { MatExpansionModule } from "@angular/material/expansion";
 import { ImgUploaderComponent } from "./img-uploader/img-uploader.component";
-import { UploadTaskComponent } from "./img-uploader/upload-task/upload-task.component";
 import { ImgDropDirective } from "./img-drop.directive";
+import { PrflImgUploaderComponent } from "./prfl-img-uploader/prfl-img-uploader.component";
 @NgModule({
   declarations: [
     ImgDropDirective,
@@ -32,7 +32,7 @@ import { ImgDropDirective } from "./img-drop.directive";
     SidenavContentComponent,
     BottomNavComponent,
     ImgUploaderComponent,
-    UploadTaskComponent,
+    PrflImgUploaderComponent,
   ],
   imports: [
     MatExpansionModule,
@@ -55,7 +55,6 @@ import { ImgDropDirective } from "./img-drop.directive";
   ],
   exports: [
     MatStepperModule,
-    UploadTaskComponent,
     ScrollingModule,
     SidenavComponent,
     MatProgressBarModule,

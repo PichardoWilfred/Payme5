@@ -51,7 +51,10 @@ export class ClientFormComponent implements OnInit {
     ],
     relative_email: ["", [Validators.required, Validators.email]],
     relative_cellphone: [null, [Validators.required, Validators.minLength(10)]],
-    relative_bond: ["", [Validators.required]],
+    relative_bond: [
+      "",
+      [Validators.required, Validators.minLength(3), Validators.maxLength(70)],
+    ],
   });
 
   submit() {
