@@ -17,7 +17,6 @@ import { MatStepper } from "@angular/material";
 import { AuthService } from "src/app/auth/auth.service";
 import { HomeService } from "src/app/home/home.service";
 import { NumeralPipe } from "ngx-numeral";
-//This is the testing change to commit
 @Component({
   selector: "loan-form",
   templateUrl: "./loan-form.component.html",
